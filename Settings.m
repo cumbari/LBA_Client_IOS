@@ -16,6 +16,7 @@
 #import "Position.h"
 #import "WebViewVC.h"
 #import "Links.h"
+#import "LanguageManager.h"
 
 @implementation Settings
 
@@ -62,14 +63,11 @@
 	[arrayForIndex release];
 		
 	}
-		
-	NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];//object of NSUserDefault
-	
-	NSString *storedLanguage = [prefs objectForKey:@"language"];
-	
+			
 	//labels according selected language
-	
-	if ([storedLanguage isEqualToString:@"English"]) {
+    arrayForIndex = [[NSMutableArray alloc]initWithObjects:CustomLocalisedString(@"Position", @""),CustomLocalisedString(@"Settings",@""),CustomLocalisedString(@"Feedback",@""),CustomLocalisedString(@"About Cumbari",@""),nil];
+
+	/*if ([storedLanguage isEqualToString:@"English"]) {
 		
 		arrayForIndex = [[NSMutableArray alloc]initWithObjects:@"Position",@"Settings",@"Feedback",@"About Cumbari",nil];
 		
@@ -92,15 +90,30 @@
 		
 		
 	}
-	
+	*/
 	
 	arrayForValueOfIndex = [[NSMutableArray alloc]init];
 		
 	NSUserDefaults *pref = [NSUserDefaults standardUserDefaults];
 	
 	NSString *storedPosition = [pref objectForKey:@"position"];//stored language
-		
-	if ([[pref objectForKey:@"language"] isEqualToString:@"English"])
+    if ([storedPosition isEqualToString:CustomLocalisedString(@"Current Location", @"")]) {
+        storedPosition = CustomLocalisedString(@"Current Location", @"");//psition
+    }
+    else if ([storedPosition isEqualToString:CustomLocalisedString(@"New Position", @"")]) {
+        storedPosition = CustomLocalisedString(@"New Position", @"");//psition
+    }
+    if (storedPosition.length == 0) {
+        storedPosition = @"Current Location" ;
+    }
+    
+    [arrayForValueOfIndex addObject:storedPosition ];
+    [arrayForValueOfIndex addObject:@""];
+    [arrayForValueOfIndex addObject:@""];
+    [arrayForValueOfIndex addObject:@""];
+    [arrayForValueOfIndex addObject:@""];
+    
+	/*if ([[pref objectForKey:@"language"] isEqualToString:@"English"])
 	{
 	
 		if ([storedPosition isEqualToString:@"Aktuell plats"]) {
@@ -111,11 +124,8 @@
 			storedPosition = @"New Position";
 			
 		}
-		
 		if (storedPosition.length == 0) {
-			
 			storedPosition = @"Current Location" ;
-			
 		}
 		
 
@@ -240,7 +250,7 @@
 			
 		}
 		
-	}
+	}*/
 
 
 
@@ -479,19 +489,11 @@
 		[controller release];//releasing controller
 		
 		}
-		
 		else {
-			
-			UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"Not Logged In" message:@"you have not logged into your mail account" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-			
+			UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:CustomLocalisedString(@"Not Logged In",@"") message:CustomLocalisedString(@"you have not logged into your mail account",@"") delegate:self cancelButtonTitle:CustomLocalisedString(@"OK",@"") otherButtonTitles:nil];
 			[alertView show];
-			
 			[alertView release];
-			
 		}
-
-		
-				
 	}
 	if (indexPath.row == 3) {
 					
@@ -534,7 +536,7 @@
              */  
             break;  
         case MFMailComposeResultSent: {
-			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Mail Sent" message:nil delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:CustomLocalisedString(@"Mail Sent", @"")  message:nil delegate:self cancelButtonTitle:CustomLocalisedString(@"OK",@"") otherButtonTitles:nil];
 			alert.tag = 1;
 			alert.delegate = self;
 			[alert show];
@@ -542,7 +544,7 @@
 			break;  
 		}
 		case MFMailComposeResultFailed: {
-			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Mail Sending Failed" message:nil delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:CustomLocalisedString(@"Mail Sending Failed",@"") message:nil delegate:self cancelButtonTitle:CustomLocalisedString(@"OK",@"") otherButtonTitles:nil];
 			alert.tag = 2;
 			alert.delegate = self;
 			[alert show];

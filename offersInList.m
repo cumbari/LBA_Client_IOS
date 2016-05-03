@@ -11,6 +11,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "CouponsInSelectedCategory.h"
 #import "FilteredCoupons.h"
+#import "LanguageManager.h"
 
 @implementation offersInList
 
@@ -20,8 +21,8 @@
 	UISlider *slider = (UISlider *)sender;//slider 
     
 	int sliderValue = (int)slider.value;//slider value of int type
-    
-	totalOffers.text = [NSString stringWithFormat:@"%i offers ",sliderValue];//total offers text
+    NSString *offersString = CustomLocalisedString(@"offers", @"");
+	totalOffers.text = [NSString stringWithFormat:@"%i %@ ",sliderValue,offersString];//total offers text
 	
 	NSString *totalOffer =  [NSString stringWithFormat:@"%i ",sliderValue];//total offers text
     
@@ -72,23 +73,18 @@
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	
 	int sliderValue = [[defaults objectForKey:@"offers"]intValue];//slider value
-	
+    NSString *offersString = CustomLocalisedString(@"offers", @"");
 	if (sliderValue != 0) {
         
         sliderForOffers.value = sliderValue;//slider value for offers
-        
-        totalOffers.text = [NSString stringWithFormat:@"%i offers",sliderValue];//total offers
+        totalOffers.text = [NSString stringWithFormat:@"%i %@",sliderValue,offersString];//total offers
 	}
 	
 	else {
 		
 		sliderForOffers.value = 10;//slider value for offers
-		
-		totalOffers.text = @"10 offers";//total offers
-		
+        totalOffers.text = [NSString stringWithFormat:@"%d %@",(int)sliderForOffers.value, offersString];//total offers
 	}
-	
-    
 }
 
 -(void)doneClicked
@@ -151,10 +147,25 @@
 	NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];//object of NSUserDefault
 	
 	NSString *storedLanguage = [prefs objectForKey:@"language"];//stored language
+    backLabel = [[UILabel alloc]initWithFrame:CGRectMake(20, 8, 40, 25)];
+    backLabel.backgroundColor = [UIColor clearColor];
+    backLabel.textColor = [UIColor whiteColor];
+    backLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:12.0];
+    backLabel.text =CustomLocalisedString(@"Back", @"");
+    [self.navigationController.navigationBar addSubview:backLabel];
+    [backLabel release];
+    
+    navigationLabel = [[UILabel alloc]initWithFrame:CGRectMake(70, 8, 200, 25)];
+    navigationLabel.backgroundColor = [UIColor clearColor];
+    navigationLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:20.0];
+    navigationLabel.textAlignment = UITextAlignmentCenter;
+    navigationLabel.textColor = [UIColor blackColor];
+    navigationLabel.text = CustomLocalisedString(@"Offers in list",@"");
+    [self.navigationController.navigationBar addSubview:navigationLabel];
+    [navigationLabel release];
 	
-	//labels according to selected language
-	if([storedLanguage isEqualToString:@"English" ])
-		
+    //labels according to selected language
+	/*if([storedLanguage isEqualToString:@"English" ])
 	{
 		
         
@@ -275,7 +286,7 @@
 		[navigationLabel release];
 		
 	}
-    
+    */
 	
 	
 }

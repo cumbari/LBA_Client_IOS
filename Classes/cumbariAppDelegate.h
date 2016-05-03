@@ -193,6 +193,7 @@
 -(void)SvenskaTabBar;
 
 -(void)englishTabBar;
+-(void)setTabBarTitles;
 
 - (void)getUserCurrentLocation;//getting user current location
 

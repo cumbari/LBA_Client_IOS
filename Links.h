@@ -7,20 +7,20 @@
  *
  */
 
-#define GetCouponsURL @"https://cumbari.com/DPServer/dpsclientapi/getCoupons?apiVersion=1&token=cumba4ever"
+#define GetCouponsURL @"https://market.cumbari.com/CouponServer/clientapi/getCoupons?apiVersion=1&token=cumba4ever"
 
-#define GetCategoriesURL @"https://cumbari.com/DPServer/dpsclientapi/getCategories?apiVersion=1&categoriesVersion=1&token=cumba4ever"
+#define GetCategoriesURL @"https://market.cumbari.com/CouponServer/clientapi/getCategories?apiVersion=1&categoriesVersion=1&token=cumba4ever"
 
-#define GetBrandedCouponsURL @"https://cumbari.com/DPServer/dpsclientapi/getBrandedCoupons?apiVersion=1&token=cumba4ever"
+#define GetBrandedCouponsURL @"https://market.cumbari.com/CouponServer/clientapi/getBrandedCoupons?apiVersion=1&token=cumba4ever"
 
-#define GetCouponURL @"https://cumbari.com/DPServer/dpsclientapi/getCoupon?apiVersion=1&token=cumba4ever"
+#define GetCouponURL @"https://market.cumbari.com/CouponServer/clientapi/getCoupon?apiVersion=1&token=cumba4ever"
 
-#define StoreViewStatisticURL @"https://cumbari.com/DPServer/dpsclientapi/storeViewStatistic?apiVersion=1&token=cumba4ever"
+#define StoreViewStatisticURL @"https://market.cumbari.com/CouponServer/clientapi/storeViewStatistic?apiVersion=1&token=cumba4ever"
 
-#define UseCouponURL @"https://cumbari.com/DPServer/dpsclientapi/useCoupon?apiVersion=1&token=cumba4ever&couponId="
+#define UseCouponURL @"https://market.cumbari.com/CouponServer/clientapi/useCoupon?apiVersion=1&token=cumba4ever&couponId="
 
 #define CumbariURL @"http://cumbari.com/aboutUs.php"
 
-#define GetHostURL @"https://cumbari.com/DPServer/dpsclientapi/getHostURL?longitude=1&latitude=1&token=cumba4ever"
+#define GetHostURL @"https://market.cumbari.com/CouponServer/clientapi/getHostURL?longitude=1&latitude=1&token=cumba4ever"
 
-#define FindCouponURL @"https://cumbari.com/DPServer/dpsclientapi/findCoupons?apiVersion=2&token=cumba4ever"
+#define FindCouponURL @"https://market.cumbari.com/CouponServer/clientapi/findCoupons?apiVersion=2&token=cumba4ever"

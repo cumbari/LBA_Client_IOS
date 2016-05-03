@@ -10,7 +10,7 @@
 #import "TestUtil.h"
 
 #import "OBGlobal.h"
-#import "OBLinear.h"
+//#import "OBLinear.h"
 #import "OBDataMatrix.h"
 #import "OBQRCode.h"
 #import "DetailedCoupon.h"
@@ -22,7 +22,7 @@
 
 - (void) testEAN13WithView: (UIView *) view;
 
-- (void) setLinearBarcodeDimension: (OBLinear *) pLinear;
+//- (void) setLinearBarcodeDimension: (OBLinear *) pLinear;
 
 @end
 
@@ -61,7 +61,7 @@
 
 - (void) testEAN13WithView: (UIView *) view
 {
-	OBLinear *pLinear = [OBLinear new];
+/*	OBLinear *pLinear = [OBLinear new];
 	[pLinear setNBarcodeType: OB_EAN13];
 	
 	
@@ -91,10 +91,10 @@
 	[pLinear drawWithView: (view) rect: &printArea alignHCenter: TRUE];
 	
 	[pLinear release];
-	[pMsg release];
+	[pMsg release];*/
 }
 
-
+/*
 - (void) setLinearBarcodeDimension: (OBLinear *) pLinear;
 {
 	[pLinear setFX: USER_DEF_BAR_WIDTH];
@@ -112,5 +112,5 @@
 	UIFont *pTextFont = [UIFont fontWithName: @"Arial" size: 18.0f];
 	[pLinear setPTextFont: pTextFont];
 }
-
+*/
 @end

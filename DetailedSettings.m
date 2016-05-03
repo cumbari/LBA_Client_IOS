@@ -11,6 +11,7 @@
 #import "language.h"
 #import "Range.h"
 #import "unit.h"
+#import "LanguageManager.h"
 
 @implementation DetailedSettings
 
@@ -50,19 +51,12 @@
 -(void)refreshTableView
 {
 	if ([arrayForIndex count]!=0) {
-        
         [arrayForIndex removeAllObjects];//removing all objects from array of index
-        
         [arrayForIndex release];
-        
 	}
-	
 	if ([arrayForValuesOfIndex count] != 0) {
-        
         [arrayForValuesOfIndex removeAllObjects];//removing all objects from array of value of index
-        
         [arrayForValuesOfIndex release];
-        
 	}
 
 	[backLabel removeFromSuperview];//remove back label from super view
@@ -71,10 +65,27 @@
 	
 	NSString *storedLanguage = [prefs objectForKey:@"language"];
 	
-	//labels according to selected language 
-	if ([storedLanguage isEqualToString:@"English"]) {
+    arrayForIndex = [[NSMutableArray alloc]initWithObjects:CustomLocalisedString(@"Language", @""),CustomLocalisedString(@"Unit", @""),CustomLocalisedString(@"Offers in list", @""),CustomLocalisedString(@"Range", @""),nil];
+
+    navigationLabel = [[UILabel alloc]initWithFrame:CGRectMake(90, 8, 150, 25)];
+    navigationLabel.backgroundColor = [UIColor clearColor];
+    navigationLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:20];
+    navigationLabel.textAlignment = UITextAlignmentCenter;
+    navigationLabel.textColor = [UIColor blackColor];
+    navigationLabel.text = CustomLocalisedString(@"Settings",@"");
+    [self.navigationController.navigationBar addSubview:navigationLabel];
+    [navigationLabel release];
+    
+    backLabel = [[UILabel alloc]initWithFrame:CGRectMake(20, 8, 40, 25)];
+    backLabel.backgroundColor = [UIColor clearColor];
+    backLabel.textColor = [UIColor whiteColor];
+    backLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:12.0];
+    backLabel.text = CustomLocalisedString(@"Back",@"");
+    [self.navigationController.navigationBar addSubview:backLabel];
+	//labels according to selected language
+	/*if ([storedLanguage isEqualToString:@"English"]) {
 				
-		arrayForIndex = [[NSMutableArray alloc]initWithObjects:@"Language",@"Unit",@"Offers in list",@"Range",nil];
+		//arrayForIndex = [[NSMutableArray alloc]initWithObjects:@"Language",@"Unit",@"Offers in list",@"Range",nil];
 		
 		navigationLabel = [[UILabel alloc]initWithFrame:CGRectMake(90, 8, 150, 25)];
 		
@@ -178,17 +189,13 @@
 		[navigationLabel release];
 		
 	}
-	
+	*/
 	arrayForValuesOfIndex = [[NSMutableArray alloc]init];//allocating array for value of index
 	
 	NSString *str = [prefs objectForKey:@"language"];//language string 
-    
 	if ([str length]!=0) {
-		
 		[arrayForValuesOfIndex addObject:[prefs objectForKey:@"language"]];//array for value of index
-		
 	}
-	
 	else {
 		[arrayForValuesOfIndex addObject:@"English"];//english
 	}
@@ -224,21 +231,13 @@
 	
 	if ([str length]!=0) {
 		
-		
-		
-		
 		NSString *rangeValue;
-		
-		
 		if ([[prefs objectForKey:@"unit"]isEqualToString:@"Meter"]) {
 			
 			rangeValue = [prefs objectForKey:@"range"];
 			
 			rangeValue = [rangeValue stringByAppendingString:@"m"];
-			
-			
 		}
-		
 		else if([[prefs objectForKey:@"unit"]isEqualToString:@"Miles"]) {
 			
 			NSString *rangeValu = [prefs objectForKey:@"range"];
@@ -294,16 +293,11 @@
 			rangeValue = [NSString stringWithFormat:@"%.1f",rangeVal];
 			
 			rangeValue = [rangeValue stringByAppendingString:@"miles"];
-			
 		}
-        
-        
 		else
 		{
 			rangeValue = @"10000";
-			
 			rangeValue = [rangeValue stringByAppendingString:@"m"];
-            
 		}
 		
 		[arrayForValuesOfIndex addObject:rangeValue];

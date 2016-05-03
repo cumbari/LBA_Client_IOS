@@ -34,7 +34,19 @@
 #import "TestUtil.h"
 #import "PinCodeViewController.h"
 #import "UIDevice+IdentifierAddition.h"
+#import "CDTimerView.h"
+#import "LanguageManager.h"
 
+#define CDTIMER_TOGGLETIME  20
+
+@interface DetailedCoupon ()
+{
+    NSTimer *toggletimer;
+    CDTimerView *cdTimerView;
+    BOOL shouldShowTimer;
+    UILabel *offerExpiryTitleLabel;
+}
+@end
 
 @implementation DetailedCoupon//implementation of detailed coupons.
 
@@ -67,6 +79,8 @@ NSArray *listOfStoresForDetailedCoupons;//array of list of stores for detailed c
 NSArray *listOfCouponsForDetailedCoupons;//array of list of coupons for detailed coupons
 
 float distance;//distance of float type
+
+
 
 -(void)passJsonDataToDetailed:(NSArray *)allCoupons
 {
@@ -168,7 +182,22 @@ float distance;//distance of float type
 	
 	//labels according language selected
 	
-	if([storedLanguage isEqualToString:@"English" ])
+    mapLabel = [[UILabel alloc]initWithFrame:CGRectMake(272, 8, 40, 25)];
+    mapLabel.backgroundColor = [UIColor clearColor];
+    mapLabel.textColor = [UIColor whiteColor];
+    mapLabel.font = [UIFont boldSystemFontOfSize:12.0];
+    mapLabel.text = CustomLocalisedString(@"Map", @"");
+    
+    listLabel = [[UILabel alloc]initWithFrame:CGRectMake(25, 8, 40, 25)];
+    listLabel.backgroundColor = [UIColor clearColor];
+    listLabel.textColor = [UIColor whiteColor];
+    listLabel.font = [UIFont boldSystemFontOfSize:12.0];
+    listLabel.text = CustomLocalisedString(@"List", @"");
+    
+    [self.navigationController.navigationBar addSubview:listLabel];//add list label as subview
+    [self.navigationController.navigationBar addSubview:mapLabel];//adding map label as subview
+    
+	/*if([storedLanguage isEqualToString:@"English" ])
 		
 	{
         
@@ -279,22 +308,18 @@ float distance;//distance of float type
 		[self.navigationController.navigationBar addSubview:mapLabel];//adding map label as subview
 		
 		
-	}
+	}*/
 	
-	
-	NSUserDefaults *pref  = [NSUserDefaults standardUserDefaults];
-	
-	NSString *storeLanguage = [pref objectForKey:@"language"];
 	
 	//showing labels according to selected language
 	
-	NSString *moreDealsLabelString;
+	NSString *moreDealsLabelString = CustomLocalisedString(@"More deals", @"");
 	
-	NSString *moreInfoLabelString;
+	NSString *moreInfoLabelString = CustomLocalisedString(@"More Info", @"");
 	
-	NSString *favoriteLabelString;
+	NSString *favoriteLabelString = CustomLocalisedString(@"Favorites", @"");
 	
-	if ([storeLanguage isEqualToString:@"English"]) {
+	/*if ([storedLanguage isEqualToString:@"English"]) {
 		
 		
 		moreDealsLabelString = @"More deals";
@@ -306,7 +331,7 @@ float distance;//distance of float type
 		
 	}
 	
-	else if ([storeLanguage isEqualToString:@"Svenska"]) {
+	else if ([storedLanguage isEqualToString:@"Svenska"]) {
 		
 		
 		moreDealsLabelString = @"Mer deal";
@@ -326,7 +351,7 @@ float distance;//distance of float type
 		
 		favoriteLabelString = @"Favorites";
 		
-	}
+	}*/
 	
 	
 	moreInfoLabel = [[UILabel alloc]initWithFrame:CGRectMake(58, 384, 62, 16)];
@@ -406,8 +431,10 @@ float distance;//distance of float type
 	//message according to language selected
 	
 	NSString *storeLanguage = [pref objectForKey:@"language"];
-	
-	if ([storeLanguage isEqualToString:@"English"]) {
+    alertMessage = CustomLocalisedString(@"You are too far from the point of sale", @"") ;
+    
+    titleForAlertView = CustomLocalisedString(@"Offer can't be used",@"");
+	/*if ([storeLanguage isEqualToString:@"English"]) {
 		
 		alertMessage = @"You are too far from the point of sale";
 		
@@ -429,21 +456,16 @@ float distance;//distance of float type
 		
 		titleForAlertView = @"Offer can't be used";
         
-	}
+	}*/
     
 	
 	if (distance >300.0) {
         
 		UIAlertView *alert = [[UIAlertView alloc]initWithTitle:titleForAlertView message:alertMessage delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-		
 		[alert show];//showing alert
-		
 		[alert release];//releasing alert
-		
 	}
-	
 	else {
-		
 		
 		NSDateFormatter *hourFormat = [[NSDateFormatter alloc] init];//date formatting for hours
 		
@@ -467,12 +489,8 @@ float distance;//distance of float type
 		
 		NSString *alertViewMessageForDays = @"";
         
-		NSUserDefaults *pref = [NSUserDefaults standardUserDefaults];//object of NSUserDefault
-		
 		//message according to language selected
-		
-		NSString *storeLanguage = [pref objectForKey:@"language"];
-		
+				
 		if ([storeLanguage isEqualToString:@"English"]) {
             
 			alertViewTitle = @"offer can't be used";
@@ -483,67 +501,55 @@ float distance;//distance of float type
 			
 		}
 		
-		else if ([storeLanguage isEqualToString:@"Svenska"]) {
+        else {
 			
 			NSString *str;
 			
 			if (validDay.length>0) {
                 
                 if ([validDay isEqualToString:@"MON"]) {
-                    str = @"Mån"; 
+                    str = CustomLocalisedString(@"Mon", @"");
                 }
                 
                 if([validDay isEqualToString:@"TUE"]){
-                    str = @"Tis";
+                    str = CustomLocalisedString(@"Tue", @"");
                 }
                 
                 if([validDay isEqualToString:@"WED"]){
-                    str = @"Ons";
+                    str = CustomLocalisedString(@"Wed", @"");
                 }
                 
                 if([validDay isEqualToString:@"THU"]){
-                    str = @"Tors";
+                    str = CustomLocalisedString(@"Thu", @"");
                 }
                 
                 if([validDay isEqualToString:@"FRI"]){
-                    str = @"Fre";
+                    str = CustomLocalisedString(@"Fri", @"");
                 }
                 
                 if([validDay isEqualToString:@"SAT"]){
-                    str = @"Lör";
+                    str = CustomLocalisedString(@"Sat", @"");
                 }
                 
                 if([validDay isEqualToString:@"SUN"]){
-                    str = @"Sön";
+                    str = CustomLocalisedString(@"Sun", @"");
                 }
                 
                 if([validDay isEqualToString:@"MON_TO_FRI"]){
-                    str = @"Mån till Fre";
+                    str = CustomLocalisedString(@"Mon to Fri", @"");
                 }
                 
                 if([validDay isEqualToString:@"ALL_WEEK"]){
-                    str = @"Hela veckan";
+                    str = CustomLocalisedString(@"All week", @"");
                 }
 				
-                
+                //str = CustomLocalisedString(vali, @"");
                 alertViewTitle = @"Erbjudandet kan ej nyttjas";
                 
                 alertViewMessageForDays = [NSString stringWithFormat:@"Gäller: %@\n %i - %i ",str,startTime,endTime];
                 
                 alertViewMessageForHours = [NSString stringWithFormat:@"Gäller: %@\n %i - %i ",str,startTime,endTime];
-				
-                
 			}
-			
-		}
-		
-		else {
-			
-			alertViewTitle = @"offer can't be used";
-			
-			alertViewMessageForDays = [NSString stringWithFormat:@"Valid: %@\n %i - %i ",validDay,startTime,endTime];
-			
-			alertViewMessageForHours = [NSString stringWithFormat:@"Valid: %@\n %i - %i ",validDay,startTime,endTime];			
 		}
         
 		
@@ -587,66 +593,36 @@ float distance;//distance of float type
 				UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:alertViewTitle message:alertViewMessage delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
 				
 				[alertView show];
-				
 				[alertView release];
-				
 			}
-			
 			else if ((theHour >= startTime)&&(theHour <endTime)) {
-                
 				[self showActionSheet];
-				
-				
 			}
-			
 			else if(startTime == 0 && endTime ==0)
 			{
-				
 				[self showActionSheet];
-				
 			}
-			
-			
 			else {
-				
-				
 				UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:alertViewTitle message:alertViewMessageForHours delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-				
 				[alertView show];
-				
 				[alertView release];
 			}
-            
-			
-			
 		}
-		
 		else if ([validDay isEqualToString:@"MON"]) {
 			
 			if ((theHour >= startTime)&&(theHour <endTime)) {
-				
-				
 				[self showActionSheet];
 			}
-			
 			else if(startTime == 0 && endTime ==0)
 			{
 				[self showActionSheet];
 			}
-			
-			
 			else {
-				
-				
 				UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:alertViewTitle message:alertViewMessageForHours delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-				
 				[alertView show];
-				
 				[alertView release];
 			}
-			
 		}
-		
 		else if ([validDay isEqualToString:@"TUE"]) {
 			
 			if ((theHour >= startTime)&&(theHour <endTime)) {
@@ -1411,8 +1387,8 @@ float distance;//distance of float type
         url = GetCouponURL;//object of url
         
         url = [url stringByAppendingString:@"&lang="];
-        
-        if ([languageOfApplication isEqualToString:@"English"]) {
+        url = [url stringByAppendingString:CustomLocalisedString(@"ENG", @"")];
+        /*if ([languageOfApplication isEqualToString:@"English"]) {
             
             url = [url stringByAppendingString:@"ENG"];
             
@@ -1431,7 +1407,7 @@ float distance;//distance of float type
             url = [url stringByAppendingString:@"ENG"];
             
         }
-        
+        */
         
         
         url = [url stringByAppendingString:@"&couponId="];//Categories Filter
@@ -1440,7 +1416,7 @@ float distance;//distance of float type
         
         url = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];//utf 8 encoding
         
-		
+        NSLog(@"Url to get Coupons = %@",url);
         NSString *jsonCoupons = [[NSString alloc] initWithContentsOfURL:[NSURL URLWithString:url] encoding:NSUTF8StringEncoding error:nil];//utf 8 encoding
         
         if([jsonCoupons length]==0)//Checking Whether Data is coming or not
@@ -1530,12 +1506,86 @@ float distance;//distance of float type
     
 	[self displayData];//displaying data.
 	
-	
+    NSLog(@"Coupon INfo =  %@",couponInfo);
+    NSString *viewOpt = [couponInfo objectForKey:@"viewOpt"];
+    if ([viewOpt isEqualToString:@"CD"] && distance>=300) {
+        shouldShowTimer = YES;
+        [self showCDTimer];
+        timer = [NSTimer scheduledTimerWithTimeInterval:CDTIMER_TOGGLETIME target:self selector:@selector(toggleTimer:) userInfo:nil repeats:YES];
+    }
 	allCouponsDict = nil;
 	
 	[allCouponsDict release];
-	
 }
+
+-(NSDate *)getDateFromString:(NSString *)pstrDate
+{
+    NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+    //[dateFormatter setLocale:[NSLocale systemLocale]];
+    [dateFormatter setTimeZone:[NSTimeZone localTimeZone]];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm"];
+    NSDate *dtPostDate = [dateFormatter dateFromString:pstrDate];
+    NSLog(@"UTC Seconds = %f",[dtPostDate timeIntervalSinceNow]);
+    NSTimeInterval timeZoneSeconds = [[NSTimeZone localTimeZone] secondsFromGMT];
+    NSDate *dateInLocalTimezone = [dtPostDate dateByAddingTimeInterval:timeZoneSeconds];
+    NSLog(@"Local Seconds = %f",[dateInLocalTimezone timeIntervalSinceNow]);
+
+    return dateInLocalTimezone;
+}
+
+
+-(void)showCDTimer
+{
+    NSString *endOfPublishing = [couponInfo objectForKey:@"endOfPublishing"];
+    NSDate *endDate = [self getDateFromString:endOfPublishing];
+    NSLog(@"%s....%@",__func__,endDate);
+    
+    offerExpiryTitleLabel = [[UILabel alloc] initWithFrame:timeLabel.frame];
+    offerExpiryTitleLabel.backgroundColor = [UIColor clearColor];
+    offerExpiryTitleLabel.text = @"This offer will expire in";
+    offerExpiryTitleLabel.textAlignment = NSTextAlignmentCenter;
+    offerExpiryTitleLabel.textColor = [UIColor whiteColor];
+    offerExpiryTitleLabel.font = timeLabel.font;
+    offerExpiryTitleLabel.center = timeLabel.center;
+    [self.view addSubview:offerExpiryTitleLabel];
+    
+    
+    cdTimerView = [[CDTimerView alloc] initWithFrame:CGRectMake(0, 0, 279, 35)];
+    cdTimerView.center = testItButton.center;//CGPointMake(self.view.center.x, self.view.center.y);
+    cdTimerView.backgroundColor = [UIColor blackColor];
+    cdTimerView.secondsLeft = [endDate timeIntervalSinceNow];
+    [self.view addSubview:cdTimerView];
+    [cdTimerView startCDTimer];
+    
+    [timeLabel setHidden:YES];
+}
+
+-(void)invalidateCDTimer
+{
+    if (timer) {
+        [timer invalidate];
+        timer = nil;
+    }
+    [cdTimerView invalidateCDTimer];
+}
+
+-(void)toggleTimer:(NSTimer*)timer
+{
+    if (distance<300) {
+        [self invalidateCDTimer];
+        shouldShowTimer = NO;
+    }
+    else
+        shouldShowTimer = !shouldShowTimer;
+    
+    cdTimerView.hidden = !shouldShowTimer;
+    offerExpiryTitleLabel.hidden = !shouldShowTimer;
+    
+    [testItButton setHidden:shouldShowTimer];
+    [distanceLabel setHidden:shouldShowTimer];
+    [timeLabel setHidden:shouldShowTimer];
+}
+
 
 
 - (void) copyDatabaseIfNeeded {
@@ -1602,11 +1652,11 @@ float distance;//distance of float type
     
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	
-	NSString *alertViewTitle;
+	NSString *alertViewTitle = CustomLocalisedString(@"Distance Beyond Limit", @"");
 	
-	NSString *alertViewMessage;
+	NSString *alertViewMessage = CustomLocalisedString(@"You can't see map directions", @"");
 	
-	if ([[defaults objectForKey:@"language"]isEqualToString:@"English"]) {
+	/*if ([[defaults objectForKey:@"language"]isEqualToString:@"English"]) {
 		
 		alertViewTitle = @"Distance Beyond Limit";
 		
@@ -1629,7 +1679,7 @@ float distance;//distance of float type
 		
 		alertViewMessage = @"You can't see map directions";		
 		
-	}
+	}*/
     
 	
 	if (calculatedDistance <10000) {
@@ -1808,20 +1858,7 @@ float distance;//distance of float type
 	UIButton *but = [UIButton buttonWithType:UIButtonTypeCustom];//customising back button.
 	
 	but.bounds = CGRectMake(0, 0, 50.0, 30.0);//locating back button.
-	
-	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	
-	if ([[defaults objectForKey:@"language"] isEqualToString:@"English"]) {
-		
-		[but setImage:[UIImage imageNamed:@"LeftBack.png"] forState:UIControlStateNormal];//setting image on the back button.
-		
-	}
-	else {
-		
-		[but setImage:[UIImage imageNamed:@"LeftBack.png"] forState:UIControlStateNormal];//setting image on the back button.
-		
-		
-	}
+    [but setImage:[UIImage imageNamed:@"LeftBack.png"] forState:UIControlStateNormal];//setting image on the back button.
 	
 	[but addTarget:self action:@selector(cancel) forControlEvents:UIControlEventTouchUpInside];//on cilcking an back button cancel method is called.
 	
@@ -1837,6 +1874,29 @@ float distance;//distance of float type
 	
 	//show text according selected language
 	
+    
+    mapLabel = [[UILabel alloc]initWithFrame:CGRectMake(272, 8, 40, 25)];
+    mapLabel.backgroundColor = [UIColor clearColor];
+    mapLabel.textColor = [UIColor whiteColor];
+    mapLabel.font = [UIFont boldSystemFontOfSize:12.0];
+    mapLabel.text = CustomLocalisedString(@"Map", @"");
+    
+    listLabel = [[UILabel alloc]initWithFrame:CGRectMake(20, 8, 40, 25)];
+    listLabel.backgroundColor = [UIColor clearColor];
+    listLabel.textColor = [UIColor whiteColor];
+    listLabel.font = [UIFont boldSystemFontOfSize:12.0];
+    if (showMapView == YES) {
+        listLabel.text = CustomLocalisedString(@"Back", @"");
+    }
+    else {
+        listLabel.text = CustomLocalisedString(@"List", @"");
+    }
+    [self.navigationController.navigationBar addSubview:listLabel];
+    [self.navigationController.navigationBar addSubview:mapLabel];
+        
+        
+    
+    /*
 	if([storedLanguage isEqualToString:@"English" ])
 		
 	{
@@ -1953,7 +2013,7 @@ float distance;//distance of float type
 		
 		
 	}
-    
+    */
 	
 	
 }
@@ -2085,8 +2145,45 @@ float distance;//distance of float type
                     NSString *validity ;
                     
                     NSString *validDayInLanguage = [dictForLimitPeriodList objectForKey:@"validDay"];
+                    validity = [NSString stringWithFormat:@"%@: ",CustomLocalisedString(@"Valid", @"")];
+                    if ([validDayInLanguage isEqualToString:@"MON"]) {
+                        validDayInLanguage = @"Mon";
+                    }
                     
-                    if ([[pref objectForKey:@"language"] isEqualToString:@"English"]) {
+                    if([validDayInLanguage isEqualToString:@"TUE"]){
+                        validDayInLanguage = @"Tue";
+                    }
+                    
+                    if([validDayInLanguage isEqualToString:@"WED"]){
+                        validDayInLanguage = @"Wed";
+                    }
+                    
+                    if([validDayInLanguage isEqualToString:@"THU"]){
+                        validDayInLanguage = @"Thu";
+                    }
+                    
+                    if([validDayInLanguage isEqualToString:@"FRI"]){
+                        validDayInLanguage = @"Fri";
+                    }
+                    
+                    if([validDayInLanguage isEqualToString:@"SAT"]){
+                        validDayInLanguage = @"Sat";
+                    }
+                    
+                    if([validDayInLanguage isEqualToString:@"SUN"]){
+                        validDayInLanguage = @"Sun";
+                    }
+                    
+                    if([validDayInLanguage isEqualToString:@"MON_TO_FRI"]){
+                        validDayInLanguage = @"Mon to Fri";
+                    }
+                    
+                    if([validDayInLanguage isEqualToString:@"ALL_WEEK"]){
+                        validDayInLanguage = @"All week";
+                    }
+                    validDayInLanguage = CustomLocalisedString(validDayInLanguage, @"");
+                    
+                    /*if ([[pref objectForKey:@"language"] isEqualToString:@"English"]) {
                         
                         validity = @"Valid: ";
                         
@@ -2215,7 +2312,7 @@ float distance;//distance of float type
                         }
                         
                     }
-                    
+                    */
                     
                     validity = [validity stringByAppendingFormat:@"%@",validDayInLanguage];
                     
@@ -2234,8 +2331,9 @@ float distance;//distance of float type
                     timeString = [timeString stringByAppendingString:@" "];
                     
                 }
-                
-                if ([[pref objectForKey:@"language"] isEqualToString:@"English"]) {
+                endOfPublishing = [NSString stringWithFormat:@"%@ %@",CustomLocalisedString(@"Valid until", @""),endOfPublishing];
+
+                /*if ([[pref objectForKey:@"language"] isEqualToString:@"English"]) {
                     
                     endOfPublishing = [NSString stringWithFormat:@"Valid until %@",endOfPublishing];
                     
@@ -2252,7 +2350,7 @@ float distance;//distance of float type
                     endOfPublishing = [NSString stringWithFormat:@"Valid until %@",endOfPublishing];
                     
                 }
-                
+                */
                 timeString = [timeString stringByAppendingString:endOfPublishing];
                 
                 timeLabel.text = timeString;                                       
@@ -2324,7 +2422,6 @@ float distance;//distance of float type
         int loopVar1 = 0;//loop variable of int type.
         
         while (loopVar1<[listOfStoresForDetailedCoupons count])//comparing list of coupons with loop variable.
-            
         {
             
             NSDictionary *storeList = [listOfStoresForDetailedCoupons objectAtIndex:loopVar1];//dictionary of coupon list.
@@ -2417,12 +2514,48 @@ float distance;//distance of float type
             
             validDay = [dictForLimitPeriodList objectForKey:@"validDay"]; 
             
-            
-            NSString *validity ;
-            
             NSString *validDayInLanguage = [dictForLimitPeriodList objectForKey:@"validDay"];
+            NSString *validity = [NSString stringWithFormat:@"%@: ",CustomLocalisedString(@"Valid", @"")];
             
-            if ([[pref objectForKey:@"language"] isEqualToString:@"English"]) {
+            if ([validDayInLanguage isEqualToString:@"MON"]) {
+                validDayInLanguage = @"Mon";
+            }
+            
+            if([validDayInLanguage isEqualToString:@"TUE"]){
+                validDayInLanguage = @"Tue";
+            }
+            
+            if([validDayInLanguage isEqualToString:@"WED"]){
+                validDayInLanguage = @"Wed";
+            }
+            
+            if([validDayInLanguage isEqualToString:@"THU"]){
+                validDayInLanguage = @"Thu";
+            }
+            
+            if([validDayInLanguage isEqualToString:@"FRI"]){
+                validDayInLanguage = @"Fri";
+            }
+            
+            if([validDayInLanguage isEqualToString:@"SAT"]){
+                validDayInLanguage = @"Sat";
+            }
+            
+            if([validDayInLanguage isEqualToString:@"SUN"]){
+                validDayInLanguage = @"Sun";
+            }
+            
+            if([validDayInLanguage isEqualToString:@"MON_TO_FRI"]){
+                validDayInLanguage = @"Mon to Fri";
+            }
+            
+            if([validDayInLanguage isEqualToString:@"ALL_WEEK"]){
+                validDayInLanguage = @"All week";
+            }
+            validDayInLanguage = CustomLocalisedString(validDayInLanguage, @"");
+
+
+           /* if ([[pref objectForKey:@"language"] isEqualToString:@"English"]) {
                 
                 validity = @"Valid: ";
                 
@@ -2551,7 +2684,7 @@ float distance;//distance of float type
                 }
                 
             }
-            
+            */
             
             
             validity = [validity stringByAppendingFormat:@"%@",validDayInLanguage];
@@ -2575,7 +2708,9 @@ float distance;//distance of float type
 			
 		}
         
-        if ([[pref objectForKey:@"language"] isEqualToString:@"English"]) {
+        endOfPublishing = [NSString stringWithFormat:@"%@ %@",CustomLocalisedString(@"Valid until", @""),endOfPublishing];
+
+        /*if ([[pref objectForKey:@"language"] isEqualToString:@"English"]) {
             
             endOfPublishing = [NSString stringWithFormat:@"Valid until %@",endOfPublishing];
             
@@ -2591,7 +2726,7 @@ float distance;//distance of float type
             
             endOfPublishing = [NSString stringWithFormat:@"Valid until %@",endOfPublishing];
             
-        }
+        }*/
         
         timeString = [timeString stringByAppendingString:endOfPublishing];
         
@@ -2762,24 +2897,21 @@ float distance;//distance of float type
 	
 	NSString *distanceString;
 	
-	nD = nD*1000;
+    nD = nD*1000;
 	
-	distance = nD;
+    distance = nD;
 	
 	calculatedDistance = nD;
     
+    NSString *filePath;
 	
 	if (distance <300) {
-		
-		
-		[testItButton setImage:[UIImage imageNamed:@"UseDeal.png"] forState:UIControlStateNormal];//setting use deal image
-		
+        filePath = [[NSBundle mainBundle] pathForResource:@"UseDeal" ofType:@"png"];
+		[testItButton setImage:[UIImage imageNamed:filePath] forState:UIControlStateNormal];//setting use deal image
 	}
-	
 	else {
-		
-		[testItButton setImage:[UIImage imageNamed:@"Inactive_button.png"] forState:UIControlStateNormal];//setting inactice image when user far away
-		
+        filePath = [[NSBundle mainBundle] pathForResource:@"Inactive_button" ofType:@"png"];
+		[testItButton setImage:[UIImage imageNamed:filePath] forState:UIControlStateNormal];//setting inactice image when user far away
 	}
 	
 	float dist;
@@ -2808,8 +2940,6 @@ float distance;//distance of float type
                     
                     
                     distanceLabel.text = distanceString;
-                    
-                    
                     
                 }
                 
@@ -3031,12 +3161,7 @@ float distance;//distance of float type
             }
             
         }
-		
-		
-		
 	}
-    
-	
 }
 
 - (UIImage *)cachedImageForURL:(NSURL *)url forImageView:(UIImageView *)largeImageViewtemp {
@@ -3070,7 +3195,6 @@ float distance;//distance of float type
 	} 	
     
     return cachedObject;//retruning cached object
-	
 }
 
 - (void)didFinishLoadingImageWithResult:(NSDictionary *)result {
@@ -3095,10 +3219,6 @@ float distance;//distance of float type
     [_cachedImages setObject:image forKey:url];//cached image
 	
 	[imagesArray addObject:[result objectForKey:@"image"]];//adding image in image array
-	
-	
-	
-	
 }
 
 
@@ -3140,19 +3260,19 @@ float distance;//distance of float type
 {
 	//messages of string types
 	
-	NSString *alertViewTitle;
+	NSString *alertViewTitle = CustomLocalisedString(@"Already Added", @"");
 	
-	NSString *alertMessageTitle;
+	NSString *alertMessageTitle = CustomLocalisedString(@"This is already added into Favorites", @"");;
 	
-	NSString *cancelButtonOfAlertView;
+	NSString *cancelButtonOfAlertView = CustomLocalisedString(@"OK", @"");;;
     
-	NSUserDefaults *pref = [NSUserDefaults standardUserDefaults];
+	//NSUserDefaults *pref = [NSUserDefaults standardUserDefaults];
 	
-	NSString *storeLanguage = [pref objectForKey:@"language"];
+	//NSString *storeLanguage = [pref objectForKey:@"language"];
 	
 	//displaying messages according to language selected
 	
-	if ([storeLanguage isEqualToString:@"English"]) {
+	/*if ([storeLanguage isEqualToString:@"English"]) {
 		
 		
 		alertViewTitle = @"Already Added";
@@ -3186,7 +3306,7 @@ float distance;//distance of float type
 		cancelButtonOfAlertView = @"OK";
 		
 		
-	}
+	}*/
     
 	
 	[self calculateCouponIdFromDatabase];
@@ -3281,8 +3401,10 @@ float distance;//distance of float type
         NSString *storeLanguage = [pref objectForKey:@"language"];
         
         //displaying messages according to language selected
-        
-        if ([storeLanguage isEqualToString:@"English"]) {
+        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:CustomLocalisedString(@"Can't Be Added", @"")  message:CustomLocalisedString(@"You can't add google Products to Favorites", @"") delegate:self cancelButtonTitle:CustomLocalisedString(@"OK", @"") otherButtonTitles:nil];
+        [alertView show];
+        [alertView release];
+       /* if ([storeLanguage isEqualToString:@"English"]) {
             
             UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"Can't Be Added" message:@"You can't add google Products to Favorites" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
             
@@ -3314,7 +3436,7 @@ float distance;//distance of float type
             [alertView release];
             
         }
-        
+        */
 		
 		
 		
@@ -3361,13 +3483,15 @@ float distance;//distance of float type
                 NSAssert1(0, @"Error while inserting data. '%s'", sqlite3_errmsg(database));
             else
             {
-                NSUserDefaults *pref = [NSUserDefaults standardUserDefaults];
+                //NSUserDefaults *pref = [NSUserDefaults standardUserDefaults];
                 
-                NSString *storeLanguage = [pref objectForKey:@"language"];
+               // NSString *storeLanguage = [pref objectForKey:@"language"];
                 
                 //displaying messages according to language selected
-                
-                if ([storeLanguage isEqualToString:@"English"]) {
+                UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:CustomLocalisedString(@"Added to Favorites", @"")  message:CustomLocalisedString(@"Coupon has been added to favorites", @"") delegate:self cancelButtonTitle:CustomLocalisedString(@"OK", @"") otherButtonTitles:nil];
+                [alertView show];
+                [alertView release];
+                /*if ([storeLanguage isEqualToString:@"English"]) {
                     
                     UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"Added to Favorites" message:@"Coupon has been added to favorites" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
                     
@@ -3398,7 +3522,7 @@ float distance;//distance of float type
                     
                 }
                 
-                
+                */
                 
             }
             
@@ -3531,20 +3655,18 @@ float distance;//distance of float type
 		
 		counterStr = [NSString stringWithFormat:@"%d:%d",counter,counter1];
 	
-	NSString *counterLabelValues;
-	
+	NSString *counterLabelValues = CustomLocalisedString(@"Use deal within", @"");
+    counterLabelValues = [NSString stringWithFormat:@"%@ %@ min",counterLabelValues,counterStr];
 	//labels according to selected language
 	
-	if ([storeLanguage isEqualToString:@"English"]) {
+	/*if ([storeLanguage isEqualToString:@"English"]) {
 		
 		counterLabelValues = [NSString stringWithFormat:@"Use deal within %@ min",counterStr];
-		
 	}
 	
 	else if ([storeLanguage isEqualToString:@"Svenska"]){
 		
 		counterLabelValues = [NSString stringWithFormat:@"Använd deal inom %@ min",counterStr];
-		
 		counterLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:18.0];
 	}
 	
@@ -3552,7 +3674,7 @@ float distance;//distance of float type
 		
 		counterLabelValues = [NSString stringWithFormat:@"Use deal within %@ min",counterStr];
 		
-	}
+	}*/
 	
 	[counterLabel setText:counterLabelValues];//counter label text
 	

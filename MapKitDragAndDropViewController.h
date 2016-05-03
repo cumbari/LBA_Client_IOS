@@ -18,7 +18,7 @@
 
 @property (nonatomic, retain) IBOutlet MKMapView *mapView;
 
--(void)passLatAndLong:(double)tmp:(double)tmp1;
+-(void)passLatAndLong:(double)tmp :(double)tmp1;
 
 @end
 

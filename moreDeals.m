@@ -10,6 +10,7 @@
 #import "DetailedCoupon.h"
 #import "ImageLoadingOperation.h"
 #import "cumbariAppDelegate.h"
+#import "LanguageManager.h"
 
 @implementation moreDeals
 
@@ -66,9 +67,7 @@ int imageCountForMoreDeals = 0;//image count for hot deals of int type
 		
 		if ([storeId isEqualToString:[dict objectForKey:@"storeId"]]) {
 			
-			
 			[listOfOffersFromStores addObject:[dict objectForKey:@"offerTitle"]];//addition of offer title in list of offers from stores
-			
 		}
 		
 		loopVariable++;//incrementing
@@ -121,8 +120,14 @@ int imageCountForMoreDeals = 0;//image count for hot deals of int type
 	NSString *storedLanguage = [prefs objectForKey:@"language"];
 	
 	//labels according to selected language
-	
-	if([storedLanguage isEqualToString:@"English" ])
+    backLabel = [[UILabel alloc]initWithFrame:CGRectMake(18, 8, 40, 25)];
+    backLabel.backgroundColor = [UIColor clearColor];
+    backLabel.textColor = [UIColor whiteColor];
+    backLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:12.0];
+    backLabel.text = CustomLocalisedString(@"Back", @"");
+    [self.navigationController.navigationBar addSubview:backLabel];
+    
+	/*if([storedLanguage isEqualToString:@"English" ])
 		
 	{
 		
@@ -179,7 +184,7 @@ int imageCountForMoreDeals = 0;//image count for hot deals of int type
 		
 		
 	}
-    
+    */
 	
     
 }

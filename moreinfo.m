@@ -16,6 +16,7 @@
 #import <sqlite3.h>
 #import "Links.h"
 #import "moreDeals.h"
+#import "LanguageManager.h"
 
 NSString *couponId;//coupon id for string type
 
@@ -125,135 +126,67 @@ static sqlite3 *database = nil;
 	[self.view addSubview:scroll];
 	
 	storeInformationNameLabel = [[UILabel alloc]initWithFrame:CGRectMake(20 , 5, 250, 20)];
-	
-	storeInformationNameLabel.text = @"Store Information";//more info label text
-	
+	storeInformationNameLabel.text =CustomLocalisedString(@"Store Information", @"");//more info label text
 	storeInformationNameLabel.textColor = [UIColor blackColor];//white color of label
-	
-	
 	storeInformationNameLabel.backgroundColor = [UIColor clearColor];//clear background color
-	
 	storeInformationNameLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:17.0];
-	
-	
-	
 	[scroll addSubview:storeInformationNameLabel];
 	
 	storeInformationValueLabel = [[UILabel alloc]initWithFrame:CGRectMake(20 , 25, 250, 40)];
-	
 	storeInformationValueLabel.text = [storeInformation  objectForKey:@"storeName"];//store label name
-	
 	storeInformationValueLabel.numberOfLines = 2;
-	
 	storeInformationValueLabel.textColor = [UIColor blackColor];//white color of label
-	
-	
 	storeInformationValueLabel.backgroundColor = [UIColor clearColor];//clear background color
-	
 	storeInformationValueLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:17];//font of label
-	
 	
 	CGSize sizeOfStoreInformationValueLabel = [storeInformationValueLabel.text sizeWithFont:storeInformationValueLabel.font constrainedToSize:CGSizeMake(storeInformationValueLabel.frame.size.width, 120) lineBreakMode:UILineBreakModeWordWrap ];
 	
 	storeInformationValueLabel.frame =   CGRectMake(storeInformationValueLabel.frame.origin.x,storeInformationValueLabel.frame.origin.y,storeInformationValueLabel.frame.size.width,sizeOfStoreInformationValueLabel.height);
-	
-	
-	
 	[scroll addSubview:storeInformationValueLabel];
 	
-	
-	
 	addressNameLabel = [[UILabel alloc]initWithFrame:CGRectMake(20 , 75, 250, 20)];
-	
-	addressNameLabel.text = @"Address";//more info label text
-	
+	addressNameLabel.text = CustomLocalisedString(@"Address", @"");//more info label text
 	addressNameLabel.textColor = [UIColor blackColor];//white color of label
-	
-	
 	addressNameLabel.backgroundColor = [UIColor clearColor];//clear background color
-	
 	addressNameLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:17.0];
-	
-	
-	
 	[scroll addSubview:addressNameLabel];
 	
 	
 	NSString *stringForStoreInfo = [storeInformation objectForKey:@"street"];//street information
-	
 	stringForStoreInfo  = [stringForStoreInfo stringByAppendingString:@" "];
-	
 	stringForStoreInfo = [stringForStoreInfo stringByAppendingString:[storeInformation objectForKey:@"city"]];//city for store info
 	
-	
-	
 	addressValueLabel = [[UILabel alloc]initWithFrame:CGRectMake(20 , 95, 250, 40)];
-	
 	addressValueLabel.text = stringForStoreInfo;//store label name
-	
 	addressValueLabel.numberOfLines = 2;
-	
 	addressValueLabel.textColor = [UIColor blackColor];//white color of label
-	
-	
 	addressValueLabel.backgroundColor = [UIColor clearColor];//clear background color
-	
 	addressValueLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:17];//font of label
 	
-	
 	CGSize sizeOfAddressValueLabel = [addressValueLabel.text sizeWithFont:addressValueLabel.font constrainedToSize:CGSizeMake(addressValueLabel.frame.size.width, 120) lineBreakMode:UILineBreakModeWordWrap ];
-	
 	addressValueLabel.frame =   CGRectMake(addressValueLabel.frame.origin.x,addressValueLabel.frame.origin.y,addressValueLabel.frame.size.width,sizeOfAddressValueLabel.height);
-    
-	
-	[scroll addSubview:addressValueLabel];
-	
+    [scroll addSubview:addressValueLabel];
 	
 	phoneNameLabel = [[UILabel alloc]initWithFrame:CGRectMake(20 , 145, 250, 20)];
-	
-	phoneNameLabel.text = @"Phone Number";//more info label text
-	
+	phoneNameLabel.text = CustomLocalisedString(@"Phone Number", @"");//more info label text
 	phoneNameLabel.textColor = [UIColor blackColor];//white color of label
-	
-	
 	phoneNameLabel.backgroundColor = [UIColor clearColor];//clear background color
-	
 	phoneNameLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:17.0];
-	
-	
-	
 	[scroll addSubview:phoneNameLabel];
 	
 	phoneValueLabel = [[UILabel alloc]initWithFrame:CGRectMake(20 , 165, 250, 20)];
-	
 	phoneValueLabel.text = [storeInformation  objectForKey:@"phone"];//phone label text
-	
 	phoneValueLabel.textColor = [UIColor blackColor];//white color of label
-	
-	
 	phoneValueLabel.backgroundColor = [UIColor clearColor];//clear background color
-	
 	phoneValueLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:17];//font of label
-	
-	
 	[scroll addSubview:phoneValueLabel];
 	
-	
 	emailNameLabel = [[UILabel alloc]initWithFrame:CGRectMake(20 , 195, 250, 20)];
-	
-	emailNameLabel.text = @"Email";//more info label text
-	
+	emailNameLabel.text = CustomLocalisedString(@"Email", @"");//more info label text
 	emailNameLabel.textColor = [UIColor blackColor];//white color of label
-	
-	
 	emailNameLabel.backgroundColor = [UIColor clearColor];//clear background color
-	
 	phoneNameLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:17.0];
-	
-	
-	
-	[scroll addSubview:emailNameLabel];
-	
+    [scroll addSubview:emailNameLabel];
 	
 	emailBtn= [[UIButton alloc]initWithFrame:CGRectMake(20,215,250,20)];//button
 	
@@ -272,10 +205,6 @@ static sqlite3 *database = nil;
 		emailBtn.titleLabel.font = [UIFont systemFontOfSize:17];//font size
 		
 		emailBtn.titleLabel.adjustsFontSizeToFitWidth = NO;
-		
-		
-		
-		
 		emailBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
 		
 		[emailBtn addTarget:self action:@selector(emailButtonClicked) forControlEvents:UIControlEventTouchUpInside];//adding target
@@ -284,45 +213,23 @@ static sqlite3 *database = nil;
 		
 	}
 	
-	
-	
 	websiteNameLabel = [[UILabel alloc]initWithFrame:CGRectMake(20 , 245, 250, 20)];
-	
-	websiteNameLabel.text = @"Company Home Page";//more info label text
-	
+	websiteNameLabel.text = CustomLocalisedString(@"Company Home Page", @"");//more info label text
 	websiteNameLabel.textColor = [UIColor blackColor];//white color of label
-	
-	
 	websiteNameLabel.backgroundColor = [UIColor clearColor];//clear background color
-	
 	websiteNameLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:17.0];
-    
 	[scroll addSubview:websiteNameLabel];
 	
 	webBtnForStore= [[UIButton alloc]initWithFrame:CGRectMake(20,265,250,120)];//button
-	
-	NSString *webstrForStore=[NSString stringWithFormat:@"%@",[storeInformation objectForKey:@"homePage"]];//homepage
-	
-	
-	
+		NSString *webstrForStore=[NSString stringWithFormat:@"%@",[storeInformation objectForKey:@"homePage"]];//homepage
 	if ([webstrForStore isEqualToString:@""]) {
-		
-        
 	}
-	
 	else
 	{
-        
-        
 		UILabel *webLabel = [[UILabel alloc]initWithFrame:CGRectMake(0,0,250,120)];
-		
 		webLabel.text = webstrForStore;//more info label text
-		
 		webLabel.textColor = [UIColor blueColor];//white color of label
-		
 		webLabel.numberOfLines = 5;
-		
-		
 		webLabel.backgroundColor = [UIColor clearColor];//clear background color
 		
 		webLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:17];//font of label
@@ -429,21 +336,15 @@ static sqlite3 *database = nil;
 {
 	//messages of string types
 	
-	NSString *alertViewTitle;
+	NSString *alertViewTitle = CustomLocalisedString(@"Already Added", @"");
 	
-	NSString *alertMessageTitle;
+	NSString *alertMessageTitle = CustomLocalisedString(@"This is already added into Favorites", @"");
 	
-	NSString *cancelButtonOfAlertView;
-	
-	
-	
-	NSUserDefaults *pref = [NSUserDefaults standardUserDefaults];
-	
-	NSString *storeLanguage = [pref objectForKey:@"language"];
+	NSString *cancelButtonOfAlertView = CustomLocalisedString(@"OK", @"");
 	
 	//displaying messages according to language selected
 	
-	if ([storeLanguage isEqualToString:@"English"]) {
+	/*if ([storeLanguage isEqualToString:@"English"]) {
 		
 		
 		alertViewTitle = @"Already Added";
@@ -481,7 +382,7 @@ static sqlite3 *database = nil;
 		
 		
 	}
-	
+	*/
 	
 	[self calculateCouponIdFromDatabase];
 	
@@ -619,8 +520,15 @@ static sqlite3 *database = nil;
         NSString *storeLanguage = [pref objectForKey:@"language"];
         
         //displaying messages according to language selected
+        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:CustomLocalisedString(@"Can't Be Added", @"")
+                                                           message:CustomLocalisedString(@"You can't add google Products to Favorites",@"")
+                                                          delegate:self
+                                                 cancelButtonTitle:CustomLocalisedString(@"OK",@"")
+                                                 otherButtonTitles:nil];
+        [alertView show];
+        [alertView release];
         
-        if ([storeLanguage isEqualToString:@"English"]) {
+        /*if ([storeLanguage isEqualToString:@"English"]) {
             
             UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"Can't Be Added" message:@"You can't add google Products to Favorites" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
             
@@ -652,7 +560,7 @@ static sqlite3 *database = nil;
             [alertView release];
             
         }
-
+         */
 		
 		[data release];
 		
@@ -707,8 +615,15 @@ static sqlite3 *database = nil;
                 NSString *storeLanguage = [pref objectForKey:@"language"];
                 
                 //displaying messages according to language selected
-                
-                if ([storeLanguage isEqualToString:@"English"]) {
+                UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:CustomLocalisedString(@"Added to Favorites", @"")
+                                                                   message:CustomLocalisedString(@"Coupon has been added to favorites",@"")
+                                                                  delegate:self
+                                                         cancelButtonTitle:CustomLocalisedString(@"OK",@"")
+                                                         otherButtonTitles:nil];
+                [alertView show];
+                [alertView release];
+               
+                /*if ([storeLanguage isEqualToString:@"English"]) {
                     
                     UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"Added to Favorites" message:@"Coupon has been added to favorites" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
                     
@@ -738,7 +653,7 @@ static sqlite3 *database = nil;
                     
                     
                 }
-
+                 */
             }
 			
 			
@@ -842,8 +757,19 @@ static sqlite3 *database = nil;
 	NSString *favoriteLabelString;
 	
 	NSString *productNameLabelString;
+    
+    moreDealsLabelString = CustomLocalisedString(@"More deals", @"");
+    moreInfoLabelString = CustomLocalisedString(@"More Info",@"");
+    favoriteLabelString = CustomLocalisedString(@"Favorites",@"");
+    
+    if ([[couponInformation objectForKey:@"productInfoLink"]isEqualToString:@""]) {
+        productNameLabelString = CustomLocalisedString(@"No Detailed Product description",@"");
+    }
+    else {
+        productNameLabelString = CustomLocalisedString(@"Detailed Product description",@"");
+    }
 	
-	if ([storeLanguage isEqualToString:@"English"]) {
+	/*if ([storeLanguage isEqualToString:@"English"]) {
 		
 		
 		moreDealsLabelString = @"More deals";
@@ -903,7 +829,7 @@ static sqlite3 *database = nil;
 		
 		
 	}
-	
+	*/
 	
 	moreInfoLabel = [[UILabel alloc]initWithFrame:CGRectMake(55, 384, 62, 16)];
 	
@@ -953,9 +879,6 @@ static sqlite3 *database = nil;
 	CGSize size = [productNameLabel.text sizeWithFont:productNameLabel.font constrainedToSize:CGSizeMake(productNameLabel.frame.size.width, 120) lineBreakMode:UILineBreakModeWordWrap ];
 	
 	productNameLabel.frame =   CGRectMake(productNameLabel.frame.origin.x,productNameLabel.frame.origin.y,productNameLabel.frame.size.width,size.height);
-	
-	
-	
 }
 
 -(IBAction)emailButtonClicked
@@ -978,16 +901,14 @@ static sqlite3 *database = nil;
 	
 	else {
 		
-		UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"Not Logged In" message:@"you have not logged into your mail account" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-		
+		UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:CustomLocalisedString(@"Not Logged In", @"")
+                                                           message:CustomLocalisedString(@"You have not logged into your mail account",@"")
+                                                          delegate:self
+                                                 cancelButtonTitle:CustomLocalisedString(@"OK",@"")
+                                                 otherButtonTitles:nil];
 		[alertView show];
-		
 		[alertView release];
-		
 	}
-    
-	
-	
 }
 
 
@@ -1007,7 +928,7 @@ static sqlite3 *database = nil;
              */  
             break;  
         case MFMailComposeResultSent: {
-			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Mail Sent" message:nil delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:CustomLocalisedString(@"Mail Sent",@"") message:nil delegate:self cancelButtonTitle:CustomLocalisedString(@"OK",@"") otherButtonTitles:nil];
 			alert.tag = 1;
 			alert.delegate = self;
 			[alert show];
@@ -1015,7 +936,7 @@ static sqlite3 *database = nil;
 			break;  
 		}
 		case MFMailComposeResultFailed: {
-			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Mail Sending Failed" message:nil delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:CustomLocalisedString(@"Mail Sending Failed",@"") message:nil delegate:self cancelButtonTitle:CustomLocalisedString(@"OK",@"") otherButtonTitles:nil];
 			alert.tag = 2;
 			alert.delegate = self;
 			[alert show];
@@ -1096,16 +1017,16 @@ static sqlite3 *database = nil;
         [self.navigationController.navigationBar insertSubview:[[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"CumbariWithDone.png"]] autorelease] atIndex:0];
     }
 	
-	NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-	
-	NSString *storedLanguage = [prefs objectForKey:@"language"];
-	
 	//labels according to selected language
-	
-	if([storedLanguage isEqualToString:@"English" ])
-		
+    backLabel = [[UILabel alloc]initWithFrame:CGRectMake(18, 8, 40, 25)];
+    backLabel.backgroundColor = [UIColor clearColor];
+    backLabel.textColor = [UIColor whiteColor];
+    backLabel.font = [UIFont boldSystemFontOfSize:12.0];
+    backLabel.text =CustomLocalisedString(@"Back", @"");
+    [self.navigationController.navigationBar addSubview:backLabel];
+    
+	/*if([storedLanguage isEqualToString:@"English" ])
 	{
-        
 		backLabel = [[UILabel alloc]initWithFrame:CGRectMake(18, 8, 40, 25)];
 		
 		backLabel.backgroundColor = [UIColor clearColor];
@@ -1156,7 +1077,7 @@ static sqlite3 *database = nil;
 		
 	}
     
-	
+	*/
 	
 }
 

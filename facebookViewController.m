@@ -11,7 +11,7 @@
 #import "ASIFormDataRequest.h"
 #import "JSON.h"
 #import "ImageLoadingOperation.h"
-
+#import "LanguageManager.h"
 
 @implementation facebookViewController
 @synthesize loginStatusLabel = _loginStatusLabel;
@@ -55,22 +55,20 @@ NSDictionary *couponInfoDictionary;
 - (void)refresh {
 	_loginStatusLabel.textColor = [UIColor whiteColor];
     if (_loginState == LoginStateStartup || _loginState == LoginStateLoggedOut) {
-        _loginStatusLabel.text = @"Not connected to Facebook";
-        [_loginButton setTitle:@"Login" forState:UIControlStateNormal];
+        _loginStatusLabel.text = CustomLocalisedString(@"Not connected to Facebook", @"") ;
+        [_loginButton setTitle:CustomLocalisedString(@"Login", @"") forState:UIControlStateNormal];
         _loginButton.hidden = NO;
 		postDealButton.hidden = YES;
 		[postDealLabel removeFromSuperview];
     } else if (_loginState == LoginStateLoggingIn) {
-        _loginStatusLabel.text = @"Connecting to Facebook...";
+        _loginStatusLabel.text = CustomLocalisedString(@"Connecting to Facebook...", @"");
         _loginButton.hidden = YES;
 		[postDealLabel removeFromSuperview];
 		
     } else if (_loginState == LoginStateLoggedIn) {
-        _loginStatusLabel.text = @"Connected to Facebook";
-        [_loginButton setTitle:@"Logout" forState:UIControlStateNormal];
+        _loginStatusLabel.text = CustomLocalisedString(@"Connected to Facebook", @"");
+        [_loginButton setTitle:CustomLocalisedString(@"Logout", @"") forState:UIControlStateNormal];
         _loginButton.hidden = NO;
-		
-        
 		postDealButton.hidden = NO;
     }   
 }
@@ -102,18 +100,11 @@ NSDictionary *couponInfoDictionary;
 	UILabel *labelForShowMore = [[UILabel alloc]initWithFrame:postDealButton.bounds];
 	
 	labelForShowMore.backgroundColor = [UIColor clearColor];
-	
 	labelForShowMore.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:17];
-	
-	
-	
 	labelForShowMore.textColor = [UIColor whiteColor];
-	
 	labelForShowMore.textAlignment = UITextAlignmentCenter;
-	
-	NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
-	
-	if ([[def objectForKey:@"language"] isEqualToString:@"English"]) {
+	labelForShowMore.text = CustomLocalisedString(@"Post Deal", @"");
+	/*if ([[def objectForKey:@"language"] isEqualToString:@"English"]) {
 		
 		labelForShowMore.text = @"Post Deal";
 		
@@ -131,15 +122,11 @@ NSDictionary *couponInfoDictionary;
 		labelForShowMore.text = @"Post Deal";
 		
 	}
-	
+	*/
 	[postDealButton addSubview:labelForShowMore];
-	
-	
 	[labelForShowMore release];
 	
-	
 	UIButton *but1 = [UIButton buttonWithType:UIButtonTypeCustom];//customizing done button.
-    
 	[but1 addTarget:self action:@selector(backToDetailed) forControlEvents:UIControlEventTouchUpInside];//calling cancel method on clicking done button.
 	
 	buttonLeft = [[UIBarButtonItem alloc]initWithCustomView:but1];//customizing right button.
@@ -157,14 +144,15 @@ NSDictionary *couponInfoDictionary;
         [self.navigationController.navigationBar insertSubview:[[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"CumbariWithDone.png"]] autorelease] atIndex:0];
     }
 	
-	NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];//object of NSUserDefault
-	
-	NSString *storedLanguage = [prefs objectForKey:@"language"];
-	
 	//labels according to selected language
-	
-	if([storedLanguage isEqualToString:@"English" ])
-		
+    backLabel = [[UILabel alloc]initWithFrame:CGRectMake(18, 8, 40, 25)];
+    backLabel.backgroundColor = [UIColor clearColor];
+    backLabel.textColor = [UIColor whiteColor];
+    backLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:12.0];
+    backLabel.text = CustomLocalisedString(@"Back", @"");
+    [self.navigationController.navigationBar addSubview:backLabel];
+    
+	/*if([storedLanguage isEqualToString:@"English" ])
 	{
 		
         
@@ -216,7 +204,7 @@ NSDictionary *couponInfoDictionary;
 		[self.navigationController.navigationBar addSubview:backLabel];
 		
 	}
-	
+	*/
     [self refresh];
 }
 
@@ -232,11 +220,10 @@ NSDictionary *couponInfoDictionary;
     }
     else
     {
-        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Posting Data to facebook" message:@"Can't go back while posting data" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil];
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:CustomLocalisedString(@"Posting Data to facebook", @"") message:CustomLocalisedString(@"Can't go back while posting data",@"") delegate:self cancelButtonTitle:CustomLocalisedString(@"Ok",@"") otherButtonTitles: nil];
         [alert show];
         [alert release];
     }
-	
 }
 
 #pragma mark Login Button
@@ -280,14 +267,10 @@ NSDictionary *couponInfoDictionary;
 	
 	if (_loginState == LoginStateLoggedOut) {
 		
-		UIAlertView *alertView= [[UIAlertView alloc]initWithTitle:@"you have logged out!" message:@"You have to log in to post the deal " delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-		
+		UIAlertView *alertView= [[UIAlertView alloc]initWithTitle:CustomLocalisedString(@"You have logged out!",@"") message:CustomLocalisedString(@"You have to log in to post the deal",@"") delegate:self cancelButtonTitle:CustomLocalisedString(@"OK",@"") otherButtonTitles:nil];
 		[alertView show];
-		
 		[alertView release];
-		
 	}
-	
 	else {
         
         dataPosted = false;
@@ -473,18 +456,19 @@ NSDictionary *couponInfoDictionary;
     
     dataPosted = true;
     
-    NSUserDefaults *pref = [NSUserDefaults standardUserDefaults];
-    
-    NSString *storeLanguage = [pref objectForKey:@"language"];
-    
     //displaying messages according to language selected
-    
-    if ([storeLanguage isEqualToString:@"English"]) {
+    UIAlertView *av = [[[UIAlertView alloc] initWithTitle:CustomLocalisedString(@"Deal Successfully posted!", @"")
+                                                  message:CustomLocalisedString(@"Deal to facebook has been posted",@"")
+                                                 delegate:nil
+                                        cancelButtonTitle:CustomLocalisedString(@"OK",@"")
+                                        otherButtonTitles:nil] autorelease];
+    [av show];
+   /* if ([storeLanguage isEqualToString:@"English"]) {
         
-        UIAlertView *av = [[[UIAlertView alloc] initWithTitle:@"Deal Successfully posted!" 
-                                                      message:@"Deal to facebook has been posted"
+        UIAlertView *av = [[[UIAlertView alloc] initWithTitle:CustomLocalisedString(@"Deal Successfully posted!", @"")
+                                                      message:CustomLocalisedString(@"Deal to facebook has been posted",@"")
                                                      delegate:nil 
-                                            cancelButtonTitle:@"OK"
+                                            cancelButtonTitle:CustomLocalisedString(@"OK",@"")
                                             otherButtonTitles:nil] autorelease];
         [av show];
         
@@ -518,7 +502,7 @@ NSDictionary *couponInfoDictionary;
         
         
     }
-
+*/
     
    
 }

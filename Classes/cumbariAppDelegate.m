@@ -22,6 +22,8 @@
 #import "Links.h"
 #import "CouponsInSelectedCategory.h"
 #import "FilteredCoupons.h"
+#import "LanguageManager.h"
+#import "Locale.h"
 
 
 @implementation cumbariAppDelegate //Implementing CumbariAppDelegate. 
@@ -46,6 +48,7 @@ int batchValue;//batch value of int type
     // Override point for customization after application launch.
 	
 	//Initializing the array for Favorites.
+    [self setUpLocalisation];
     
     currentLocationGot = @"";
 	
@@ -79,61 +82,119 @@ int batchValue;//batch value of int type
 	batchValue = 1;//batch value assign to 1
 	
 	[self getUserCurrentLocation];//calling to get user current location
+    [window setRootViewController:controllerForSplash];
     
-	[window addSubview:controllerForSplash.view];//adding splash as subview on window
+	//[window addSubview:controllerForSplash.view];//adding splash as subview on window
 	
     [window makeKeyAndVisible];//making window visible
 	
     return YES;//returning YES
 }
 
+-(void)setUpLocalisation
+{
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    LanguageManager *languageManager = [LanguageManager sharedLanguageManager];
+    
+    /*
+     * Check the user defaults to find whether a localisation has been set before.
+     * If it hasn't been set, (i.e. first run of the app), select the locale based
+     * on the device locale setting.
+     */
+    
+    // Check whether the language code has already been set.
+    if (![userDefaults stringForKey:DEFAULTS_KEY_LANGUAGE_CODE]) {
+        
+        NSLog(@"No language set - trying to find the right setting for the device locale.");
+        
+        NSLocale *currentLocale = [NSLocale currentLocale];
+        
+        // Iterate through available localisations to find the matching one for the device locale.
+        for (Locale *localisation in languageManager.availableLocales) {
+            
+            if ([localisation.languageCode caseInsensitiveCompare:[currentLocale objectForKey:NSLocaleLanguageCode]] == NSOrderedSame) {
+                
+                [languageManager setLanguageWithLocale:localisation];
+                break;
+            }
+        }
+        
+        // If the device locale doesn't match any of the available ones, just pick the first one.
+        if (![userDefaults stringForKey:DEFAULTS_KEY_LANGUAGE_CODE]) {
+            
+            NSLog(@"Couldn't find the right localisation - using default.");
+            [languageManager setLanguageWithLocale:languageManager.availableLocales[0]];
+        }
+    }
+    else {
+        
+        NSLog(@"The language has already been set :)");
+    }
+}
+
+-(NSString*)getLanguageCodeForLanguage:(NSString*)lang
+{
+    NSString *langCode = @"ENG";
+    if ([lang isEqualToString:@"English"]) {
+        
+    }
+    else if ([lang isEqualToString:@"Svenska"])
+    {
+        langCode = @"SWE";
+    }
+    else if ([lang isEqualToString:@"Deutsch"])
+    {
+        langCode = @"DE";
+    }
+    return langCode;
+}
 
 
 -(void)tabBar1
 {
-	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc]init];
+    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc]init];
     
- 	NSString *responseFromGetHostUrl = [[NSString alloc] initWithContentsOfURL:[NSURL URLWithString:GetHostURL] encoding:NSUTF8StringEncoding error:nil];//UTF8
-	
-	NSString *languageOfApplication;
-	
-	//JSON Parser For Hot Deals File
-	[[UIApplication sharedApplication] setStatusBarHidden:NO];//showing status bar
-	
-	
-	urlOfGetCoupons = GetCouponsURL;//url of get coupons
-	
-	[defaults removeObjectForKey:@"position"];//checking for position
-	
-	int maxNo = [[defaults objectForKey:@"offers"]intValue];//checking offers in list
-	
-	if (maxNo == 0) {
-		
-		maxNo = 10;//setting mex no. to 10
-	}
-	
-	int range = [[defaults objectForKey:@"range"]intValue];//checking for range
-	
-	if (range == 0) {
-		
-		range = 10000;//setting range to 10000
-		
-	}
-	
-	if (self.mUserCurrentLocation.coordinate.longitude == 0) {
-		
-		longitude = 0;//setting longitude to 0
-		
-		latitude = 0;//setting latitude to 0
-	}
-	
-	else {
-		
-		longitude = mUserCurrentLocation.coordinate.longitude;//setting longitude to current location value
-		
-		latitude = mUserCurrentLocation.coordinate.latitude;//setting latitude to current location value
-		
-	}
+    NSString *responseFromGetHostUrl = [[NSString alloc] initWithContentsOfURL:[NSURL URLWithString:GetHostURL] encoding:NSUTF8StringEncoding error:nil];//UTF8
+    
+    NSString *languageOfApplication;
+    
+    //JSON Parser For Hot Deals File
+    [[UIApplication sharedApplication] setStatusBarHidden:NO];//showing status bar
+    
+    
+    urlOfGetCoupons = GetCouponsURL;//url of get coupons
+    
+    [defaults removeObjectForKey:@"position"];//checking for position
+    
+    int maxNo = [[defaults objectForKey:@"offers"]intValue];//checking offers in list
+    
+    if (maxNo == 0) {
+        
+        maxNo = 10;//setting mex no. to 10
+    }
+    
+    int range = [[defaults objectForKey:@"range"]intValue];//checking for range
+    
+    if (range == 0) {
+        
+        range = 10000;//setting range to 10000
+        
+    }
+    
+    if (self.mUserCurrentLocation.coordinate.longitude == 0) {
+        
+        longitude = 0;//setting longitude to 0
+        
+        latitude = 0;//setting latitude to 0
+    }
+    
+    else {
+        
+        longitude = mUserCurrentLocation.coordinate.longitude;//setting longitude to current location value
+        
+        latitude = mUserCurrentLocation.coordinate.latitude;//setting latitude to current location value
+        
+    }
     
     NSArray *languages = [defaults objectForKey:@"AppleLanguages"];
     
@@ -147,24 +208,21 @@ int batchValue;//batch value of int type
         
         if ([currentLanguage isEqualToString:@"sv"]) {
             [defaults setObject:@"Svenska" forKey:@"language"];
-            [[NSUserDefaults standardUserDefaults] synchronize];
+        }
+        if ([currentLanguage isEqualToString:@"de"]) {
+            [defaults setObject:@"Deutsch" forKey:@"language"];
         }
         else{
             [defaults setObject:@"English" forKey:@"language"];
-            [[NSUserDefaults standardUserDefaults] synchronize];
-            
         }
-        
+        [[NSUserDefaults standardUserDefaults] synchronize];
     }
-	
-	languageOfApplication = [[NSString alloc]initWithFormat:@"%@",[defaults objectForKey:@"language"]];//checking for the language of app
-	
-	
-	
-	
-	NSMutableString *clientId = [[NSMutableString alloc]initWithFormat:@"%@",[[UIDevice currentDevice]uniqueDeviceIdentifier]];//reteriving clientId 
-	
-	[clientId insertString:@"-" atIndex:8];
+    
+    languageOfApplication = [[NSString alloc]initWithFormat:@"%@",[defaults objectForKey:@"language"]];//checking for the language of app
+    
+    NSMutableString *clientId = [[NSMutableString alloc]initWithFormat:@"%@",[[UIDevice currentDevice]uniqueDeviceIdentifier]];//reteriving clientId
+    
+    [clientId insertString:@"-" atIndex:8];
     
     [clientId insertString:@"-" atIndex:13];
     
@@ -172,68 +230,72 @@ int batchValue;//batch value of int type
     
     [clientId insertString:@"-" atIndex:23];
     
-	NSString *alertViewTitle;//alert title
-	
-	NSString *alertViewMessage;//alert view message
-	
-	NSString *cancelButtonTitle;//cancel button title
-	
-	NSString *language;//language
-	
-	
-	if ([languageOfApplication isEqualToString:@"English"]) {
+    NSString *alertViewTitle;//alert title
+    
+    NSString *alertViewMessage;//alert view message
+    
+    NSString *cancelButtonTitle;//cancel button title
+    
+    NSString *language;//language
+    
+    language = [self getLanguageCodeForLanguage:languageOfApplication];
+    [self setTabBarTitles];
+    alertViewTitle =[[NSString alloc]initWithString:CustomLocalisedString(@"No/Weak Internet Access", @"")];//alert if there is no or weak internet
+    alertViewMessage = [[NSString alloc]initWithString:CustomLocalisedString(@"You can not use the Cumbari service currently",@"")];//alert view message
+    cancelButtonTitle = [[NSString alloc]initWithString:CustomLocalisedString(@"OK",@"")];//cancel button
+    /*if ([languageOfApplication isEqualToString:@"English"]) {
+     
+     [self englishTabBar];//calling english tab bar
+     
+     language = [[NSString alloc]initWithString:@"ENG"];//setting language to english
+     
+     alertViewTitle =[[NSString alloc]initWithString:@"No/Weak Internet Access"];//alert if there is no or weak internet
+     
+     alertViewMessage = [[NSString alloc]initWithString:@"You can not use the Cumbari service currently"];//alert view message
+     
+     cancelButtonTitle = [[NSString alloc]initWithString:@"OK"];//cancel button
+     
+     }
+     
+     else if ([languageOfApplication isEqualToString:@"Svenska"]) {
+     
+     language = [[NSString alloc]initWithString:@"SWE"];//setting svenska languge
+     
+     [self SvenskaTabBar];//calling svenska tab bar
+     
+     alertViewTitle = [[NSString alloc]initWithString:@"Inget / svagt internet"];//alert title
+     
+     alertViewMessage = [[NSString alloc]initWithString:@"Du kan inte använda Cumbari tjänster som idag"];//alert view message
+     
+     cancelButtonTitle = [[NSString alloc]initWithString:@"OK"];//cancel title
+     
+     }
+     
+     else {
+     
+     [self englishTabBar];//calling english tab bar
+     
+     language = [[NSString alloc]initWithString:@"ENG"];//english language
+     
+     alertViewTitle =[[NSString alloc]initWithString:@"No/Weak Internet Access"];//alert view title
+     
+     alertViewMessage = [[NSString alloc]initWithString:@"You can not use the Cumbari service currently"];//alert view message
+     
+     cancelButtonTitle = [[NSString alloc]initWithString:@"OK"];//cancel title
+     
+     }*/
+    
+    if ([responseFromGetHostUrl length] == 0) {
         
-		[self englishTabBar];//calling english tab bar
-		
-		language = [[NSString alloc]initWithString:@"ENG"];//setting language to english
-		
-		alertViewTitle =[[NSString alloc]initWithString:@"No/Weak Internet Access"];//alert if there is no or weak internet
-		
-		alertViewMessage = [[NSString alloc]initWithString:@"You can not use the Cumbari service currently"];//alert view message 
-		
-		cancelButtonTitle = [[NSString alloc]initWithString:@"OK"];//cancel button
+        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:alertViewTitle message:alertViewMessage delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
         
-	}
-	
-	else if ([languageOfApplication isEqualToString:@"Svenska"]) {
+        [alertView show];
         
-		language = [[NSString alloc]initWithString:@"SWE"];//setting svenska languge
-		
-		[self SvenskaTabBar];//calling svenska tab bar
-		
-		alertViewTitle = [[NSString alloc]initWithString:@"Inget / svagt internet"];//alert title 
-		
-		alertViewMessage = [[NSString alloc]initWithString:@"Du kan inte använda Cumbari tjänster som idag"];//alert view message
-		
-		cancelButtonTitle = [[NSString alloc]initWithString:@"OK"];//cancel title
-		
-	}
-	
-	else {
-		
-		[self englishTabBar];//calling english tab bar
-		
-		language = [[NSString alloc]initWithString:@"ENG"];//english language
-		
-		alertViewTitle =[[NSString alloc]initWithString:@"No/Weak Internet Access"];//alert view title
-		
-		alertViewMessage = [[NSString alloc]initWithString:@"You can not use the Cumbari service currently"];//alert view message
-		
-		cancelButtonTitle = [[NSString alloc]initWithString:@"OK"];//cancel title
-		
-	}
-	
-	if ([responseFromGetHostUrl length] == 0) {
-		
-		UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:alertViewTitle message:alertViewMessage delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-		
-		[alertView show];
-		
-		[alertView release];
-		
-		[controllerForSplash.view removeFromSuperview];//removing splash from superview
-		
-	}
+        [alertView release];
+        
+        [controllerForSplash.view removeFromSuperview];//removing splash from superview
+        
+    }
     
     else
     {
@@ -257,7 +319,7 @@ int batchValue;//batch value of int type
         jsonParser = [SBJSON new];
         
         
-        allCouponsDict = [[jsonParser objectWithString:jsonCoupons error:nil]retain];//Putting JSON all Coupons Data in Dictionary. 
+        allCouponsDict = [[jsonParser objectWithString:jsonCoupons error:nil]retain];//Putting JSON all Coupons Data in Dictionary.
         
         listOfCoupons = [allCouponsDict objectForKey:@"ListOfCoupons"] ;//Fetching data of All Coupons From Dictionary.
         
@@ -274,15 +336,9 @@ int batchValue;//batch value of int type
         if ([maxNumberReached intValue] == 1) {
             
             [hotDealObj hideShowMoreButton:0];
-            
-            
         }
-        
-        else {
-            
+        else{
             [hotDealObj hideShowMoreButton:1];
-            
-            
         }
         
         mapObj = [[map alloc]initWithNibName:@"map" bundle:nil];//Allocating map Object.
@@ -320,24 +376,25 @@ int batchValue;//batch value of int type
         urlOfCategories = GetCategoriesURL;//url of branded couponsGetCategoriesURL;//url of categories
         
         urlOfCategories = [urlOfCategories stringByAppendingString:@"&lang="];//url of categories
+        urlOfCategories = [urlOfCategories stringByAppendingString:language];//url of category appending english
         
-        if ([languageOfApplication isEqualToString:@"English"]) {
-            
-            urlOfCategories = [urlOfCategories stringByAppendingString:@"ENG"];//url of category appending english
-            
-        }
-        
-        else if ([languageOfApplication isEqualToString:@"Svenska"]){
-            
-            urlOfCategories = [urlOfCategories stringByAppendingString:@"SWE"];//url of category appending svenska
-            
-        }
-        
-        else {
-            
-            urlOfCategories = [urlOfCategories stringByAppendingString:@"ENG"];//url of category appending english
-            
-        }
+        /*if ([languageOfApplication isEqualToString:@"English"]) {
+         
+         urlOfCategories = [urlOfCategories stringByAppendingString:@"ENG"];//url of category appending english
+         
+         }
+         
+         else if ([languageOfApplication isEqualToString:@"Svenska"]){
+         
+         urlOfCategories = [urlOfCategories stringByAppendingString:@"SWE"];//url of category appending svenska
+         
+         }
+         
+         else {
+         
+         urlOfCategories = [urlOfCategories stringByAppendingString:@"ENG"];//url of category appending english
+         
+         }*/
         
         NSLog(@"url of categories = %@",urlOfCategories);
         
@@ -352,7 +409,7 @@ int batchValue;//batch value of int type
         
         jsonParserForCat = [SBJSON new];//Allocating JSON parser For Categories.
         
-        allCategoriesDict = [[jsonParserForCat objectWithString:jsonCategories error:nil]retain];//Putting JSON Categories Data in Dictionary. 
+        allCategoriesDict = [[jsonParserForCat objectWithString:jsonCategories error:nil]retain];//Putting JSON Categories Data in Dictionary.
         
         listOfCategories = [allCategoriesDict objectForKey:@"listOfCategories"];//Fetching data of list Of Categories From Dictionary.
         
@@ -392,9 +449,9 @@ int batchValue;//batch value of int type
         
         jsonParserForBrand= [SBJSON new];//Allocating JSON parser JSON.
         
-        allCouponsDictForBrands = [[jsonParserForBrand objectWithString:jsonBrands error:nil]retain];//Putting JSON all Coupons Data in Dictionary. 
+        allCouponsDictForBrands = [[jsonParserForBrand objectWithString:jsonBrands error:nil]retain];//Putting JSON all Coupons Data in Dictionary.
         
-        listOfCouponsForBrands = [allCouponsDictForBrands objectForKey:@"ListOfCoupons"];//list of coupons 
+        listOfCouponsForBrands = [allCouponsDictForBrands objectForKey:@"ListOfCoupons"];//list of coupons
         
         listOfStoresForBrands = [allCouponsDictForBrands objectForKey:@"ListOfStores"];//list of stores
         
@@ -442,7 +499,7 @@ int batchValue;//batch value of int type
         
         categoriesObj = nil;//category object to nil
         
-        [categoriesObj release];//releasing categories 
+        [categoriesObj release];//releasing categories
         
         mapObj = nil;//map object to nil
         
@@ -475,7 +532,7 @@ int batchValue;//batch value of int type
         [pool release];
         
     }
-	
+    
 }
 
 
@@ -489,31 +546,31 @@ int batchValue;//batch value of int type
 
 -(void)reloadJsonData
 {
-	NSString *languageOfApplication;
-	
-	
-	int maxNumberReachedValue = [maxNumberReached intValue];//maximum number reached value of int type
-	
-	
-	hotDealObj =[[HotDeals alloc]init];//Allocating Hot Deal Object.
-	
-	mapObj = [[map alloc]init];//Allocating map Object.
-	
-	favoriteObj = [[Favorites alloc]init];//Allocating Favorites Object.
-	
-	detailObj = [[DetailedCoupon alloc]init];//object of detailed coupon
-	
-	moreDealObj = [[moreDeals alloc]init];//object of more deals
-	
-	brandObj = [[Brands alloc]init];//Allocating Brands Object.
-	
-	categoriesObj = [[categories alloc]init];//Allocating categories Object.
-	
-	if (batchValue>1) {
-		
-		NSAutoreleasePool *pool = [[NSAutoreleasePool alloc]init];
-		
-		if (maxNumberReachedValue == 0) {
+    NSString *languageOfApplication;
+    
+    
+    int maxNumberReachedValue = [maxNumberReached intValue];//maximum number reached value of int type
+    
+    
+    hotDealObj =[[HotDeals alloc]init];//Allocating Hot Deal Object.
+    
+    mapObj = [[map alloc]init];//Allocating map Object.
+    
+    favoriteObj = [[Favorites alloc]init];//Allocating Favorites Object.
+    
+    detailObj = [[DetailedCoupon alloc]init];//object of detailed coupon
+    
+    moreDealObj = [[moreDeals alloc]init];//object of more deals
+    
+    brandObj = [[Brands alloc]init];//Allocating Brands Object.
+    
+    categoriesObj = [[categories alloc]init];//Allocating categories Object.
+    
+    if (batchValue>1) {
+        
+        NSAutoreleasePool *pool = [[NSAutoreleasePool alloc]init];
+        
+        if (maxNumberReachedValue == 0) {
             
             //cumbariAppDelegate *del = (cumbariAppDelegate *)[[UIApplication sharedApplication]delegate];//cumbari app delegate
             
@@ -532,7 +589,7 @@ int batchValue;//batch value of int type
             //int batchNo = batchValue;
             
             int range = [[defaults objectForKey:@"range"]intValue];//range of int type
-			
+            
             
             if (range == 0) {
                 
@@ -543,7 +600,7 @@ int batchValue;//batch value of int type
             NSString *languageOfApplication = [defaults objectForKey:@"language"];//language
             
             
-            NSMutableString *clientId = [[NSMutableString alloc]initWithFormat:@"%@",[[UIDevice currentDevice]uniqueDeviceIdentifier]];//reteriving clientId 
+            NSMutableString *clientId = [[NSMutableString alloc]initWithFormat:@"%@",[[UIDevice currentDevice]uniqueDeviceIdentifier]];//reteriving clientId
             
             [clientId insertString:@"-" atIndex:8];
             
@@ -552,269 +609,257 @@ int batchValue;//batch value of int type
             [clientId insertString:@"-" atIndex:18];
             
             [clientId insertString:@"-" atIndex:23];
-			
-			
             
-			NSString *storedPosition = [defaults objectForKey:@"position"];//psition
-			
-			if ([[defaults objectForKey:@"language"] isEqualToString:@"English"]) {
-				
-				if ([storedPosition isEqualToString:@"Aktuell plats"]) {
-					storedPosition = @"Current Location" ;//current location
-				}
-				
-				if ([storedPosition isEqualToString:@"Ny position"]) {
-					storedPosition = @"New Position";//new position
-					
-				}
-				
-				
-				if ([storedPosition isEqualToString:@"Current Location"]) {
-					
-					
-					if (mUserCurrentLocation.coordinate.longitude == 0) {
-						
-						longitude = 0;//setting longitude to 0
-						
-						latitude = 0;//setting latitude to 0
-					}
-					
-					else {
-						
-						longitude = mUserCurrentLocation.coordinate.longitude;//setting longitude to current location value
-						
-						latitude = mUserCurrentLocation.coordinate.latitude;//setting latitude to current location value
-						
-					}
-					
-				}
-				
-				else if([storedPosition isEqualToString:@"New Position"]) {
-                    
-                    if ([[defaults objectForKey:@"longitudeOfMyPosition"]doubleValue] == 0) {
-                        
-                        longitude = mUserCurrentLocation.coordinate.longitude;
-                        
-                        latitude = mUserCurrentLocation.coordinate.latitude;
-                    }
-                    else
-                    {
-                        
-                        
-                        longitude =  [[defaults objectForKey:@"longitudeOfMyPosition"]doubleValue];//longitude of my position
-                        
-                        latitude = [[defaults objectForKey:@"latitudeOfMyPosition"]doubleValue];//latitude of my position
-                    }
-					
-				}
-				
-				
-				
-				else {
-					
-					
-					if (mUserCurrentLocation.coordinate.longitude == 0) {
-						
-						longitude = 0;//setting longitude to 0
-						
-						latitude = 0;//setting latitude to 0
-					}
-					
-					else {
-						
-						longitude = mUserCurrentLocation.coordinate.longitude;//setting longitude to current location value
-						
-						latitude = mUserCurrentLocation.coordinate.latitude;//setting latitude to current location value
-						
-					}
-					
-					
-				}
-			}
-			
-			else if ([[defaults objectForKey:@"language"] isEqualToString:@"Svenska"])
-			{
-				if ([storedPosition isEqualToString:@"Current Location"]) {
-					storedPosition = @"Aktuell plats" ;
-				}
-				
-				if ([storedPosition isEqualToString:@"New Position"]) {
-					storedPosition = @"Ny position";
-					
-				}
-				
-				if ([storedPosition isEqualToString:@"Aktuell plats"]) {
-					
-					
-					if (mUserCurrentLocation.coordinate.longitude == 0) {
-						
-						longitude = 0;//setting longitude to 0
-						
-						latitude = 0;//setting latitude to 0
-					}
-					
-					else {
-						
-						longitude = mUserCurrentLocation.coordinate.longitude;//setting longitude to current location value
-						
-						latitude = mUserCurrentLocation.coordinate.latitude;//setting latitude to current location value
-						
-					}
-				}
-				
-				else if([storedPosition isEqualToString:@"Ny position"]) {
-					
-					
-                    if ([[defaults objectForKey:@"longitudeOfMyPosition"]doubleValue] == 0) {
-                        
-                        longitude = mUserCurrentLocation.coordinate.longitude;
-                        
-                        latitude = mUserCurrentLocation.coordinate.latitude;
-                    }
-                    else
-                    {
-                        
-                        
-                        longitude =  [[defaults objectForKey:@"longitudeOfMyPosition"]doubleValue];//longitude of my position
-                        
-                        latitude = [[defaults objectForKey:@"latitudeOfMyPosition"]doubleValue];//latitude of my position
-                    }
-					
-				}
-				
-				else {
-					
-					if (mUserCurrentLocation.coordinate.longitude == 0) {
-						
-						longitude = 0;//setting longitude to 0
-						
-						latitude = 0;//setting latitude to 0
-					}
-					
-					else {
-						
-						longitude = mUserCurrentLocation.coordinate.longitude;//setting longitude to current location value
-						
-						latitude = mUserCurrentLocation.coordinate.latitude;//setting latitude to current location value
-						
-					}					
-				}
-				
-			}
-			
-			else {
-				
-				
-				
-				if ([storedPosition isEqualToString:@"Current Location"]) {
-					
-					
-					if (mUserCurrentLocation.coordinate.longitude == 0) {
-						
-						longitude = 0;//setting longitude to 0
-						
-						latitude = 0;//setting latitude to 0
-					}
-					
-					else {
-						
-						longitude = mUserCurrentLocation.coordinate.longitude;//setting longitude to current location value
-						
-						latitude = mUserCurrentLocation.coordinate.latitude;//setting latitude to current location value
-						
-					}
-					
-				}
-				
-				
-				else if([storedPosition isEqualToString:@"New Position"]) {
-					
-					
-                    if ([[defaults objectForKey:@"longitudeOfMyPosition"]doubleValue] == 0) {
-                        
-                        longitude = mUserCurrentLocation.coordinate.longitude;
-                        
-                        latitude = mUserCurrentLocation.coordinate.latitude;
-                    }
-                    else
-                    {
-                        
-                        
-                        longitude =  [[defaults objectForKey:@"longitudeOfMyPosition"]doubleValue];//longitude of my position
-                        
-                        latitude = [[defaults objectForKey:@"latitudeOfMyPosition"]doubleValue];//latitude of my position
-                    }
-					
-				}
-				
-				else if ([storedPosition isEqualToString:@"Aktuell plats"]) {
-					
-					
-					if (mUserCurrentLocation.coordinate.longitude == 0) {
-						
-						longitude = 0;//setting longitude to 0
-						
-						latitude = 0;//setting latitude to 0
-					}
-					
-					else {
-						
-						longitude = mUserCurrentLocation.coordinate.longitude;//setting longitude to current location value
-						
-						latitude = mUserCurrentLocation.coordinate.latitude;//setting latitude to current location value
-						
-					}
-				}
-				
-				else if([storedPosition isEqualToString:@"Ny position"]) {
-					
-					
-                    if ([[defaults objectForKey:@"longitudeOfMyPosition"]doubleValue] == 0) {
-                        
-                        longitude = mUserCurrentLocation.coordinate.longitude;
-                        
-                        latitude = mUserCurrentLocation.coordinate.latitude;
-                    }
-                    else
-                    {
-                        
-                        
-                        longitude =  [[defaults objectForKey:@"longitudeOfMyPosition"]doubleValue];//longitude of my position
-                        
-                        latitude = [[defaults objectForKey:@"latitudeOfMyPosition"]doubleValue];//latitude of my position
-                    }
-					
-				}
-				
-				
-				
-				
-				else {
-					
-					
-					if (mUserCurrentLocation.coordinate.longitude == 0) {
-						
-						longitude = 0;//setting longitude to 0
-						
-						latitude = 0;//setting latitude to 0
-					}
-					
-					else {
-						
-						longitude = mUserCurrentLocation.coordinate.longitude;//setting longitude to current location value
-						
-						latitude = mUserCurrentLocation.coordinate.latitude;//setting latitude to current location value
-						
-					}
-					
-					
-				}
-				
-				
-				
-			}	
-			
-			
+            [self handleLocation];
+            /*NSString *storedPosition = [defaults objectForKey:@"position"];//psition
+             
+             if ([[defaults objectForKey:@"language"] isEqualToString:@"English"]) {
+             
+             if ([storedPosition isEqualToString:@"Aktuell plats"]) {
+             storedPosition = @"Current Location" ;//current location
+             }
+             
+             if ([storedPosition isEqualToString:@"Ny position"]) {
+             storedPosition = @"New Position";//new position
+             
+             }
+             
+             
+             if ([storedPosition isEqualToString:@"Current Location"]) {
+             
+             
+             if (mUserCurrentLocation.coordinate.longitude == 0) {
+             
+             longitude = 0;//setting longitude to 0
+             
+             latitude = 0;//setting latitude to 0
+             }
+             
+             else {
+             
+             longitude = mUserCurrentLocation.coordinate.longitude;//setting longitude to current location value
+             
+             latitude = mUserCurrentLocation.coordinate.latitude;//setting latitude to current location value
+             
+             }
+             
+             }
+             
+             else if([storedPosition isEqualToString:@"New Position"]) {
+             
+             if ([[defaults objectForKey:@"longitudeOfMyPosition"]doubleValue] == 0) {
+             
+             longitude = mUserCurrentLocation.coordinate.longitude;
+             
+             latitude = mUserCurrentLocation.coordinate.latitude;
+             }
+             else
+             {
+             
+             
+             longitude =  [[defaults objectForKey:@"longitudeOfMyPosition"]doubleValue];//longitude of my position
+             
+             latitude = [[defaults objectForKey:@"latitudeOfMyPosition"]doubleValue];//latitude of my position
+             }
+             
+             }
+             
+             
+             
+             else {
+             
+             
+             if (mUserCurrentLocation.coordinate.longitude == 0) {
+             
+             longitude = 0;//setting longitude to 0
+             
+             latitude = 0;//setting latitude to 0
+             }
+             
+             else {
+             
+             longitude = mUserCurrentLocation.coordinate.longitude;//setting longitude to current location value
+             
+             latitude = mUserCurrentLocation.coordinate.latitude;//setting latitude to current location value
+             
+             }
+             
+             
+             }
+             }
+             
+             else if ([[defaults objectForKey:@"language"] isEqualToString:@"Svenska"])
+             {
+             if ([storedPosition isEqualToString:@"Current Location"]) {
+             storedPosition = @"Aktuell plats" ;
+             }
+             
+             if ([storedPosition isEqualToString:@"New Position"]) {
+             storedPosition = @"Ny position";
+             
+             }
+             
+             if ([storedPosition isEqualToString:@"Aktuell plats"]) {
+             
+             
+             if (mUserCurrentLocation.coordinate.longitude == 0) {
+             
+             longitude = 0;//setting longitude to 0
+             
+             latitude = 0;//setting latitude to 0
+             }
+             
+             else {
+             
+             longitude = mUserCurrentLocation.coordinate.longitude;//setting longitude to current location value
+             
+             latitude = mUserCurrentLocation.coordinate.latitude;//setting latitude to current location value
+             
+             }
+             }
+             
+             else if([storedPosition isEqualToString:@"Ny position"]) {
+             
+             
+             if ([[defaults objectForKey:@"longitudeOfMyPosition"]doubleValue] == 0) {
+             
+             longitude = mUserCurrentLocation.coordinate.longitude;
+             
+             latitude = mUserCurrentLocation.coordinate.latitude;
+             }
+             else
+             {
+             
+             
+             longitude =  [[defaults objectForKey:@"longitudeOfMyPosition"]doubleValue];//longitude of my position
+             
+             latitude = [[defaults objectForKey:@"latitudeOfMyPosition"]doubleValue];//latitude of my position
+             }
+             
+             }
+             
+             else {
+             
+             if (mUserCurrentLocation.coordinate.longitude == 0) {
+             
+             longitude = 0;//setting longitude to 0
+             
+             latitude = 0;//setting latitude to 0
+             }
+             
+             else {
+             
+             longitude = mUserCurrentLocation.coordinate.longitude;//setting longitude to current location value
+             
+             latitude = mUserCurrentLocation.coordinate.latitude;//setting latitude to current location value
+             
+             }
+             }
+             
+             }
+             
+             else {
+             
+             
+             
+             if ([storedPosition isEqualToString:@"Current Location"]) {
+             
+             
+             if (mUserCurrentLocation.coordinate.longitude == 0) {
+             
+             longitude = 0;//setting longitude to 0
+             
+             latitude = 0;//setting latitude to 0
+             }
+             
+             else {
+             
+             longitude = mUserCurrentLocation.coordinate.longitude;//setting longitude to current location value
+             
+             latitude = mUserCurrentLocation.coordinate.latitude;//setting latitude to current location value
+             
+             }
+             
+             }
+             
+             
+             else if([storedPosition isEqualToString:@"New Position"]) {
+             
+             
+             if ([[defaults objectForKey:@"longitudeOfMyPosition"]doubleValue] == 0) {
+             
+             longitude = mUserCurrentLocation.coordinate.longitude;
+             
+             latitude = mUserCurrentLocation.coordinate.latitude;
+             }
+             else
+             {
+             
+             
+             longitude =  [[defaults objectForKey:@"longitudeOfMyPosition"]doubleValue];//longitude of my position
+             
+             latitude = [[defaults objectForKey:@"latitudeOfMyPosition"]doubleValue];//latitude of my position
+             }
+             
+             }
+             
+             else if ([storedPosition isEqualToString:@"Aktuell plats"]) {
+             
+             
+             if (mUserCurrentLocation.coordinate.longitude == 0) {
+             
+             longitude = 0;//setting longitude to 0
+             
+             latitude = 0;//setting latitude to 0
+             }
+             
+             else {
+             
+             longitude = mUserCurrentLocation.coordinate.longitude;//setting longitude to current location value
+             
+             latitude = mUserCurrentLocation.coordinate.latitude;//setting latitude to current location value
+             
+             }
+             }
+             
+             else if([storedPosition isEqualToString:@"Ny position"]) {
+             
+             
+             if ([[defaults objectForKey:@"longitudeOfMyPosition"]doubleValue] == 0) {
+             
+             longitude = mUserCurrentLocation.coordinate.longitude;
+             
+             latitude = mUserCurrentLocation.coordinate.latitude;
+             }
+             else
+             {
+             
+             
+             longitude =  [[defaults objectForKey:@"longitudeOfMyPosition"]doubleValue];//longitude of my position
+             
+             latitude = [[defaults objectForKey:@"latitudeOfMyPosition"]doubleValue];//latitude of my position
+             }
+             
+             }
+             else {
+             
+             if (mUserCurrentLocation.coordinate.longitude == 0) {
+             
+             longitude = 0;//setting longitude to 0
+             
+             latitude = 0;//setting latitude to 0
+             }
+             
+             else {
+             
+             longitude = mUserCurrentLocation.coordinate.longitude;//setting longitude to current location value
+             
+             latitude = mUserCurrentLocation.coordinate.latitude;//setting latitude to current location value
+             }
+             }
+             }
+             */
+            
             
             
             
@@ -835,55 +880,59 @@ int batchValue;//batch value of int type
             urlOfGetCoupons = [urlOfGetCoupons stringByAppendingString:[NSString stringWithFormat:@"%i",batchValue]];
             
             urlOfGetCoupons = [urlOfGetCoupons stringByAppendingString:@"&lang="];
-			NSString *alertViewTitle;
-			
-			NSString *alertViewMessage;
-			
-			NSString *cancelButtonTitle;
-			
-			if ([languageOfApplication isEqualToString:@"English"]) {
-				
-				urlOfGetCoupons = [urlOfGetCoupons stringByAppendingString:@"ENG"];
-				
-				[self englishTabBar];
-				
-				alertViewTitle = @"No/Weak Internet Access";
-				
-				alertViewMessage = @"You can not use the Cumbari service currently";
-				
-				cancelButtonTitle = @"OK";
-				
-				
-			}
-			
-			else if ([languageOfApplication isEqualToString:@"Svenska"]) {
-				
-				urlOfGetCoupons = [urlOfGetCoupons stringByAppendingString:@"SWE"];
-				
-				[self SvenskaTabBar];
-				
-				alertViewTitle = @"Inget / svagt internet";
-				
-				alertViewMessage = @"Du kan inte använda Cumbari tjänster som idag";
-				
-				cancelButtonTitle = @"OK";
-				
-				
-			}
-			
-			else {
-				urlOfGetCoupons = [urlOfGetCoupons stringByAppendingString:@"ENG"];
-				
-				[self englishTabBar];
-				
-				alertViewTitle = @"No/Weak Internet Access";
-				
-				alertViewMessage = @"You can not use the Cumbari service currently";
-				
-				cancelButtonTitle = @"OK";
-				
-			}
-			
+            NSString *alertViewTitle;
+            
+            NSString *alertViewMessage;
+            
+            NSString *cancelButtonTitle;
+            
+            [self setTabBarTitles];
+            urlOfGetCoupons = [urlOfGetCoupons stringByAppendingString:[self getLanguageCodeForLanguage:languageOfApplication]];
+            alertViewTitle =[[NSString alloc]initWithString:CustomLocalisedString(@"No/Weak Internet Access", @"")];//alert if there is no or weak internet
+            alertViewMessage = [[NSString alloc]initWithString:CustomLocalisedString(@"You can not use the Cumbari service currently",@"")];//alert view message
+            cancelButtonTitle = [[NSString alloc]initWithString:CustomLocalisedString(@"OK",@"")];//cancel button
+           
+            /*if ([languageOfApplication isEqualToString:@"English"]) {
+             
+             urlOfGetCoupons = [urlOfGetCoupons stringByAppendingString:@"ENG"];
+             
+             [self englishTabBar];
+             
+             alertViewTitle = @"No/Weak Internet Access";
+             
+             alertViewMessage = @"You can not use the Cumbari service currently";
+             
+             cancelButtonTitle = @"OK";
+             }
+             
+             else if ([languageOfApplication isEqualToString:@"Svenska"]) {
+             
+             urlOfGetCoupons = [urlOfGetCoupons stringByAppendingString:@"SWE"];
+             
+             [self SvenskaTabBar];
+             
+             alertViewTitle = @"Inget / svagt internet";
+             
+             alertViewMessage = @"Du kan inte använda Cumbari tjänster som idag";
+             
+             cancelButtonTitle = @"OK";
+             
+             
+             }
+             
+             else {
+             urlOfGetCoupons = [urlOfGetCoupons stringByAppendingString:@"ENG"];
+             
+             [self englishTabBar];
+             
+             alertViewTitle = @"No/Weak Internet Access";
+             
+             alertViewMessage = @"You can not use the Cumbari service currently";
+             
+             cancelButtonTitle = @"OK";
+             
+             }*/
+            
             urlOfGetCoupons = [urlOfGetCoupons stringByAppendingString:@"&maxNo="];
             
             urlOfGetCoupons = [urlOfGetCoupons stringByAppendingString:[NSString stringWithFormat:@"%i",maxNo]];
@@ -891,9 +940,9 @@ int batchValue;//batch value of int type
             urlOfGetCoupons = [urlOfGetCoupons stringByAppendingString:@"&radiousInMeter="];
             
             urlOfGetCoupons = [urlOfGetCoupons stringByAppendingString:[NSString stringWithFormat:@"%i",range]];
-			
             
-            [clientId release];
+            
+            //[clientId release];
             
             NSLog(@"url of Get coupons = %@",urlOfGetCoupons);
             
@@ -924,31 +973,31 @@ int batchValue;//batch value of int type
             }
             
             
-            allCouponsDict = [[jsonParser objectWithString:jsonCoupons error:nil]retain];//Putting JSON all Coupons Data in Dictionary. 
+            allCouponsDict = [[jsonParser objectWithString:jsonCoupons error:nil]retain];//Putting JSON all Coupons Data in Dictionary.
             
             
             [listOfCoupons addObjectsFromArray:[allCouponsDict objectForKey:@"ListOfCoupons"]];
-			
+            
             [listOfStores addObjectsFromArray:[allCouponsDict objectForKey:@"ListOfStores"]];
             
             listOfCategoriesHits = [allCouponsDict objectForKey:@"ListOfCategoryHits"];//Fetching data of list Of Categories Hits From Dictionary.
             
-            listOfBrandHits = [allCouponsDict objectForKey:@"ListOfBrandHits"];	
+            listOfBrandHits = [allCouponsDict objectForKey:@"ListOfBrandHits"];
             
             maxNumberReached = [allCouponsDict objectForKey:@"MaxNumberReached"];
             
-			
-			if ([maxNumberReached intValue] == 1) {
-				
-				[hotDealObj hideShowMoreButton:0];
-				
-			}
-			
-			else {
-				
-				[hotDealObj hideShowMoreButton:1];
-				
-			}
+            
+            if ([maxNumberReached intValue] == 1) {
+                
+                [hotDealObj hideShowMoreButton:0];
+                
+            }
+            
+            else {
+                
+                [hotDealObj hideShowMoreButton:1];
+                
+            }
             
             [favoriteObj passDataToFavorites:listOfCoupons];//Passing List of Coupons to Favorites.
             
@@ -966,40 +1015,41 @@ int batchValue;//batch value of int type
             
             [moreDealObj passJsonDataToMoreDeals:listOfCoupons];// passing list of coupons to more deals
             
-			[moreDealObj passJsonDataToMoreDealsForStores:listOfStores];
+            [moreDealObj passJsonDataToMoreDealsForStores:listOfStores];
             
             
             [jsonCoupons release];//releasing of object of json coupons
-			
-			
-			allCouponsDict = nil;
-			
-			[allCouponsDict release];
+            
+            
+            allCouponsDict = nil;
+            
+            [allCouponsDict release];
             
             //JSON Parser For Categories File
             
             urlOfCategories = GetCategoriesURL;
             
             urlOfCategories = [urlOfCategories stringByAppendingString:@"&lang="];
+            urlOfCategories = [urlOfCategories stringByAppendingString:[self getLanguageCodeForLanguage:languageOfApplication]];
             
-			if ([languageOfApplication isEqualToString:@"English"]) {
-				
-				urlOfCategories = [urlOfCategories stringByAppendingString:@"ENG"];
-				
-			}
-			
-			else if ([languageOfApplication isEqualToString:@"Svenska"]){
-				
-				urlOfCategories = [urlOfCategories stringByAppendingString:@"SWE"];
-				
-			}
-			
-			else {
-				
-				urlOfCategories = [urlOfCategories stringByAppendingString:@"ENG"];
-				
-			}
-			
+            /*if ([languageOfApplication isEqualToString:@"English"]) {
+             
+             urlOfCategories = [urlOfCategories stringByAppendingString:[self getLanguageCodeForLanguage:languageOfApplication]];
+             
+             }
+             
+             else if ([languageOfApplication isEqualToString:@"Svenska"]){
+             
+             urlOfCategories = [urlOfCategories stringByAppendingString:@"SWE"];
+             
+             }
+             
+             else {
+             
+             urlOfCategories = [urlOfCategories stringByAppendingString:@"ENG"];
+             
+             }*/
+            
             
             
             NSString *jsonCategories = [[NSString alloc] initWithContentsOfURL:[NSURL URLWithString:urlOfCategories] encoding:NSUTF8StringEncoding error:nil];
@@ -1024,7 +1074,7 @@ int batchValue;//batch value of int type
             
             
             
-            allCategoriesDict = [[jsonParserForCat objectWithString:jsonCategories error:nil]retain];//Putting JSON Categories Data in Dictionary. 
+            allCategoriesDict = [[jsonParserForCat objectWithString:jsonCategories error:nil]retain];//Putting JSON Categories Data in Dictionary.
             
             listOfCategories = [allCategoriesDict objectForKey:@"listOfCategories"];//Fetching data of list Of Categories From Dictionary.
             
@@ -1037,10 +1087,10 @@ int batchValue;//batch value of int type
             
             [jsonCategories release];//releasing json categories
             
-			
-			allCategoriesDict = nil;
-			
-			[allCategoriesDict release];
+            
+            allCategoriesDict = nil;
+            
+            [allCategoriesDict release];
             
             urlOfBrandedCoupons = GetBrandedCouponsURL;
             
@@ -1054,28 +1104,29 @@ int batchValue;//batch value of int type
             
             urlOfBrandedCoupons = [urlOfBrandedCoupons stringByAppendingString:@"&clientId="];
             
-            urlOfBrandedCoupons = [urlOfBrandedCoupons stringByAppendingString:[NSString stringWithFormat:@"%f",clientId]];
+            urlOfBrandedCoupons = [urlOfBrandedCoupons stringByAppendingString:clientId];
             
             urlOfBrandedCoupons = [urlOfBrandedCoupons stringByAppendingString:@"&lang="];
+            urlOfBrandedCoupons = [urlOfBrandedCoupons stringByAppendingString:[self getLanguageCodeForLanguage:languageOfApplication]];
             
-			if ([languageOfApplication isEqualToString:@"English"]) {
-				
-				urlOfBrandedCoupons = [urlOfBrandedCoupons stringByAppendingString:@"ENG"];
-				
-			}
-			
-			else if ([languageOfApplication isEqualToString:@"Svenska"]){
-				
-				urlOfBrandedCoupons = [urlOfBrandedCoupons stringByAppendingString:@"SWE"];
-				
-			}
-			
-			else {
-				
-				urlOfBrandedCoupons = [urlOfBrandedCoupons stringByAppendingString:@"ENG"];
-				
-			}
-			
+            /*if ([languageOfApplication isEqualToString:@"English"]) {
+             
+             urlOfBrandedCoupons = [urlOfBrandedCoupons stringByAppendingString:[self getLanguageCodeForLanguage:languageOfApplication]];
+             
+             }
+             
+             else if ([languageOfApplication isEqualToString:@"Svenska"]){
+             
+             urlOfBrandedCoupons = [urlOfBrandedCoupons stringByAppendingString:@"SWE"];
+             
+             }
+             
+             else {
+             
+             urlOfBrandedCoupons = [urlOfBrandedCoupons stringByAppendingString:@"ENG"];
+             
+             }*/
+            
             
             urlOfBrandedCoupons = [urlOfBrandedCoupons stringByAppendingString:@"&maxNo="];
             
@@ -1111,9 +1162,9 @@ int batchValue;//batch value of int type
             }
             
             
-            allCouponsDictForBrands = [[jsonParserForBrand objectWithString:jsonBrands error:nil]retain];//Putting JSON all Coupons Data in Dictionary. 
+            allCouponsDictForBrands = [[jsonParserForBrand objectWithString:jsonBrands error:nil]retain];//Putting JSON all Coupons Data in Dictionary.
             
-            listOfCouponsForBrands = [allCouponsDictForBrands objectForKey:@"ListOfCoupons"];//list of coupons 
+            listOfCouponsForBrands = [allCouponsDictForBrands objectForKey:@"ListOfCoupons"];//list of coupons
             
             listOfStoresForBrands = [allCouponsDictForBrands objectForKey:@"ListOfStores"];//list of stores
             
@@ -1125,114 +1176,114 @@ int batchValue;//batch value of int type
             
             [jsonBrands release];//releasing json brands
             
-			allCouponsDictForBrands = nil;
-			
-			[allCouponsDictForBrands release];
-			
-			urlOfGetCoupons = nil;
-			
-			urlOfCategories = nil;
-			
-			urlOfBrandedCoupons = nil;
+            allCouponsDictForBrands = nil;
             
-			brandObj = nil;
-			
-			[brandObj release];
-			
-			hotDealObj = nil;
-			
-			[hotDealObj release];
-			
-			categoriesObj = nil;
-			
-			[categoriesObj release];
-			
-			mapObj = nil;
-			
-			[mapObj release];
-			
-			detailObj = nil;
-			
-			[detailObj release];
-			
-			moreDealObj = nil;
-			
-			[moreDealObj release];
-			
-			[pool release];
-			
-			
+            [allCouponsDictForBrands release];
             
-		}
-		
-		
-	}
-	
-	else {
-		
-		
-		NSAutoreleasePool *pool = [[NSAutoreleasePool alloc]init];
-		
-		
-		hotDealObj =[[HotDeals alloc]init];//Allocating Hot Deal Object.
-		
-		mapObj = [[map alloc]init];//Allocating map Object.
-		
-		favoriteObj = [[Favorites alloc]init];//Allocating Favorites Object.
-		
-		detailObj = [[DetailedCoupon alloc]init];//object of detailed coupon
-		
-		moreDealObj = [[moreDeals alloc]init];//object of more deals
-		
-		brandObj = [[Brands alloc]init];//Allocating Brands Object.
-		
-		categoriesObj = [[categories alloc]init];//Allocating categories Object.		
-		
-		defaults = [NSUserDefaults standardUserDefaults];
-        
-		[hotDealObj hideShowMoreButton:1];
-        
-        
-		[listOfCoupons removeAllObjects];
-		
-		[listOfStores removeAllObjects];
-        
-        
-        
-        
-		urlOfGetCoupons = GetCouponsURL;
-        
-        
-        
-        
-		
-		int maxNo = [[defaults objectForKey:@"offers"]intValue];
-        
-        
-		if (maxNo == 0) {
+            urlOfGetCoupons = nil;
+            
+            urlOfCategories = nil;
+            
+            urlOfBrandedCoupons = nil;
+            
+            brandObj = nil;
+            
+            [brandObj release];
+            
+            hotDealObj = nil;
+            
+            [hotDealObj release];
+            
+            categoriesObj = nil;
+            
+            [categoriesObj release];
+            
+            mapObj = nil;
+            
+            [mapObj release];
+            
+            detailObj = nil;
+            
+            [detailObj release];
+            
+            moreDealObj = nil;
+            
+            [moreDealObj release];
+            
+            [pool release];
             
             
-			maxNo = 10;
             
-		}
+        }
+        
+        
+    }
+    
+    else {
+        
+        
+        NSAutoreleasePool *pool = [[NSAutoreleasePool alloc]init];
+        
+        
+        hotDealObj =[[HotDeals alloc]init];//Allocating Hot Deal Object.
+        
+        mapObj = [[map alloc]init];//Allocating map Object.
+        
+        favoriteObj = [[Favorites alloc]init];//Allocating Favorites Object.
+        
+        detailObj = [[DetailedCoupon alloc]init];//object of detailed coupon
+        
+        moreDealObj = [[moreDeals alloc]init];//object of more deals
+        
+        brandObj = [[Brands alloc]init];//Allocating Brands Object.
+        
+        categoriesObj = [[categories alloc]init];//Allocating categories Object.
+        
+        defaults = [NSUserDefaults standardUserDefaults];
+        
+        [hotDealObj hideShowMoreButton:1];
+        
+        
+        [listOfCoupons removeAllObjects];
+        
+        [listOfStores removeAllObjects];
         
         
         
-		int range = [[defaults objectForKey:@"range"]intValue];
+        
+        urlOfGetCoupons = GetCouponsURL;
         
         
-		if (range == 0) {
+        
+        
+        
+        int maxNo = [[defaults objectForKey:@"offers"]intValue];
+        
+        
+        if (maxNo == 0) {
             
             
-			range = 10000;
+            maxNo = 10;
+            
+        }
+        
+        
+        
+        int range = [[defaults objectForKey:@"range"]intValue];
+        
+        
+        if (range == 0) {
             
             
-			
+            range = 10000;
             
-		}
+            
+            
+            
+        }
         
         
-		languageOfApplication = [defaults objectForKey:@"language"];
+        languageOfApplication = [defaults objectForKey:@"language"];
         
         
         
@@ -1240,7 +1291,7 @@ int batchValue;//batch value of int type
         
         
         
-		NSMutableString *clientId = [[NSMutableString alloc]initWithFormat:@"%@",[[UIDevice currentDevice]uniqueDeviceIdentifier]];//reteriving clientId 
+        NSMutableString *clientId = [[NSMutableString alloc]initWithFormat:@"%@",[[UIDevice currentDevice]uniqueDeviceIdentifier]];//reteriving clientId
         
         [clientId insertString:@"-" atIndex:8];
         
@@ -1249,329 +1300,327 @@ int batchValue;//batch value of int type
         [clientId insertString:@"-" atIndex:18];
         
         [clientId insertString:@"-" atIndex:23];
-		
-		
         
         
-		NSString *storedPosition = [defaults objectForKey:@"position"];
-		
-		if ([[defaults objectForKey:@"language"] isEqualToString:@"English"]) {
-			
-			if ([storedPosition isEqualToString:@"Aktuell plats"]) {
-				storedPosition = @"Current Location" ;
-			}
-			
-			if ([storedPosition isEqualToString:@"Ny position"]) {
-				storedPosition = @"New Position";
-				
-			}
-			
-			
-			if ([storedPosition isEqualToString:@"Current Location"]) {
-				
-				
-				if (mUserCurrentLocation.coordinate.longitude == 0) {
-					
-					longitude = 0;//setting longitude to 0
-					
-					latitude = 0;//setting latitude to 0
-				}
-				
-				else {
-					
-					longitude = mUserCurrentLocation.coordinate.longitude;//setting longitude to current location value
-					
-					latitude = mUserCurrentLocation.coordinate.latitude;//setting latitude to current location value
-					
-				}
-				
-			}
-			
-			
-			else if([storedPosition isEqualToString:@"New Position"]) {
-				
-				
-                if ([[defaults objectForKey:@"longitudeOfMyPosition"]doubleValue] == 0) {
-                    
-                    longitude = mUserCurrentLocation.coordinate.longitude;
-                    
-                    latitude = mUserCurrentLocation.coordinate.latitude;
-                }
-                else
-                {
-					
-					
-					longitude =  [[defaults objectForKey:@"longitudeOfMyPosition"]doubleValue];//longitude of my position
-					
-					latitude = [[defaults objectForKey:@"latitudeOfMyPosition"]doubleValue];//latitude of my position
-                }
-				
-			}
-			
-			
-			
-			else {
-				
-				
-				if (mUserCurrentLocation.coordinate.longitude == 0) {
-					
-					longitude = 0;//setting longitude to 0
-					
-					latitude = 0;//setting latitude to 0
-				}
-				
-				else {
-					
-					longitude = mUserCurrentLocation.coordinate.longitude;//setting longitude to current location value
-					
-					latitude = mUserCurrentLocation.coordinate.latitude;//setting latitude to current location value
-					
-				}
-				
-				
-			}
-		}
-		
-		else if ([[defaults objectForKey:@"language"] isEqualToString:@"Svenska"])
-		{
-			if ([storedPosition isEqualToString:@"Current Location"]) {
-				storedPosition = @"Aktuell plats" ;
-			}
-			
-			if ([storedPosition isEqualToString:@"New Position"]) {
-				storedPosition = @"Ny position";
-				
-			}
-			
-			if ([storedPosition isEqualToString:@"Aktuell plats"]) {
-				
-				
-				if (mUserCurrentLocation.coordinate.longitude == 0) {
-					
-					longitude = 0;//setting longitude to 0
-					
-					latitude = 0;//setting latitude to 0
-				}
-				
-				else {
-					
-					longitude = mUserCurrentLocation.coordinate.longitude;//setting longitude to current location value
-					
-					latitude = mUserCurrentLocation.coordinate.latitude;//setting latitude to current location value
-					
-				}
-			}
-			
-			else if([storedPosition isEqualToString:@"Ny position"]) {
-                
-                if ([[defaults objectForKey:@"longitudeOfMyPosition"]doubleValue] == 0) {
-                    
-                    longitude = mUserCurrentLocation.coordinate.longitude;
-                    
-                    latitude = mUserCurrentLocation.coordinate.latitude;
-                }
-                else
-                {
-					
-					
-					longitude =  [[defaults objectForKey:@"longitudeOfMyPosition"]doubleValue];//longitude of my position
-					
-					latitude = [[defaults objectForKey:@"latitudeOfMyPosition"]doubleValue];//latitude of my position
-                }
-				
-			}
-			
-			else {
-				
-				
-				if (mUserCurrentLocation.coordinate.longitude == 0) {
-					
-					longitude = 0;//setting longitude to 0
-					
-					latitude = 0;//setting latitude to 0
-				}
-				
-				else {
-					
-					longitude = mUserCurrentLocation.coordinate.longitude;//setting longitude to current location value
-					
-					latitude = mUserCurrentLocation.coordinate.latitude;//setting latitude to current location value
-					
-				}
-				
-			}
-			
-		}
-		
-		else {
-			
-			
-			
-			if ([storedPosition isEqualToString:@"Current Location"]) {
-				
-				
-				if (mUserCurrentLocation.coordinate.longitude == 0) {
-					
-					longitude = 0;//setting longitude to 0
-					
-					latitude = 0;//setting latitude to 0
-				}
-				
-				else {
-					
-					longitude = mUserCurrentLocation.coordinate.longitude;//setting longitude to current location value
-					
-					latitude = mUserCurrentLocation.coordinate.latitude;//setting latitude to current location value
-					
-				}
-				
-			}
-			
-			
-			else if([storedPosition isEqualToString:@"New Position"]) {
-				
-                if ([[defaults objectForKey:@"longitudeOfMyPosition"]doubleValue] == 0) {
-                    
-                    longitude = mUserCurrentLocation.coordinate.longitude;
-                    
-                    latitude = mUserCurrentLocation.coordinate.latitude;
-                }
-                else
-                {
-					
-					
-					longitude =  [[defaults objectForKey:@"longitudeOfMyPosition"]doubleValue];//longitude of my position
-					
-					latitude = [[defaults objectForKey:@"latitudeOfMyPosition"]doubleValue];//latitude of my position
-                }
-				
-			}
-			
-			else if ([storedPosition isEqualToString:@"Aktuell plats"]) {
-				
-				
-				if (mUserCurrentLocation.coordinate.longitude == 0) {
-					
-					longitude = 0;//setting longitude to 0
-					
-					latitude = 0;//setting latitude to 0
-				}
-				
-				else {
-					
-					longitude = mUserCurrentLocation.coordinate.longitude;//setting longitude to current location value
-					
-					latitude = mUserCurrentLocation.coordinate.latitude;//setting latitude to current location value
-					
-				}
-			}
-			
-			else if([storedPosition isEqualToString:@"Ny position"]) {
-				
-                if ([[defaults objectForKey:@"longitudeOfMyPosition"]doubleValue] == 0) {
-                    
-                    longitude = mUserCurrentLocation.coordinate.longitude;
-                    
-                    latitude = mUserCurrentLocation.coordinate.latitude;
-                }
-                else
-                {
-					
-					
-					longitude =  [[defaults objectForKey:@"longitudeOfMyPosition"]doubleValue];//longitude of my position
-					
-					latitude = [[defaults objectForKey:@"latitudeOfMyPosition"]doubleValue];//latitude of my position
-                }
-                
-				
-			}
-			
-			
-			
-			
-			else {
-				
-				
-				if (mUserCurrentLocation.coordinate.longitude == 0) {
-					
-					longitude = 0;//setting longitude to 0
-					
-					latitude = 0;//setting latitude to 0
-				}
-				
-				else {
-					
-					longitude = mUserCurrentLocation.coordinate.longitude;//setting longitude to current location value
-					
-					latitude = mUserCurrentLocation.coordinate.latitude;//setting latitude to current location value
-					
-				}
-				
-				
-			}
-			
-			
-			
-		}	
-		
+        [self handleLocation];
+        
+        /*NSString *storedPosition = [defaults objectForKey:@"position"];
+         
+         if ([[defaults objectForKey:@"language"] isEqualToString:@"English"]) {
+         
+         if ([storedPosition isEqualToString:@"Aktuell plats"]) {
+         storedPosition = @"Current Location" ;
+         }
+         
+         if ([storedPosition isEqualToString:@"Ny position"]) {
+         storedPosition = @"New Position";
+         
+         }
+         
+         
+         if ([storedPosition isEqualToString:@"Current Location"]) {
+         
+         
+         if (mUserCurrentLocation.coordinate.longitude == 0) {
+         
+         longitude = 0;//setting longitude to 0
+         
+         latitude = 0;//setting latitude to 0
+         }
+         
+         else {
+         
+         longitude = mUserCurrentLocation.coordinate.longitude;//setting longitude to current location value
+         
+         latitude = mUserCurrentLocation.coordinate.latitude;//setting latitude to current location value
+         
+         }
+         
+         }
+         
+         
+         else if([storedPosition isEqualToString:@"New Position"]) {
+         
+         
+         if ([[defaults objectForKey:@"longitudeOfMyPosition"]doubleValue] == 0) {
+         
+         longitude = mUserCurrentLocation.coordinate.longitude;
+         
+         latitude = mUserCurrentLocation.coordinate.latitude;
+         }
+         else
+         {
+         
+         
+         longitude =  [[defaults objectForKey:@"longitudeOfMyPosition"]doubleValue];//longitude of my position
+         
+         latitude = [[defaults objectForKey:@"latitudeOfMyPosition"]doubleValue];//latitude of my position
+         }
+         
+         }
+         
+         
+         
+         else {
+         
+         
+         if (mUserCurrentLocation.coordinate.longitude == 0) {
+         
+         longitude = 0;//setting longitude to 0
+         
+         latitude = 0;//setting latitude to 0
+         }
+         
+         else {
+         
+         longitude = mUserCurrentLocation.coordinate.longitude;//setting longitude to current location value
+         
+         latitude = mUserCurrentLocation.coordinate.latitude;//setting latitude to current location value
+         
+         }
+         
+         
+         }
+         }
+         
+         else if ([[defaults objectForKey:@"language"] isEqualToString:@"Svenska"])
+         {
+         if ([storedPosition isEqualToString:@"Current Location"]) {
+         storedPosition = @"Aktuell plats" ;
+         }
+         
+         if ([storedPosition isEqualToString:@"New Position"]) {
+         storedPosition = @"Ny position";
+         
+         }
+         
+         if ([storedPosition isEqualToString:@"Aktuell plats"]) {
+         
+         
+         if (mUserCurrentLocation.coordinate.longitude == 0) {
+         
+         longitude = 0;//setting longitude to 0
+         
+         latitude = 0;//setting latitude to 0
+         }
+         
+         else {
+         
+         longitude = mUserCurrentLocation.coordinate.longitude;//setting longitude to current location value
+         
+         latitude = mUserCurrentLocation.coordinate.latitude;//setting latitude to current location value
+         
+         }
+         }
+         
+         else if([storedPosition isEqualToString:@"Ny position"]) {
+         
+         if ([[defaults objectForKey:@"longitudeOfMyPosition"]doubleValue] == 0) {
+         
+         longitude = mUserCurrentLocation.coordinate.longitude;
+         
+         latitude = mUserCurrentLocation.coordinate.latitude;
+         }
+         else
+         {
+         
+         
+         longitude =  [[defaults objectForKey:@"longitudeOfMyPosition"]doubleValue];//longitude of my position
+         
+         latitude = [[defaults objectForKey:@"latitudeOfMyPosition"]doubleValue];//latitude of my position
+         }
+         
+         }
+         
+         else {
+         
+         
+         if (mUserCurrentLocation.coordinate.longitude == 0) {
+         
+         longitude = 0;//setting longitude to 0
+         
+         latitude = 0;//setting latitude to 0
+         }
+         
+         else {
+         
+         longitude = mUserCurrentLocation.coordinate.longitude;//setting longitude to current location value
+         
+         latitude = mUserCurrentLocation.coordinate.latitude;//setting latitude to current location value
+         
+         }
+         
+         }
+         
+         }
+         
+         else {
+         
+         
+         
+         if ([storedPosition isEqualToString:@"Current Location"]) {
+         
+         
+         if (mUserCurrentLocation.coordinate.longitude == 0) {
+         
+         longitude = 0;//setting longitude to 0
+         
+         latitude = 0;//setting latitude to 0
+         }
+         
+         else {
+         
+         longitude = mUserCurrentLocation.coordinate.longitude;//setting longitude to current location value
+         
+         latitude = mUserCurrentLocation.coordinate.latitude;//setting latitude to current location value
+         
+         }
+         
+         }
+         
+         
+         else if([storedPosition isEqualToString:@"New Position"]) {
+         
+         if ([[defaults objectForKey:@"longitudeOfMyPosition"]doubleValue] == 0) {
+         
+         longitude = mUserCurrentLocation.coordinate.longitude;
+         
+         latitude = mUserCurrentLocation.coordinate.latitude;
+         }
+         else
+         {
+         
+         
+         longitude =  [[defaults objectForKey:@"longitudeOfMyPosition"]doubleValue];//longitude of my position
+         
+         latitude = [[defaults objectForKey:@"latitudeOfMyPosition"]doubleValue];//latitude of my position
+         }
+         
+         }
+         
+         else if ([storedPosition isEqualToString:@"Aktuell plats"]) {
+         
+         
+         if (mUserCurrentLocation.coordinate.longitude == 0) {
+         
+         longitude = 0;//setting longitude to 0
+         
+         latitude = 0;//setting latitude to 0
+         }
+         
+         else {
+         
+         longitude = mUserCurrentLocation.coordinate.longitude;//setting longitude to current location value
+         
+         latitude = mUserCurrentLocation.coordinate.latitude;//setting latitude to current location value
+         
+         }
+         }
+         
+         else if([storedPosition isEqualToString:@"Ny position"]) {
+         
+         if ([[defaults objectForKey:@"longitudeOfMyPosition"]doubleValue] == 0) {
+         
+         longitude = mUserCurrentLocation.coordinate.longitude;
+         
+         latitude = mUserCurrentLocation.coordinate.latitude;
+         }
+         else
+         {
+         
+         
+         longitude =  [[defaults objectForKey:@"longitudeOfMyPosition"]doubleValue];//longitude of my position
+         
+         latitude = [[defaults objectForKey:@"latitudeOfMyPosition"]doubleValue];//latitude of my position
+         }
+         
+         
+         }
+         
+         
+         
+         
+         else {
+         
+         
+         if (mUserCurrentLocation.coordinate.longitude == 0) {
+         
+         longitude = 0;//setting longitude to 0
+         
+         latitude = 0;//setting latitude to 0
+         }
+         
+         else {
+         
+         longitude = mUserCurrentLocation.coordinate.longitude;//setting longitude to current location value
+         
+         latitude = mUserCurrentLocation.coordinate.latitude;//setting latitude to current location value
+         
+         }
+         
+         
+         }
+         
+         
+         
+         }
+         */
         
         
         
-		NSString *alertViewTitle;
-		
-		NSString *alertViewMessage;
-		
-		NSString *cancelButtonTitle;
-		
-		NSString *language;
-		
-		if ([languageOfApplication isEqualToString:@"English"]) {
-			
-			language = @"ENG";
-			
-			[self englishTabBar];
-			
-			alertViewTitle = @"No/Weak Internet Access";
-			
-			alertViewMessage = @"You can not use the Cumbari service currently";
-			
-			cancelButtonTitle = @"OK";
-			
-		}
-		
-		else if ([languageOfApplication isEqualToString:@"Svenska"]) {
-			
-			language = @"SWE";
-			
-			
-			[self SvenskaTabBar];
-			
-			alertViewTitle = @"Inget / svagt internet";
-			
-			alertViewMessage = @"Du kan inte använda Cumbari tjänster som idag";
-			
-			cancelButtonTitle = @"OK";
-			
-			
-		}
-		
-		else {
-			
-			language = @"ENG";
-			
-			
-			[self englishTabBar];
-			
-			alertViewTitle = @"No/Weak Internet Access";
-			
-			alertViewMessage = @"You can not use the Cumbari service currently";
-			
-			cancelButtonTitle = @"OK";
-			
-		}
-		
-		
-		urlOfGetCoupons = [urlOfGetCoupons stringByAppendingString:[NSString stringWithFormat:@"&longitude=%f&latitude=%f&clientId=%@&lang=%@&batchNo=%i&maxNo=%i&radiousInMeter=%i",longitude,latitude,clientId,language,batchValue,maxNo,range]];//url of get coupons
+        NSString *alertViewTitle;
+        
+        NSString *alertViewMessage;
+        
+        NSString *cancelButtonTitle;
+        
+        NSString *language = [self getLanguageCodeForLanguage:languageOfApplication];
+        [self setTabBarTitles];
+        alertViewTitle =[[NSString alloc]initWithString:CustomLocalisedString(@"No/Weak Internet Access", @"")];//alert if there is no or weak internet
+        alertViewMessage = [[NSString alloc]initWithString:CustomLocalisedString(@"You can not use the Cumbari service currently",@"")];//alert view message
+        cancelButtonTitle = [[NSString alloc]initWithString:CustomLocalisedString(@"OK",@"")];//cancel button
+        
+        /*if ([languageOfApplication isEqualToString:@"English"]) {
+         
+         language = @"ENG";
+         
+         [self englishTabBar];
+         
+         alertViewTitle = @"No/Weak Internet Access";
+         
+         alertViewMessage = @"You can not use the Cumbari service currently";
+         
+         cancelButtonTitle = @"OK";
+         
+         }
+         
+         else if ([languageOfApplication isEqualToString:@"Svenska"]) {
+         
+         language = @"SWE";
+         
+         
+         [self SvenskaTabBar];
+         
+         alertViewTitle = @"Inget / svagt internet";
+         
+         alertViewMessage = @"Du kan inte använda Cumbari tjänster som idag";
+         
+         cancelButtonTitle = @"OK";
+         
+         
+         }
+         
+         else {
+         
+         language = @"ENG";
+         [self englishTabBar];
+         alertViewTitle = @"No/Weak Internet Access";
+         alertViewMessage = @"You can not use the Cumbari service currently";
+         cancelButtonTitle = @"OK";
+         }
+         */
+        
+        urlOfGetCoupons = [urlOfGetCoupons stringByAppendingString:[NSString stringWithFormat:@"&longitude=%f&latitude=%f&clientId=%@&lang=%@&batchNo=%i&maxNo=%i&radiousInMeter=%i",longitude,latitude,clientId,language,batchValue,maxNo,range]];//url of get coupons
         
         NSLog(@"url of Get coupons = %@",urlOfGetCoupons);
         
@@ -1602,7 +1651,7 @@ int batchValue;//batch value of int type
         }
         
         
-        allCouponsDict = [[jsonParser objectWithString:jsonCoupons error:nil]retain];//Putting JSON all Coupons Data in Dictionary. 
+        allCouponsDict = [[jsonParser objectWithString:jsonCoupons error:nil]retain];//Putting JSON all Coupons Data in Dictionary.
         
         listOfCoupons = [allCouponsDict objectForKey:@"ListOfCoupons"];//Fetching data of All Coupons From Dictionary.
         
@@ -1610,23 +1659,23 @@ int batchValue;//batch value of int type
         
         listOfCategoriesHits = [allCouponsDict objectForKey:@"ListOfCategoryHits"];//Fetching data of list Of Categories Hits From Dictionary.
         
-        listOfBrandHits = [allCouponsDict objectForKey:@"ListOfBrandHits"];	
-		
+        listOfBrandHits = [allCouponsDict objectForKey:@"ListOfBrandHits"];
+        
         maxNumberReached = [allCouponsDict objectForKey:@"MaxNumberReached"];
-		
-		
-		if ([maxNumberReached intValue] == 1) {
-			
-			[hotDealObj hideShowMoreButton:0];
-			
-		}
-		
-		else {
-			
-			[hotDealObj hideShowMoreButton:1];
-			
-		}
-		
+        
+        
+        if ([maxNumberReached intValue] == 1) {
+            
+            [hotDealObj hideShowMoreButton:0];
+            
+        }
+        
+        else {
+            
+            [hotDealObj hideShowMoreButton:1];
+            
+        }
+        
         
         
         [favoriteObj passDataToFavorites:listOfCoupons];//Passing List of Coupons to Favorites.
@@ -1647,14 +1696,14 @@ int batchValue;//batch value of int type
         
         [moreDealObj passJsonDataToMoreDeals:listOfCoupons];// passing list of coupons to more deals
         
-		[moreDealObj passJsonDataToMoreDealsForStores:listOfStores];
-		
+        [moreDealObj passJsonDataToMoreDealsForStores:listOfStores];
+        
         
         [jsonCoupons release];//releasing of object of json coupons
-		
-		
+        
+        
         allCouponsDict = nil;
-		
+        
         [allCouponsDict release];
         
         //JSON Parser For Categories File
@@ -1662,25 +1711,26 @@ int batchValue;//batch value of int type
         urlOfCategories = GetCategoriesURL;
         
         urlOfCategories = [urlOfCategories stringByAppendingString:@"&lang="];
+        urlOfCategories = [urlOfCategories stringByAppendingString:language];
         
-		if ([languageOfApplication isEqualToString:@"English"]) {
-			
-			urlOfCategories = [urlOfCategories stringByAppendingString:@"ENG"];
-			
-		}
-		
-		else if ([languageOfApplication isEqualToString:@"Svenska"]){
-			
-			urlOfCategories = [urlOfCategories stringByAppendingString:@"SWE"];
-			
-		}
-		
-		else {
-			
-			urlOfCategories = [urlOfCategories stringByAppendingString:@"ENG"];
-			
-		}
-		
+        /*if ([languageOfApplication isEqualToString:@"English"]) {
+         
+         urlOfCategories = [urlOfCategories stringByAppendingString:@"ENG"];
+         
+         }
+         
+         else if ([languageOfApplication isEqualToString:@"Svenska"]){
+         
+         urlOfCategories = [urlOfCategories stringByAppendingString:@"SWE"];
+         
+         }
+         
+         else {
+         
+         urlOfCategories = [urlOfCategories stringByAppendingString:@"ENG"];
+         
+         }
+         */
         
         NSString *jsonCategories = [[NSString alloc] initWithContentsOfURL:[NSURL URLWithString:urlOfCategories] encoding:NSUTF8StringEncoding error:nil];
         
@@ -1691,7 +1741,7 @@ int batchValue;//batch value of int type
             UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:alertViewTitle message:alertViewMessage delegate:self cancelButtonTitle:cancelButtonTitle otherButtonTitles:nil];
             
             [alertView show];//Showing Alert View.
-			
+            
             [alertView  release];//releasing an alert view object.
             
             [controllerForSplash.view removeFromSuperview];//removing splash from super view
@@ -1701,7 +1751,7 @@ int batchValue;//batch value of int type
             return;
         }
         
-		
+        
         
         allCategoriesDict = [[jsonParserForCat objectWithString:jsonCategories error:nil]retain];//Putting JSON Categories Data in Dictionary. 
         
@@ -1717,7 +1767,7 @@ int batchValue;//batch value of int type
         
         
         allCategoriesDict = nil;
-		
+        
         [allCategoriesDict release];
         
         urlOfBrandedCoupons = GetBrandedCouponsURL;
@@ -1761,7 +1811,7 @@ int batchValue;//batch value of int type
         
         [jsonBrands release];//releasing json brands
         
-		allCouponsDictForBrands = nil;
+        allCouponsDictForBrands = nil;
         
         brandObj = nil;//brand object to nil
         
@@ -1788,21 +1838,21 @@ int batchValue;//batch value of int type
         [moreDealObj release];//releasing more deal object
         
         
-		
-		[alertViewTitle release];//releasing alert view title
-		
-		[alertViewMessage release];//releasing alert view title
-		
-		[cancelButtonTitle release];//releasing cancel button title
-		
-		[language release];//releasing language
-		
-		[clientId release];
-		
-		[pool release];
-		
-	}
-	
+        
+        [alertViewTitle release];//releasing alert view title
+        
+        [alertViewMessage release];//releasing alert view title
+        
+        [cancelButtonTitle release];//releasing cancel button title
+        
+        [language release];//releasing language
+        
+        [clientId release];
+        
+        [pool release];
+        
+    }
+    
 }
 
 
@@ -1842,6 +1892,23 @@ int batchValue;//batch value of int type
 		else if (item.tag == 4)
 			item.title = @"More";
 	}
+}
+
+-(void)setTabBarTitles
+{
+    for (UITabBarItem* item in tabBar.tabBar.items)
+    {
+        if (item.tag == 0)
+            item.title = CustomLocalisedString(@"Hot deals",@"");
+        else if (item.tag == 1)
+            item.title = CustomLocalisedString(@"Categories",@"");
+        else if (item.tag == 2)
+            item.title = CustomLocalisedString(@"Brands",@"");
+        else if (item.tag == 3)
+            item.title = CustomLocalisedString(@"Favorites",@"");
+        else if (item.tag == 4)
+            item.title = CustomLocalisedString(@"More",@"");
+    }
 }
 
 -(void)ShowTabBar
@@ -1888,9 +1955,6 @@ int batchValue;//batch value of int type
 	[controllerForSplash.view removeFromSuperview];//removing splash from superview
 	
 	[window addSubview:tabBar.view];//Adding Tab bar Controller as subView on Window.
-	
-	
-	
 }
 
 - (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController{
@@ -1973,12 +2037,10 @@ int batchValue;//batch value of int type
 -(void)hideTabBar
 {
 	[myTabView removeFromSuperview];
-	
-    
 }
 
 - (void)getUserCurrentLocation {
-	
+    NSLog(@"%s",__func__);
 	locationManager = [self locationManager];//location manager call up
 	
 	locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters;//desired accuracy
@@ -1989,11 +2051,58 @@ int batchValue;//batch value of int type
 	
 }
 
+-(void)handleLocation
+{
+    NSString *storedPosition = [defaults objectForKey:@"position"];//psition
+    if ([storedPosition isEqualToString:CustomLocalisedString(@"Current Location", @"")]) {
+        storedPosition = CustomLocalisedString(@"Current Location", @"");//psition
+    }
+    else if ([storedPosition isEqualToString:CustomLocalisedString(@"New Position", @"")]) {
+        storedPosition = CustomLocalisedString(@"New Position", @"");//psition
+    }
+    
+    if ([storedPosition isEqualToString:CustomLocalisedString(@"Current Location", @"")])
+    {
+        if (mUserCurrentLocation.coordinate.longitude == 0){
+            longitude = 0;//setting longitude to 0
+            latitude = 0;//setting latitude to 0
+        }
+        else{
+            longitude = mUserCurrentLocation.coordinate.longitude;//setting longitude to current location value
+            latitude = mUserCurrentLocation.coordinate.latitude;//setting latitude to current location value
+        }
+    }
+    else if([storedPosition isEqualToString:CustomLocalisedString(@"New Position", @"")])
+    {
+        if ([[defaults objectForKey:@"longitudeOfMyPosition"]doubleValue] == 0)
+        {
+            longitude = mUserCurrentLocation.coordinate.longitude;
+            latitude = mUserCurrentLocation.coordinate.latitude;
+        }
+        else
+        {
+            longitude =  [[defaults objectForKey:@"longitudeOfMyPosition"]doubleValue];//longitude of my position
+            latitude = [[defaults objectForKey:@"latitudeOfMyPosition"]doubleValue];//latitude of my position
+        }
+    }
+    else
+    {
+        if (mUserCurrentLocation.coordinate.longitude == 0) {
+            longitude = 0;//setting longitude to 0
+            latitude = 0;//setting latitude to 0
+        }
+        else {
+            longitude = mUserCurrentLocation.coordinate.longitude;//setting longitude to current location value
+            latitude = mUserCurrentLocation.coordinate.latitude;//setting latitude to current location value
+        }
+    }
+}
+
 #pragma mark ---------------------
 #pragma mark Location manager delegate methods
 
 - (CLLocationManager *)locationManager {
-	
+	NSLog(@"%s",__func__);
     if (locationManager != nil) {
 		
 		return locationManager;//returnig location manager
@@ -2001,6 +2110,10 @@ int batchValue;//batch value of int type
 	}
 	locationManager = [[CLLocationManager alloc] init];//allocating location manager
 	
+    if ([locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)]) {
+        [locationManager requestWhenInUseAuthorization];
+    }
+    
 	[locationManager setDesiredAccuracy:kCLLocationAccuracyNearestTenMeters];//setting desired accuracy
 	
 	[locationManager setDelegate:self];//setting delegate of location manager
@@ -2011,14 +2124,12 @@ int batchValue;//batch value of int type
 
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation {
-	
+	NSLog(@"%s",__func__);
 	self.mUserCurrentLocation = newLocation;//new location
-    
-   	
 }
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
-	
+	NSLog(@"%s",__func__);
 }
 
 
@@ -2067,7 +2178,7 @@ int batchValue;//batch value of int type
 
 - (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url 
 {
-    
+    NSLog(@"%s",__func__);
 	if (!url) {
 		
 		valueOfCouponId = @"";

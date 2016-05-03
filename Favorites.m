@@ -16,6 +16,7 @@
 #import <sqlite3.h>
 #import <math.h>
 #import "Links.h"
+#import "LanguageManager.h"
 
 @implementation Favorites// implementing favorites
 
@@ -133,7 +134,6 @@ static sqlite3 *database = nil;
 	
 	[minuteFormat setDateFormat:@"mm"];
 	
-	
 	NSDate *now = [[NSDate alloc]init];
 	
 	int theYear = [[yearFormat stringFromDate:now]intValue];
@@ -146,9 +146,6 @@ static sqlite3 *database = nil;
     
 	//int theMinute = [[minuteFormat stringFromDate:now]intValue];
     
-    
-	
-	
 	for (int loopVar = 0; loopVar<[listOfEndOfPublishing count]; loopVar++) {
 		
 		
@@ -385,9 +382,14 @@ static sqlite3 *database = nil;
 		NSString *storedLanguage = [prefs objectForKey:@"language"];
 		
 		[editButtonLabel removeFromSuperview];
+        editButtonLabel = [[UILabel alloc]initWithFrame:CGRectMake(20, 8, 40, 25)];
+        editButtonLabel.backgroundColor = [UIColor clearColor];
+        editButtonLabel.textColor = [UIColor whiteColor];
+        editButtonLabel.font = [UIFont boldSystemFontOfSize:12.0];
+        editButtonLabel.text = CustomLocalisedString(@"Edit", @""); ;
+        [self.navigationController.navigationBar addSubview:editButtonLabel];
 		
-		
-		if([storedLanguage isEqualToString:@"English" ])
+		/*if([storedLanguage isEqualToString:@"English" ])
 		{
 			
 			editButtonLabel = [[UILabel alloc]initWithFrame:CGRectMake(20, 8, 40, 25)];
@@ -437,7 +439,7 @@ static sqlite3 *database = nil;
 			
 			
 		}
-        
+        */
 	
 	}
 	else
@@ -453,8 +455,14 @@ static sqlite3 *database = nil;
 		
 		[editButtonLabel removeFromSuperview];
 		
+        editButtonLabel = [[UILabel alloc]initWithFrame:CGRectMake(20, 8, 40, 25)];
+        editButtonLabel.backgroundColor = [UIColor clearColor];
+        editButtonLabel.textColor = [UIColor whiteColor];
+        editButtonLabel.font = [UIFont boldSystemFontOfSize:12.0];
+        editButtonLabel.text = CustomLocalisedString(@"Done",@"");
+        [self.navigationController.navigationBar addSubview:editButtonLabel];
 		
-		if([storedLanguage isEqualToString:@"English" ])
+		/*if([storedLanguage isEqualToString:@"English" ])
 			
 		{
             
@@ -507,7 +515,7 @@ static sqlite3 *database = nil;
 			
 			
 		}
-        
+        */
         
         [self.navigationItem.leftBarButtonItem setStyle:UIBarButtonItemStyleDone];
 		
@@ -515,10 +523,6 @@ static sqlite3 *database = nil;
 		
 	}
 }
-
-
-
-
 
 
 -(IBAction)clicked
@@ -538,15 +542,10 @@ static sqlite3 *database = nil;
     [mapObjNav release];
 	
 	[map2 release];
-	
 }
-
-
 
 -(void)passDataToFavorites:(NSArray *)allCoupons
 {
-	
-    
 	allFavoriteCoupon = allCoupons;//all Favorite Coupon
 	
 }
@@ -593,7 +592,6 @@ static sqlite3 *database = nil;
         UIImage *backgroundImage = [UIImage imageNamed:@"CumbariWithDone&Map.png"];
         [self.navigationController.navigationBar setBackgroundImage:backgroundImage forBarMetrics:UIBarMetricsDefault];
     }
-    
     else
     {
         [self.navigationController.navigationBar insertSubview:[[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"CumbariWithDone&Map.png"]] autorelease] atIndex:0];
@@ -606,15 +604,23 @@ static sqlite3 *database = nil;
 	
 	NSString *storedLanguage = [prefs objectForKey:@"language"];
 	
-	
-	
+    mapLabel = [[UILabel alloc]initWithFrame:CGRectMake(273, 8, 40, 25)];
+    mapLabel.backgroundColor = [UIColor clearColor];
+    mapLabel.textColor = [UIColor whiteColor];
+    mapLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:12];
+    mapLabel.text = CustomLocalisedString(@"Map", @"");
+    [self.navigationController.navigationBar addSubview:mapLabel];
+    
+    editButtonLabel = [[UILabel alloc]initWithFrame:CGRectMake(22, 8, 40, 25)];
+    editButtonLabel.backgroundColor = [UIColor clearColor];
+    editButtonLabel.textColor = [UIColor whiteColor];
+    editButtonLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:12];
+    editButtonLabel.text = CustomLocalisedString(@"Edit",@"");
+    [self.navigationController.navigationBar addSubview:editButtonLabel];
+    
+	/*
 	if([storedLanguage isEqualToString:@"English"])
-		
 	{
-		
-		
-		
-        
 		mapLabel = [[UILabel alloc]initWithFrame:CGRectMake(273, 8, 40, 25)];
 		
 		mapLabel.backgroundColor = [UIColor clearColor];
@@ -714,7 +720,7 @@ static sqlite3 *database = nil;
 		
 		
 	}
-    
+    */
 	
 	[myTableView reloadData];
     
@@ -1268,8 +1274,9 @@ static sqlite3 *database = nil;
 	url = GetCouponURL;//object of url
 	
 	url = [url stringByAppendingString:@"&lang="];
-	
-	if ([languageOfApplication isEqualToString:@"English"]) {
+    url = [url stringByAppendingString:CustomLocalisedString(@"ENG", @"")];
+
+	/*if ([languageOfApplication isEqualToString:@"English"]) {
 		
 		url = [url stringByAppendingString:@"ENG"];
 		
@@ -1288,61 +1295,41 @@ static sqlite3 *database = nil;
 		url = [url stringByAppendingString:@"ENG"];
 		
 	}
-	
+	*/
 	
 	
 	url = [url stringByAppendingString:@"&couponId="];//Categories Filter
-	
 	url = [url stringByAppendingString:str];//url appending by coupon id
-	
 	url = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];//utf 8 encoding
 	
-	
 	NSString *jsonCoupons = [[NSString alloc] initWithContentsOfURL:[NSURL URLWithString:url] encoding:NSUTF8StringEncoding error:nil];//utf 8 encoding
-	
 	
 	NSDictionary *dict;
 	
 	SBJSON *json = [[SBJSON alloc]init];
 	
 	if ([jsonCoupons length]!=0) {
-		
 		dict = [[json objectWithString:jsonCoupons error:nil]retain];//all Coupons Dictionary
-		
 	}
 	
 	if([jsonCoupons length]==0)//Checking Whether Data is coming or not
-		
 	{
-		
 		//Showing Alert View If there is an error in Internet Connection.
-		UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"Error" message:@"Error With Connection Or Coupon may not exist" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-		
+		UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:CustomLocalisedString(@"Error",@"") message:CustomLocalisedString(@"Error With Connection Or Coupon may not exist",@"") delegate:self cancelButtonTitle:CustomLocalisedString(@"OK",@"") otherButtonTitles:nil];
 		[alertView show];//Showing Alert View.
-		
 		[alertView  release];//releasing an alert view object.
-		
 		[jsonCoupons release];//releasing json.
-		
 		[json release];
 	}
-	
-	else if(dict == NULL)
-	{
-		
-		UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"Error" message:@"Error With Connection Or Coupon may not exist" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-		
-		[alertView show];//Showing Alert View.
-		
-		[alertView  release];//releasing an alert view object.
-		
-		[jsonCoupons release];//releasing json.
-		
-		[json release];
-		
-		
-	}
-	
+    else if(dict == NULL)
+    {
+        //Showing Alert View If there is an error in Internet Connection.
+        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:CustomLocalisedString(@"Error",@"") message:CustomLocalisedString(@"Error With Connection Or Coupon may not exist",@"") delegate:self cancelButtonTitle:CustomLocalisedString(@"OK",@"") otherButtonTitles:nil];
+        [alertView show];//Showing Alert View.
+        [alertView  release];//releasing an alert view object.
+        [jsonCoupons release];//releasing json.
+        [json release];
+    }
 	else {
         
 		[jsonCoupons release];
@@ -1360,8 +1347,6 @@ static sqlite3 *database = nil;
         [detailCouponObjNav release];
         
 	}
-	
-	
 }
 
 

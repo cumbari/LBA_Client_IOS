@@ -11,7 +11,7 @@
 #import "cumbariAppDelegate.h"
 #import "CouponsInSelectedCategory.h"
 #import "FilteredCoupons.h"
-
+#import "LanguageManager.h"
 
 @implementation Position
 
@@ -78,15 +78,21 @@
     {
         [self.navigationController.navigationBar insertSubview:[[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"CumbariNavLogo.png"]] autorelease] atIndex:0];
     }
-	
-	prefs = [NSUserDefaults standardUserDefaults];
-		
-	NSString *storedLanguage = [prefs objectForKey:@"language"];//stored language
 		
 	
 	//labels according language selected
-	if([storedLanguage isEqualToString:@"English"])
-		
+    [array removeAllObjects];
+    [array addObject:CustomLocalisedString(@"Current Location",@"")];//adding english in array
+    [array addObject:CustomLocalisedString(@"New Position",@"")];//adding svenska in array
+    backLabel = [[UILabel alloc]initWithFrame:CGRectMake(20, 8, 40, 25)];
+    backLabel.backgroundColor = [UIColor clearColor];
+    backLabel.textColor = [UIColor whiteColor];
+    backLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:12];
+    backLabel.text = CustomLocalisedString(@"Back", @"");
+    [self.navigationController.navigationBar addSubview:backLabel];
+    [backLabel release];
+	
+    /*if([storedLanguage isEqualToString:@"English"])
 	{
 		
 		[array removeAllObjects];
@@ -164,7 +170,7 @@
         
         [backLabel release];
 		
-	}
+	}*/
 
 	[myTableView reloadData];
 	
@@ -232,9 +238,26 @@
 	
 	NSString *storedPosition = [prefs objectForKey:@"position"];//stored language
 	
+    if ([storedPosition isEqualToString:CustomLocalisedString(@"Current Location", @"")]) {
+        storedPosition = CustomLocalisedString(@"Current Location", @"");//psition
+    }
+    else if ([storedPosition isEqualToString:CustomLocalisedString(@"New Position", @"")]) {
+        storedPosition = CustomLocalisedString(@"New Position", @"");//psition
+    }
+    
+    if ([[array objectAtIndex:indexPath.row] isEqualToString:storedPosition]) {
+        cell.accessoryType = UITableViewCellAccessoryCheckmark;//checkmarks
+        cell.textLabel.textColor = [detailObj getColor:@"3F609C"];
+    }
+    int i = (int)storedPosition.length;
+    if (i == 0) {
+        if ([[array objectAtIndex:indexPath.row] isEqualToString:CustomLocalisedString(@"Current Location",@"")]) {
+            cell.accessoryType = UITableViewCellAccessoryCheckmark;//checkmarks
+            cell.textLabel.textColor = [detailObj getColor:@"3F609C"];
+        }
+    }
 	
-	if ([[prefs objectForKey:@"language"] isEqualToString:@"English"]) {
-		
+	/*if ([[prefs objectForKey:@"language"] isEqualToString:@"English"]) {
 		if ([storedPosition isEqualToString:@"Aktuell plats"]) {
 			storedPosition = @"Current Location" ;
 		}
@@ -328,7 +351,7 @@
 			
 		}
 		
-	}
+	}*/
 
 	
 
@@ -426,22 +449,37 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     // Navigation logic may go here. Create and push another view controller.
-    /*
-    <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-    // ...
-    // Pass the selected object to the new view controller.
-    [self.navigationController pushViewController:detailViewController animated:YES];
-    [detailViewController release];
-    */
+    
 	[self chooseRow:indexPath.row];//choosing row
-	
-	
-	
-	NSUserDefaults *pref = [NSUserDefaults standardUserDefaults];
+    
+    NSString *position = [array objectAtIndex:indexPath.row];
+    
+    if ([position isEqualToString:CustomLocalisedString(@"Current Location", @"")]) {
+        
+        NSUserDefaults *pref = [NSUserDefaults standardUserDefaults];
+        [pref setObject:position forKey:@"position"];
+        [[NSUserDefaults standardUserDefaults]synchronize];
+        
+        [NSThread detachNewThreadSelector:@selector(reload) toTarget:self withObject:nil];
+        [NSThread sleepForTimeInterval:2.0];
+    }
+    else {
+        NSUserDefaults *pref = [NSUserDefaults standardUserDefaults];
+        [pref setObject:position forKey:@"position"];
+        [[NSUserDefaults standardUserDefaults]synchronize];
+        
+        MyPosition *myPosObj = [[MyPosition alloc]initWithNibName:@"MyPosition" bundle:nil];//object of my position
+        UINavigationController *myPosObjNav = [[UINavigationController alloc]initWithRootViewController:myPosObj];
+        myPosObjNav.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
+        [self presentModalViewController:myPosObjNav animated:YES];
+        [myPosObjNav release];
+        [myPosObj release];
+    }
+    
+	/*NSUserDefaults *pref = [NSUserDefaults standardUserDefaults];
 	
 	if ([[pref objectForKey:@"language"] isEqualToString:@"English"]) {
 		
-	
 	NSString *position = [array objectAtIndex:indexPath.row];
 	
 	if ([position isEqualToString:@"Current Location"]) {
@@ -562,17 +600,9 @@
             [myPosObjNav release];
             
             [myPosObj release];
-			
-		
-	}
-
-	}
-	
-
-
+        }
+	}*/
 	[self.myTableView deselectRowAtIndexPath:indexPath animated:YES];
-
-	
 }
 
 -(void)reload
@@ -621,11 +651,19 @@
 
 
 - (void)dealloc {
-    [super dealloc];
-	
-	[detailObj release];
     
-    [array release];
+	if(detailObj)
+    {
+        [detailObj release];
+        detailObj = nil;
+    }
+	
+    if(array)
+    {
+        [array release];
+        array = nil;
+    }
+    [super dealloc];
 }
 
 

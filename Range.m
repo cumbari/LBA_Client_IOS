@@ -11,6 +11,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "CouponsInSelectedCategory.h"
 #import "FilteredCoupons.h"
+#import "LanguageManager.h"
 
 @implementation Range
 
@@ -40,19 +41,13 @@
 		rangeLabel.text = [NSString stringWithFormat:@"%i m",sliderValue];//range label
 		
 		rangeValue = [NSString stringWithFormat:@"%i ",sliderValue];
-	
 	}
-	
 	else if ([[defaults objectForKey:@"unit"] isEqualToString:@"Miles"]) {
 		
 		NSString *sliderVal = [NSString stringWithFormat:@"%i",sliderValue];
-            
 		float value = [sliderVal floatValue];
-		
 		value = value/1000;
-				
 		value = value/1.6;
-				
 		rangeLabel.text = [NSString stringWithFormat:@"%.1f miles",value];
 		
 		rangeValue = [NSString stringWithFormat:@"%i ",sliderValue];
@@ -163,11 +158,26 @@
         [self.navigationController.navigationBar insertSubview:[[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"navBar.png"]] autorelease] atIndex:0];
     }
     
-	
-	NSString *storedLanguage = [defaults objectForKey:@"language"];//stored language
-	
+		
 	//labels according to selected language
-	if([storedLanguage isEqualToString:@"English" ])
+    backLabel = [[UILabel alloc]initWithFrame:CGRectMake(20, 8, 40, 25)];
+    backLabel.backgroundColor = [UIColor clearColor];
+    backLabel.textColor = [UIColor whiteColor];
+    backLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:12.0];
+    backLabel.text = CustomLocalisedString(@"Back", @"");
+    [self.navigationController.navigationBar addSubview:backLabel];
+    [backLabel release];
+    
+    navigationLabel = [[UILabel alloc]initWithFrame:CGRectMake(90, 8, 150, 25)];
+    navigationLabel.backgroundColor = [UIColor clearColor];
+    navigationLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:20.0];
+    navigationLabel.textAlignment = UITextAlignmentCenter;
+    navigationLabel.textColor = [UIColor blackColor];
+    navigationLabel.text = CustomLocalisedString(@"Range",@"");
+    [self.navigationController.navigationBar addSubview:navigationLabel];
+    [navigationLabel release];
+    
+	/*if([storedLanguage isEqualToString:@"English" ])
 		
 	{
 		
@@ -289,7 +299,7 @@
 		[navigationLabel release];
 		
 		
-	}
+	}*/
 	
 	defaults = [NSUserDefaults standardUserDefaults];
 	

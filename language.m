@@ -12,7 +12,8 @@
 #import <QuartzCore/QuartzCore.h>
 #import "CouponsInSelectedCategory.h"
 #import "FilteredCoupons.h"
-
+#import "LanguageManager.h"
+#import "Locale.h"
 
 @implementation language
 
@@ -50,6 +51,8 @@
 	[array addObject:@"English"];//adding english in array
 	
 	[array addObject:@"Svenska"];//adding svenska in array
+    
+    [array addObject:@"Deutsch"];//adding Deutsch in array
 	
 	prefs = [NSUserDefaults standardUserDefaults];//object of NSUserDefault
 }
@@ -119,133 +122,37 @@
 	
 	cumbariAppDelegate *appDel = (cumbariAppDelegate *)[[UIApplication sharedApplication] delegate];//object of cumbari delegate
 	
+    backLabel = [[UILabel alloc]initWithFrame:CGRectMake(20, 8, 40, 25)];
+    backLabel.backgroundColor = [UIColor clearColor];
+    backLabel.textColor = [UIColor whiteColor];
+    
+    navigationLabel = [[UILabel alloc]initWithFrame:CGRectMake(90, 8, 150, 25)];
+    navigationLabel.backgroundColor = [UIColor clearColor];
+    navigationLabel.textAlignment = UITextAlignmentCenter;
+    navigationLabel.font = [UIFont boldSystemFontOfSize:20];
+    navigationLabel.textColor = [UIColor blackColor];
+    
 	//labels according language selected
 	if([storedLanguage isEqualToString:@"English" ])
-		
 	{
-		
-		backLabel = [[UILabel alloc]initWithFrame:CGRectMake(20, 8, 40, 25)];
-		
-		backLabel.backgroundColor = [UIColor clearColor];
-		
-		backLabel.textColor = [UIColor whiteColor];
-		
 		backLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:12.0];
-		
-		
-		backLabel.text = @"Back";
-		
-		[self.navigationController.navigationBar addSubview:backLabel];
-		
-		[appDel englishTabBar];
-		
-		[backLabel release];
-		
-		navigationLabel = [[UILabel alloc]initWithFrame:CGRectMake(90, 8, 150, 25)];
-		
-		navigationLabel.backgroundColor = [UIColor clearColor];
-		
 		navigationLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:20.0];
-		
-		
-		navigationLabel.textAlignment = UITextAlignmentCenter;
-		
-		
-		navigationLabel.textColor = [UIColor blackColor];
-		
-		navigationLabel.text = @"Language";
-		
-		[self.navigationController.navigationBar addSubview:navigationLabel];
-		
-		[navigationLabel release];
-        
-		
-		
-		
-	}
-	
-	else if([storedLanguage isEqualToString:@"Svenska" ]) {
-		
-		
-		backLabel = [[UILabel alloc]initWithFrame:CGRectMake(13, 8, 40, 25)];
-		
-		backLabel.backgroundColor = [UIColor clearColor];
-		
-		backLabel.textColor = [UIColor whiteColor];
-		
-		backLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:10.0];
-		
-		
-		backLabel.text = @"Tillbaka";
-		
-		[self.navigationController.navigationBar addSubview:backLabel];
-		
-		[appDel SvenskaTabBar];
-		
-		[backLabel release];
-		
-		
-		navigationLabel = [[UILabel alloc]initWithFrame:CGRectMake(90, 8, 150, 25)];
-		
-		navigationLabel.backgroundColor = [UIColor clearColor];
-		
-		navigationLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:20.0];
-		
-		
-		navigationLabel.textAlignment = UITextAlignmentCenter;
-		
-		
-		navigationLabel.textColor = [UIColor blackColor];
-		
-		navigationLabel.text = @"Språk";
-		
-		[self.navigationController.navigationBar addSubview:navigationLabel];
-		
-		[navigationLabel release];
-		
-		
-		
-		
 	}
 	
 	else {
-		backLabel = [[UILabel alloc]initWithFrame:CGRectMake(20, 8, 40, 25)];
-		
-		backLabel.backgroundColor = [UIColor clearColor];
-		
-		backLabel.textColor = [UIColor whiteColor];
-		
-		backLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:12.0];
-		
-		
-		backLabel.text = @"Back";
-		
-		[self.navigationController.navigationBar addSubview:backLabel];
-		
-		[backLabel release];
-		
-		navigationLabel = [[UILabel alloc]initWithFrame:CGRectMake(90, 8, 150, 25)];
-		
-		navigationLabel.backgroundColor = [UIColor clearColor];
-		
+		backLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:10.0];
 		navigationLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:20.0];
-		
-		
-		navigationLabel.textAlignment = UITextAlignmentCenter;
-		
-		
-		navigationLabel.textColor = [UIColor blackColor];
-		
-		navigationLabel.text = @"Language";
-		
-		[self.navigationController.navigationBar addSubview:navigationLabel];
-		
-		[navigationLabel release];
-		
-		
 	}
     
-	
+    backLabel.text = CustomLocalisedString(@"Back", @"");
+    navigationLabel.text = CustomLocalisedString(@"Language", @"");
+    
+    [self.navigationController.navigationBar addSubview:navigationLabel];
+    [self.navigationController.navigationBar addSubview:backLabel];
+    [navigationLabel release];
+    [backLabel release];
+    
+    [appDel setTabBarTitles];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -307,7 +214,7 @@
     if ([[array objectAtIndex:indexPath.row] isEqualToString:storedLanguage]) {
         
         cell.accessoryType = UITableViewCellAccessoryCheckmark;//checkmarks 
-        
+        self.choiceIndex = indexPath.row;
         cell.textLabel.textColor = [detailObj getColor:@"3F609C"];
     }
 	
@@ -315,7 +222,7 @@
 		if ([[array objectAtIndex:indexPath.row] isEqualToString:@"English"]) {
 			
 			cell.textLabel.textColor = [detailObj getColor:@"3F609C"];
-			
+            self.choiceIndex = indexPath.row;
 			cell.accessoryType = UITableViewCellAccessoryCheckmark;
 			
 		}
@@ -333,24 +240,11 @@
 	
     
     // Uncheck the currently checked cell, change the choice, and then recheck the newly checked cell.
+    //int valueForRemovingCheckmark = self.choiceIndex;
+	//self.choiceIndex = row;//cell choice index
 	
 	
-	self.choiceIndex = row;//cell choice index
-    
-	int valueForRemovingCheckmark;//value for removing checkmark of int type
-	
-	if (self.choiceIndex == 0) {
-		
-		valueForRemovingCheckmark = 1;
-		
-	}
-	else {
-		valueForRemovingCheckmark = 0;
-	}
-    
-	
-	
-    cell = [self.myTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:valueForRemovingCheckmark inSection:0]];
+    cell = [self.myTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:self.choiceIndex inSection:0]];
     if (cell != nil) {
         cell.accessoryType = UITableViewCellAccessoryNone;
         cell.textLabel.textColor = [UIColor blackColor];
@@ -409,14 +303,6 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     // Navigation logic may go here. Create and push another view controller.
-	/*
-	 <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-	 [self.navigationController pushViewController:detailViewController animated:YES];
-	 [detailViewController release];
-	 */
-    
 	
 	[self chooseRow:indexPath.row];//choosing row
 	
@@ -424,115 +310,52 @@
 	
 	//removing back label from superview
 	[backLabel removeFromSuperview];
-	
 	[navigationLabel removeFromSuperview];
 	
 	cumbariAppDelegate *appDel = (cumbariAppDelegate *)[[UIApplication sharedApplication] delegate];//object of cumbari app delegate
 	
 	prefs = [NSUserDefaults standardUserDefaults];
 	
+    backLabel = [[UILabel alloc]initWithFrame:CGRectMake(20, 8, 40, 25)];
+    backLabel.backgroundColor = [UIColor clearColor];
+    backLabel.textColor = [UIColor whiteColor];
+    
+    navigationLabel = [[UILabel alloc]initWithFrame:CGRectMake(90, 8, 150, 25)];
+    navigationLabel.backgroundColor = [UIColor clearColor];
+    navigationLabel.textAlignment = UITextAlignmentCenter;
+    navigationLabel.font = [UIFont boldSystemFontOfSize:20];
+    navigationLabel.textColor = [UIColor blackColor];
+    
+    [prefs setObject:language forKey:@"language"];
+    //[prefs setObject:[NSArray arrayWithObjects:[self getLanguageCodeForLang:language], nil] forKey:@"AppleLanguages"];
+    [[NSUserDefaults standardUserDefaults]synchronize];
+
+    LanguageManager *languageManager = [LanguageManager sharedLanguageManager];
+    Locale *localeForRow = languageManager.availableLocales[indexPath.row];
+    NSLog(@"Language selected: %@   code:%@", localeForRow.name,localeForRow.languageCode);
+    [languageManager setLanguageWithLocale:localeForRow];
+    
 	//labels according selected language
 	if([language isEqualToString:@"English"]){
-        
-		NSString *storeLanuguage = @"English";
-		
-		[prefs setObject:storeLanuguage forKey:@"language"];
-		
-		[[NSUserDefaults standardUserDefaults]synchronize];
-		
-		//self.navigationItem.title = @"Languages";
-		
-		backLabel = [[UILabel alloc]initWithFrame:CGRectMake(20, 8, 40, 25)];
-		
-		backLabel.backgroundColor = [UIColor clearColor];
-		
-		backLabel.textColor = [UIColor whiteColor];
-		
 		backLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:12.0];
-		
-		//backLabel.font = [UIFont boldSystemFontOfSize:12.0];
-		
-		backLabel.text = @"Back";
-		
-		[self.navigationController.navigationBar addSubview:backLabel];
-		
-		[appDel englishTabBar];//calling english tab bar
-		
-		navigationLabel = [[UILabel alloc]initWithFrame:CGRectMake(90, 8, 150, 25)];
-		
-		navigationLabel.backgroundColor = [UIColor clearColor];
-		
+		//[appDel englishTabBar];//calling english tab bar
 		navigationLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:20.0];
-		
-		//navigationLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:20];
-		
-		navigationLabel.textAlignment = UITextAlignmentCenter;
-		
-		//navigationLabel.font = [UIFont boldSystemFontOfSize:20];
-		
-		navigationLabel.textColor = [UIColor blackColor];
-		
-		navigationLabel.text = @"Language";
-		
-		[self.navigationController.navigationBar addSubview:navigationLabel];
-		
-		[navigationLabel release];
-		
-        
-        
 	}
-	
 	else {
-		
-        
-		
-		NSString *storeLanuguage = @"Svenska";
-		
-		[prefs setObject:storeLanuguage forKey:@"language"];
-		
-		[[NSUserDefaults standardUserDefaults]synchronize];
-		
-		//self.navigationItem.title = @"Språk";
-		
-		backLabel = [[UILabel alloc]initWithFrame:CGRectMake(13, 8, 40, 25)];
-		
-		backLabel.backgroundColor = [UIColor clearColor];
-		
-		backLabel.textColor = [UIColor whiteColor];
-		
 		backLabel.font = [UIFont boldSystemFontOfSize:10.0];
-		
-		backLabel.text = @"Tillbaka";
-		
-		[self.navigationController.navigationBar addSubview:backLabel];
-        
-		[appDel SvenskaTabBar];//calling svenska tab bar
-		
-		navigationLabel = [[UILabel alloc]initWithFrame:CGRectMake(90, 8, 150, 25)];
-		
-		navigationLabel.backgroundColor = [UIColor clearColor];
-		
+		//[appDel SvenskaTabBar];//calling svenska tab bar
 		navigationLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:20];
-		
-		navigationLabel.textAlignment = UITextAlignmentCenter;
-		
-		navigationLabel.font = [UIFont boldSystemFontOfSize:20];
-		
-		navigationLabel.textColor = [UIColor blackColor];
-		
-		navigationLabel.text = @"Språk";
-		
-		[self.navigationController.navigationBar addSubview:navigationLabel];
-		
-		[navigationLabel release];
-		
-        
 	}
-    
-	
+    backLabel.text = CustomLocalisedString(@"Back", @"");
+    navigationLabel.text = CustomLocalisedString(@"Language", @"");
+
+    [self.navigationController.navigationBar addSubview:navigationLabel];
+    [self.navigationController.navigationBar addSubview:backLabel];
+    [navigationLabel release];
+
+    [appDel setTabBarTitles];
+
 	[self.myTableView deselectRowAtIndexPath:indexPath animated:YES];
-    
-    
 }
 
 
@@ -551,6 +374,22 @@
     // For example: self.myOutlet = nil;
 }
 
+-(NSString*)getLanguageCodeForLang:(NSString*)lang
+{
+    NSString *code = @"en";
+    
+    if ([lang isEqualToString:@"English"]) {
+        
+    }
+    else if ([lang isEqualToString:@"Svenska"]) {
+        code = @"swe";
+    }
+    else if ([lang isEqualToString:@"Deutsch"]) {
+        code = @"de";
+    }
+    
+    return code;
+}
 
 - (void)dealloc {
     [super dealloc];
@@ -563,7 +402,7 @@
 	
 	[array release];
 	
-	[detailObj release];
+	//[detailObj release];
 	
 }
 

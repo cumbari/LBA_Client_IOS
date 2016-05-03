@@ -8,7 +8,7 @@
 
 #import "MapView.h"
 #import <QuartzCore/QuartzCore.h>
-
+#import "LanguageManager.h"
 
 @interface MapView()
 
@@ -43,7 +43,7 @@
 	
 	[self showNavigationBar];
 	
-	backLabel = [[UILabel alloc]init];
+	//backLabel = [[UILabel alloc]init];
 	
 	mapView = [[MKMapView alloc] initWithFrame:CGRectMake(0, 0, 320, 420)];
 	mapView.showsUserLocation = YES;
@@ -77,8 +77,17 @@
 	NSString *storedLanguage = [prefs objectForKey:@"language"];
 	
 	//labels according to selected language
-	
-	if([storedLanguage isEqualToString:@"English" ])
+    
+    
+    backLabel = [[UILabel alloc]initWithFrame:CGRectMake(20, 8, 40, 25)];
+    backLabel.backgroundColor = [UIColor clearColor];
+    backLabel.textColor = [UIColor whiteColor];
+    backLabel.font = [UIFont boldSystemFontOfSize:12.0];
+    backLabel.text = CustomLocalisedString(@"Back", @"");
+    [self.navigationController.navigationBar addSubview:backLabel];
+    [backLabel release];
+    
+	/*if([storedLanguage isEqualToString:@"English" ])
 		
 	{
 		[backLabel release];
@@ -132,7 +141,7 @@
 		[self.navigationController.navigationBar addSubview:backLabel];
 		
 		
-	}
+	}*/
 	
 }
 

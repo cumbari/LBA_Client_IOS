@@ -8,7 +8,7 @@
 //importing of all .h files
 #import "WebViewVC.h"
 #import "DetailedCoupon.h"
-
+#import "LanguageManager.h"
 
 @implementation WebViewVC
 
@@ -57,8 +57,6 @@
 	NSURL *url = [NSURL URLWithString:mLink];//url
 	NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
 	[webViewForLink loadRequest:requestObj];//loading request
-	
-	
 }
 
 
@@ -71,8 +69,6 @@
         UIImage *backgroundImage = [UIImage imageNamed:@"CumbariWithBack.png"];
         [self.navigationController.navigationBar setBackgroundImage:backgroundImage forBarMetrics:UIBarMetricsDefault];
     }
-    
-    
     else
     {
         [self.navigationController.navigationBar insertSubview:[[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"CumbariWithBack.png"]] autorelease] atIndex:0];
@@ -83,8 +79,15 @@
 	NSString *storedLanguage = [prefs objectForKey:@"language"];
 	
 	//labels according to selected language
-	
-	if([storedLanguage isEqualToString:@"English" ])
+    backLabel = [[UILabel alloc]initWithFrame:CGRectMake(20, 8, 40, 25)];
+    backLabel.backgroundColor = [UIColor clearColor];
+    backLabel.textColor = [UIColor whiteColor];
+    backLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:12.0];
+    backLabel.text = CustomLocalisedString(@"Back", @"");
+    [self.navigationController.navigationBar addSubview:backLabel];
+    [backLabel release];
+    
+	/*if([storedLanguage isEqualToString:@"English" ])
 		
 	{
 
@@ -144,7 +147,7 @@
 		
 		
 	}
-
+*/
 	
 }
 

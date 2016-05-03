@@ -10,7 +10,7 @@
 #import "DDAnnotation.h"
 #import "DDAnnotationView.h"
 #import "cumbariAppDelegate.h"
-
+#import "LanguageManager.h"
 
 @interface MapKitDragAndDropViewController () 
 - (void)coordinateChanged_:(NSNotification *)notification;
@@ -24,13 +24,11 @@ double latitudeFromSearchView;
 
 double longitudeFromSearchView;
 
--(void)passLatAndLong:(double)tmp:(double)tmp1
+-(void)passLatAndLong:(double)tmp :(double)tmp1
 {
 	latitudeFromSearchView = tmp;
 	
 	longitudeFromSearchView = tmp1;
-	
-	
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
@@ -52,18 +50,13 @@ double longitudeFromSearchView;
 		theCoordinate.latitude = appDelegate.mUserCurrentLocation.coordinate.latitude;
 		
 		theCoordinate.longitude = appDelegate.mUserCurrentLocation.coordinate.longitude;
-		
-		
-		
 	}
 	
 	if (theCoordinate.longitude == 0 ||theCoordinate.latitude == 0) {
 		
-			
 		theCoordinate.latitude = [[defaults objectForKey:@"latitudeOfMyPosition"] doubleValue];
 		
 		theCoordinate.longitude = [[defaults objectForKey:@"longitudeOfMyPosition"]doubleValue];
-		
 	}
 	
 	mapView.zoomEnabled = YES;
@@ -81,8 +74,9 @@ double longitudeFromSearchView;
 	[mapView setRegion:region];
 	
 	DDAnnotation *annotation = [[[DDAnnotation alloc] initWithCoordinate:theCoordinate addressDictionary:nil] autorelease];
+	annotation.title = CustomLocalisedString(@"Drag to Move Pin", @"");
 	
-	if ([[defaults objectForKey:@"language"] isEqualToString:@"English"]) {
+    /*if ([[defaults objectForKey:@"language"] isEqualToString:@"English"]) {
 		
 		annotation.title = @"Drag to Move Pin";
 		
@@ -99,7 +93,7 @@ double longitudeFromSearchView;
 		
 		annotation.title = @"Drag to Move Pin";
 	}
-
+     */
 	
 	annotation.subtitle = [NSString	stringWithFormat:@"%f %f", annotation.coordinate.latitude, annotation.coordinate.longitude];
 	

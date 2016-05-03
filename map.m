@@ -14,6 +14,7 @@
 #import "CumbariAppDelegate.h"
 #import "JSON.h"
 #import "DetailedCoupon.h"
+#import "LanguageManager.h"
 
 @implementation map//implementation of map.
 @synthesize map1;
@@ -38,7 +39,7 @@ BOOL favorites;
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
 	
-	listLabel = [[UILabel alloc]init];
+	//listLabel = [[UILabel alloc]init];
 	
 	
 	
@@ -58,27 +59,17 @@ BOOL favorites;
     but1.frame = CGRectMake(0, 0, 45, 40);
 	
 	if (storeID == NULL) {
-        
-		
 		[but1 addTarget:self action:@selector(cancel) forControlEvents:UIControlEventTouchUpInside];//calling cancel method on clicking done button.
-		
 		buttonLeft = [[UIBarButtonItem alloc]initWithCustomView:but1];//customizing right button.
-		
 		self.navigationItem.leftBarButtonItem = buttonLeft;//setting on R.H.S. of navigation item.
-        
-        
 	}
 	else
 	{
-		
-		
 		[but1 addTarget:self action:@selector(cancel) forControlEvents:UIControlEventTouchUpInside];//calling cancel method on clicking done button.
 		
 		buttonLeft = [[UIBarButtonItem alloc]initWithCustomView:but1];//customizing right button.
 		
 		self.navigationItem.leftBarButtonItem = buttonLeft;//setting on R.H.S. of navigation item.
-		
-        
 	}
     
 	[self displayMap];//calling diplay mmap method
@@ -87,10 +78,8 @@ BOOL favorites;
 }
 
 
-
 -(void)passStoreIDToMap:(NSString *)storeIdString
 {
-	
 	storeID = storeIdString;//passing stored id
 }
 
@@ -174,7 +163,6 @@ BOOL favorites;
 			if ([[storeDict objectForKey:@"longitude"]doubleValue]>maxLon) {
 				
 				maxLon = [[storeDict objectForKey:@"longitude"]doubleValue];
-				
 			}
 			if (minLon == 0) {
 				
@@ -259,9 +247,9 @@ BOOL favorites;
 
 {
 	segmentedControl = [[UISegmentedControl alloc]initWithItems:[NSArray arrayWithObjects:
-                                                                 NSLocalizedString(@"Standards", @""),
-                                                                 NSLocalizedString(@"Satellite", @""),
-                                                                 NSLocalizedString(@"Hybrid", @""),nil]];
+                                                                 CustomLocalisedString(@"Standards", @""),
+                                                                 CustomLocalisedString(@"Satellite", @""),
+                                                                 CustomLocalisedString(@"Hybrid", @""),nil]];
     
 	
     
@@ -361,13 +349,15 @@ BOOL favorites;
 
 -(void)viewWillAppear:(BOOL)animated
 {
-	NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];//object of NSUserDefault
-	
-	NSString *storedLanguage = [prefs objectForKey:@"language"];//stored language of string type
-	
 	//choosing labels according to language select
-	
-	if([storedLanguage isEqualToString:@"English" ] )
+    listLabel = [[UILabel alloc]initWithFrame:CGRectMake(25, 8, 40, 25)];
+    listLabel.backgroundColor = [UIColor clearColor];
+    listLabel.textColor = [UIColor whiteColor];
+    listLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:12.0];
+    listLabel.text = CustomLocalisedString(@"List", @"");
+    [self.navigationController.navigationBar addSubview:listLabel];
+    
+	/*if([storedLanguage isEqualToString:@"English" ] )
 		
 	{
 		[listLabel release];
@@ -422,7 +412,7 @@ BOOL favorites;
 		
 		[self.navigationController.navigationBar addSubview:listLabel];		
 		
-	}
+	}*/
     
 	
 	[self initButton];
@@ -432,10 +422,7 @@ BOOL favorites;
 -(void)viewWillDisappear:(BOOL)animated
 {
 	[listLabel removeFromSuperview];
-	
-	
 	[segmentedControl removeFromSuperview];
-    
 }
 /*
  // Override to allow orientations other than the default portrait orientation.

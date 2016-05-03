@@ -1,0 +1,125 @@
+/*
+ Localizable.strings
+ cumbari
+ 
+ Created by Shephertz Technology on 22/11/10.
+ Copyright 2010 ShephertzTechnology PVT LTD. All rights reserved.
+ */
+"TabBar Title Of Hot Deals" = "HotDeals";
+
+"Navigation Title of hot deals" = "Cumbari";
+
+"TabBar Title Of Categories" = "Categories";
+
+"TabBar Title Of Brands" = "Brands";
+
+"TabBar Title Of Favorites" = "Favorites";
+
+"TabBar Title of Settings" = "Settings";
+
+"Title of Back Button" = "Back";
+
+"Title of Map Button" = "Map";
+
+"Title of Done Button" = "Done";
+
+"Title of List Button" = "List";
+
+"No/Weak Internet Access" = "No/Weak Internet Access";
+"You can not use the Cumbari service currently" = "You can not use the Cumbari service currently";
+"OK" = "OK";
+
+"Favorites"="Favorites";
+"Hot deals" ="Hot deals";
+"Categories" ="Categories";
+"Brands" = "Brands";
+"More" = "More";
+
+"offers" = "offers";
+"Address" = "Address";
+
+"All week" = "All week";
+"Already Added" = "Already Added";
+"Back" = "Back";
+"Change position" = "Change position";
+"Company Home Page" = "Company Home Page";
+"Current Location" = "Current Location";
+"Detailed Product description" = "Detailed Product description";
+"Distance Beyond Limit" = "Distance Beyond Limit";
+"Done" = "Done";
+"Drag to Move Pin" = "Drag to Move Pin";
+"Edit" = "Edit";
+"Email" = "Email";
+"English" = "English";
+"ENG" = "ENG";
+"Enter Address Or Tap On Map" = "Enter Address Or Tap On Map";
+"Favorite" = "Favorite";
+"Fri" = "Fri";
+"Language" = "Language";
+"Languages" = "Languages";
+"List" = "List";
+"Map" = "Map";
+"Mon" = "Mon";
+"Mon to Fri" = "Mon to Fri";
+"More Info" = "More Info";
+"More deals" = "More deals";
+"New Position" = "New Position";
+"No Detailed Product description" = "No Detailed Product description";
+"Offer can't be used" = "Offer can't be used";
+"Offers in list" = "Offers in list";
+"Phone Number" = "Phone Number";
+"Range" = "Range";
+"Sat" = "Sat";
+"Settings" = "Settings";
+"Show More..." = "Show More...";
+"Slide To Use Deal" = "Slide To Use Deal";
+"Sponsored" = "Sponsored";
+"Sun" = "Sun";
+"This is already added into Favorites" = "This is already added into Favorites";
+"Thu" = "Thu";
+"Tue" = "Tue";
+"Unit" = "Unit";
+"Use Deal" = "Use Deal";
+"Valid" = "Valid";
+"Valid until" = "Valid until";
+"Wed" = "Wed";
+"You are too far from the point of sale" = "You are too far from the point of sale";
+"You can't see map directions" = "You can't see map directions";
+"Can't Be Added" = "Can't Be Added";
+"You can't add google Products to Favorites" = "You can't add google Products to Favorites";
+"Added to Favorites" = "Added to Favorites";
+"Coupon has been added to favorites" = "Coupon has been added to favorites";
+"Error" = "Error";
+"Error With Connection Or There is no Coupon in this category" = "Error With Connection Or There is no Coupon in this category";
+"Show More" = "Show More";
+"Error With Connection Or Coupon may not exist" = "Error With Connection Or Coupon may not exist";
+"Position" = "Position";
+"Feedback" = "Feedback";
+"About Cumbari" = "About Cumbari";
+"Error With Connection Or There is no Coupon in this brand" = "Error With Connection Or There is no Coupon in this brand";
+"Error With Connection Or PartnerId Or CouponId may not exist" = "Error With Connection Or PartnerId Or CouponId may not exist";
+"Tap On Map" = "Tap On Map";
+"Search" = "Search";
+"Time Remaining" = "Time Remaining";
+"Not Logged In" = "Not Logged In";
+"Mail Sent" = "Mail Sent";
+"Mail Sending Failed" = "Mail Sending Failed";
+"Post Deal" = "Post Deal";
+"Posting Data to facebook" = "Posting Data to facebook";
+"Can't go back while posting data" = "Can't go back while posting data";
+"You have logged out!" = "You have logged out!";
+"You have to log in to post the deal" = "You have to log in to post the deal";
+"Deal Successfully posted!" = "Deal Successfully posted!";
+"Deal to facebook has been posted" = "Deal to facebook has been posted";
+"Not connected to Facebook" = "Not connected to Facebook";
+"Login" = "Login";
+"Connecting to Facebook..." = "Connecting to Facebook...";
+"Connected to Facebook" = "Connected to Facebook";
+"Logout" = "Logout";
+"Standards" = "Standards";
+"Satellite" = "Satellite";
+"Hybrid" = "Hybrid";
+"Store Information" = "Store Information";
+"You have not logged into your mail account" = "You have not logged into your mail account";
+"Meter" = "Meter";
+"Miles" = "Miles";

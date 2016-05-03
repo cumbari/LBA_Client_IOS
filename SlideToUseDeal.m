@@ -9,6 +9,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "DetailedCoupon.h"
 #import "SlideToUseDeal.h"
+#import "LanguageManager.h"
 
 @interface SlideToUseDeal()
 
@@ -84,19 +85,17 @@ NSString *actionSheet;
 			
 			trackImage = [UIImage imageNamed:@"TIMER_SWE.png"];
 		}
-		
 		else if ([[defaults objectForKey:@"language"] isEqualToString:@"English"])
 		{
-			
 			trackImage = [UIImage imageNamed:@"TIMER_ENG.png"];
-			
 		}
-		
+        else if ([[defaults objectForKey:@"language"] isEqualToString:@"Deutsch"])
+        {
+            trackImage = [UIImage imageNamed:@"TIMER_ENG.png"];
+        }
 		else {
-			
 			trackImage = [UIImage imageNamed:@"TIMER_ENG.png"];
 		}
-		
 	}
 	
 	
@@ -111,7 +110,10 @@ NSString *actionSheet;
         {
             trackImage = [UIImage imageNamed:@"sliderBackgroundENG.png"];
         }
-        
+        else if ([[defaults objectForKey:@"language"] isEqualToString:@"Deutsch"])
+        {
+            trackImage = [UIImage imageNamed:@"sliderBackgroundENG.png"];
+        }
         else {
             
             trackImage = [UIImage imageNamed:@"sliderBackgroundENG.png"];
@@ -224,20 +226,25 @@ NSString *actionSheet;
 		NSString *labelText;
 		
 		UIFont *labelFont;
+        labelText =CustomLocalisedString(@"Slide To Use Deal", @"");
+        labelFont = [UIFont systemFontOfSize:17];
         
+        if ([[defaults objectForKey:@"language"]isEqualToString:@"English"]) {
+            labelFont = [UIFont systemFontOfSize:24];
+        }
 		if ([[defaults objectForKey:@"language"]isEqualToString:@"English"]) {
-			labelText = @"Slide To Use Deal";
+			//labelText = @"Slide To Use Deal";
 			labelFont = [UIFont systemFontOfSize:24];
 		}
 		
-		else if([[defaults objectForKey:@"language"]isEqualToString:@"Svenska"]){
+		/*else if([[defaults objectForKey:@"language"]isEqualToString:@"Svenska"]){
 			labelText = @"Skjut för att använda Deal";
 			labelFont = [UIFont systemFontOfSize:17];
 		}
 		else {
 			labelText = @"Slide To Use Deal";
 			labelFont = [UIFont systemFontOfSize:24];
-		}
+		}*/
         
         
         // Create the label with the actual size required by the text
@@ -269,7 +276,7 @@ NSString *actionSheet;
 	
 	// Render the label text animation using our custom drawing code in
 	// the label's layer.
-	label.layer.delegate = self;
+	//label.layer.delegate = self;
 	
 	// Set the view controller's view property to all of the above
 	self.view = view;

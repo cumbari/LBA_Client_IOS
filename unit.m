@@ -12,12 +12,11 @@
 #import "FilteredCoupons.h"
 #import "CouponsInSelectedCategory.h"
 #import "cumbariAppDelegate.h"
+#import "LanguageManager.h"
 
 @implementation unit
 
 @synthesize myTableView,choiceIndex,choices;//synthesizing
-
-
 
 #pragma mark -
 #pragma mark View lifecycle
@@ -44,7 +43,7 @@
 	
 	myTableView.backgroundColor = [UIColor clearColor];//clear background color
 	
-	array = [[NSMutableArray alloc]initWithObjects:@"Meter",@"Miles",nil];//array
+	array = [[NSMutableArray alloc]initWithObjects:CustomLocalisedString(@"Meter", @"") ,CustomLocalisedString(@"Miles",@""),nil];//array
 	
 	prefs = [NSUserDefaults standardUserDefaults];//object of NSUserDefault
 
@@ -112,9 +111,25 @@
     }
 	
 	NSString *storedLanguage = [prefs objectForKey:@"language"];//stored language
-	
+    backLabel = [[UILabel alloc]initWithFrame:CGRectMake(20, 8, 40, 25)];
+    backLabel.backgroundColor = [UIColor clearColor];
+    backLabel.textColor = [UIColor whiteColor];
+    backLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:12.0];
+    backLabel.text = CustomLocalisedString(@"Back", @"");
+    [self.navigationController.navigationBar addSubview:backLabel];
+    [backLabel release];
+    
+    navigationLabel = [[UILabel alloc]initWithFrame:CGRectMake(90, 8, 150, 25)];
+    navigationLabel.backgroundColor = [UIColor clearColor];
+    navigationLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:20.0];
+    navigationLabel.textAlignment = UITextAlignmentCenter;
+    navigationLabel.textColor = [UIColor blackColor];
+    navigationLabel.text = CustomLocalisedString(@"Unit",@"");
+    [self.navigationController.navigationBar addSubview:navigationLabel];
+    [navigationLabel release];
+    
 	//labels according to selected language
-	if([storedLanguage isEqualToString:@"English" ])
+	/*if([storedLanguage isEqualToString:@"English" ])
 		
 	{
 			
@@ -237,7 +252,7 @@
 		
 		
 	}
-
+     */
 	
 	
 	
@@ -305,23 +320,16 @@
 	NSString *storedLanguage = [prefs objectForKey:@"unit"];//stored languages
 	
 	if ([[array objectAtIndex:indexPath.row] isEqualToString:storedLanguage]) {
-		
 		cell.textLabel.textColor = [detailObj getColor:@"3F609C"];
-		
 		cell.accessoryType = UITableViewCellAccessoryCheckmark;//checkmark
 	}
 	
 	if (storedLanguage.length == 0) {
-		if ([[array objectAtIndex:indexPath.row] isEqualToString:@"Meter"]) {
-			
+		if ([[array objectAtIndex:indexPath.row] isEqualToString:CustomLocalisedString(@"Meter", @"")]) {
 			cell.textLabel.textColor = [detailObj getColor:@"3F609C"];
-			
 			cell.accessoryType = UITableViewCellAccessoryCheckmark;
-			
 		}
 	}
-
-    
     return cell;
 }
 
@@ -417,7 +425,7 @@
 	
 	NSString *unit = [array objectAtIndex:indexPath.row];//unit of string type
 	
-	if ([unit isEqualToString:@"Miles"]) {
+	if ([unit isEqualToString:CustomLocalisedString(@"Miles", @"")]) {
 		
 		
 		

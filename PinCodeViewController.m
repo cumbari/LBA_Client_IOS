@@ -10,6 +10,7 @@
 #import "cumbariAppDelegate.h"
 #import <QuartzCore/QuartzCore.h>
 #import "EndScreen.h"
+#import "LanguageManager.h"
 
 @implementation PinCodeViewController
 
@@ -54,9 +55,10 @@ NSDictionary *couponValues;
 	NSString *storedLanguage = [prefs objectForKey:@"language"];
 	
 	//labels according to selected language
+    validity = CustomLocalisedString(@"Valid until", @"") ;
 
     
-    if([storedLanguage isEqualToString:@"English" ])
+    /*if([storedLanguage isEqualToString:@"English" ])
 		
 	{
         validity = @"Valid until ";
@@ -75,13 +77,11 @@ NSDictionary *couponValues;
         validity = @"Valid until ";
 
 		
-	}
+	}*/
 
     
-    validity = [validity stringByAppendingFormat:@"%@",[[couponValues objectForKey:@"validFrom"] substringWithRange:NSMakeRange(0, 10)]];
-     
+    validity = [validity stringByAppendingFormat:@" %@",[[couponValues objectForKey:@"validFrom"] substringWithRange:NSMakeRange(0, 10)]];
     validity = [validity stringByAppendingString:@" - "];
-    
     validity = [validity stringByAppendingFormat:@"%@",[[couponValues objectForKey:@"endOfPublishing"] substringWithRange:NSMakeRange(0, 10)]];
     
     validityLabel.text = validity;
@@ -131,15 +131,16 @@ NSDictionary *couponValues;
         [self.navigationController.navigationBar insertSubview:[[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"CumbariWithDone.png"]] autorelease] atIndex:0];
     }
 	
-		
-	NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];//object of NSUserDefault
-	
-	NSString *storedLanguage = [prefs objectForKey:@"language"];
 	
 	//labels according to selected language
+    backLabel = [[UILabel alloc]initWithFrame:CGRectMake(18, 8, 40, 25)];
+    backLabel.backgroundColor = [UIColor clearColor];
+    backLabel.textColor = [UIColor whiteColor];
+    backLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:12.0];
+    backLabel.text = CustomLocalisedString(@"Done", @"");
+    [self.navigationController.navigationBar addSubview:backLabel];
 	
-	if([storedLanguage isEqualToString:@"English" ])
-		
+    /*if([storedLanguage isEqualToString:@"English" ])
 	{
 		
 		
@@ -189,7 +190,7 @@ NSDictionary *couponValues;
 		
 		[self.navigationController.navigationBar addSubview:backLabel];
 		
-	}
+	}*/
 	
 	
 	
@@ -237,8 +238,10 @@ NSDictionary *couponValues;
 	NSString *counterLabelValues;
 	
 	//labels according to selected language
-	
-	if ([storeLanguage isEqualToString:@"English"]) {
+    NSString *timeRemaining = CustomLocalisedString(@"Time Remaining", @"");
+    counterLabelValues = [NSString stringWithFormat:@"%@ %@ min",timeRemaining,counterStr];
+
+	/*if ([storeLanguage isEqualToString:@"English"]) {
 		
 		counterLabelValues = [NSString stringWithFormat:@"Time Remaining %@ min",counterStr];
 		
@@ -254,7 +257,7 @@ NSDictionary *couponValues;
 		
 		counterLabelValues = [NSString stringWithFormat:@"Time Remaining %@ min",counterStr];
 		
-	}
+	}*/
 	
 	[labl setText:counterLabelValues];//counter label text
 	

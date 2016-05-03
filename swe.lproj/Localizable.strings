@@ -1,9 +1,9 @@
-/* 
-   Localizable.strings
-   cumbari
-
-   Created by Shephertz Technology on 22/11/10.
-   Copyright 2010 ShephertzTechnology PVT LTD. All rights reserved.
+/*
+ Localizable.strings
+ cumbari
+ 
+ Created by Shephertz Technology on 22/11/10.
+ Copyright 2010 ShephertzTechnology PVT LTD. All rights reserved.
  */
 "TabBar Title Of Hot Deals" = "HotDeals.";
 
@@ -25,3 +25,101 @@
 
 "Title of List Button" = "Lista";
 
+"No/Weak Internet Access" = "Inget/svagt internet";
+"You can not use the Cumbari service currently" = "Du kan inte använda Cumbari tjänster som idag";
+"OK" = "OK";
+
+"Favorites"="Favoriter";
+"Hot deals" ="Hot deals";
+"Categories" ="Kategorier";
+"Brands" = "Varumärken";
+"More" = "Mer";
+"ENG" = "SWE";
+"offers" = "offers"; //Need to get correct Translation
+"Address" = "Address"; //Need Text
+
+"All week" = "Hela veckan";
+"Already Added" = "Redan Tillagt";
+"Back" = "Tillbaka";
+"Change position" = "ändra läge";
+"Company Home Page" = "Company Home Page"; //Need to get correct Translation
+"Current Location" = "Aktuell plats";
+"Detailed Product description" = "Detaljerad Produktbeskrivning";
+"Distance Beyond Limit" = "Avstånd Beyond Limit";
+"Done" = "Klar";
+"Drag to Move Pin" = "Dra för att flytta Pin";
+"Edit" = "Ändra";
+"Email" = "Email";
+"English" = "Svenska";
+"Enter Address Or Tap On Map" = "Ange adress eller peka på Karta";
+"Favorite" = "Favorite"; // Need to get correct text
+"Favorites" = "Favorit";
+"Fri" = "Fre";
+"Language" = "Språk";
+"Languages" = "";
+"List" = "Lista";
+"Map" = "Karta";
+"Mon" = "Mån";
+"Mon to Fri" = "Mån till Fre";
+"More Info" = "Mer info";
+"More deals" = "Mer deal";
+"New Position" = "Ny position";
+"No Detailed Product description" = "Detaljerad Produktbeskrivning saknas";
+"Offer can't be used" = "Erbjudandet kan ej nyttjas";
+"Offers in list" = "Erbjudanden Lista";
+"Phone Number" = "Phone Number"; //Need to get text
+"Range" = "Range";
+"Sat" = "Lör";
+"Settings" = "Inställningar";
+"Show More..." = "Visa mer...";
+"Slide To Use Deal" = "Skjut för att använda Deal";
+"Sponsored" = "Sponsrad";
+"Sun" = "Sön";
+"This is already added into Favorites" = "Detta är redan lagt in favoriter";
+"Thu" = "Tors";
+"Tue" = "Tis";
+"Unit" = "Enhet";
+"Use Deal" = "Use Deal"; //Need to get Text
+"Valid" = "Gäller";      
+"Valid until" = "Giltig till";//Need to get Text
+"Wed" = "Ons";
+"You are too far from the point of sale" = "Du befinner dig för långt ifrån försäljningsstället";
+"You can't see map directions" = "Du kan inte se karta vägbeskrivning";
+"Can't Be Added" = "Kan inte läggas";
+"You can't add google Products to Favorites" = "Du kan inte lägga Google-produkter till favoriter";
+"Added to Favorites" = "Taggad som favorit";
+"Coupon has been added to favorites" = "Coupon has been added to favorites";
+"Error" = "Error";//Need to get Text
+"Error With Connection Or There is no Coupon in this category" = "Error With Connection Or There is no Coupon in this category";//Need to get Text
+"Show More" = "Visa mer";
+"Error With Connection Or Coupon may not exist" = "Error With Connection Or Coupon may not exist";
+"Position" = "Position";
+"Feedback" = "Återkoppling";
+"About Cumbari" = "Om Cumbari";
+"Error With Connection Or There is no Coupon in this brand" = "Error With Connection Or There is no Coupon in this brand"; //Text Needed
+"Error With Connection Or PartnerId Or CouponId may not exist" = "Error With Connection Or PartnerId Or CouponId may not exist";
+"Tap On Map" = "Peka på kartan";
+"Search" = "Sök";
+"Time Remaining" = "Resterande tid";
+"Not Logged In" = "Not Logged In"; //Text Needed
+"Mail Sent" = "Mail Sent"; //Text Needed
+"Mail Sending Failed" = "Mail Sending Failed"; //Text Needed
+"Post Deal" = "Post Deal"; // Text Needed
+"Posting Data to facebook" = "Posting Data to facebook"; //Text Needed
+"Can't go back while posting data" = "Can't go back while posting data"; //Text Needed
+"You have logged out!" = "You have logged out!"; //Text Needed
+"You have to log in to post the deal" = "You have to log in to post the deal"; //Text Needed
+"Deal Successfully posted!" = "Deal har lagts";
+"Deal to facebook has been posted" = "Ge för att Facebook har lagts";
+"Not connected to Facebook" = "Not connected to Facebook"; //Text Needed
+"Login" = "Login"; //Text Needed
+"Connecting to Facebook..." = "Connecting to Facebook..."; //Text Needed
+"Connected to Facebook" = "Connected to Facebook"; //Text Needed
+"Logout" = "Logout"; //Text Needed
+"Standards" = "Standards";//Text Needed
+"Satellite" = "Satellite";//Text Needed
+"Hybrid" = "Hybrid";//Text Needed
+"Store Information" = "Store Information"; //Text Needed
+"You have not logged into your mail account" = "You have not logged into your mail account";//Text Needed
+"Meter" = "Meter";//Text Needed
+"Miles" = "Miles";//Text Needed

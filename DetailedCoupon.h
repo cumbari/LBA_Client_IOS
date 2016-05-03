@@ -75,8 +75,6 @@
 	
 	IBOutlet UIButton *moreDealsButton;
 	
-	
-	
 	//labels 
 	UILabel *mapLabel;
 	
