@@ -20,6 +20,8 @@
 #import "Links.h"
 #import "UIDevice+IdentifierAddition.h"
 #import "LanguageManager.h"
+#import "facebookViewController.h"
+
 
 @implementation HotDeals//implementing hot deals
 
@@ -811,9 +813,22 @@ int adsValue =0;
 	
 }
 
+-(void)facebookButtonTapped:(id)sender
+{
+    facebookViewController *facebookViewControllerObj = [[facebookViewController alloc]init];//allocating facebook view controller
+    
+    UINavigationController *facebookViewControllerObjNav = [[UINavigationController alloc]initWithRootViewController:facebookViewControllerObj];//navigation controller for FB
+    
+    [self.navigationController presentModalViewController:facebookViewControllerObjNav animated:YES];//setting view
+    
+    [facebookViewControllerObjNav release];//releasing navigation view
+    
+    [facebookViewControllerObj release];//releasing view
+}
+
 -(void)fetchMessages:(id)sender
 {
-	
+    //[self facebookButtonTapped:nil];
 	if (searching) {
 		
 		batchValueForSearch++;

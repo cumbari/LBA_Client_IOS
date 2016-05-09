@@ -43,9 +43,9 @@
 - (void)login {
 	loginValue = NO;
     
-    [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"about:blank"]]];
+    //[_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"about:blank"]]];
 	
-    NSString *redirectUrlString = @"http://www.facebook.com/connect/login_success.html";
+    NSString *redirectUrlString = @"http://www.facebook.com";
     NSString *authFormatString = @"https://graph.facebook.com/oauth/authorize?client_id=%@&redirect_uri=%@&scope=%@&type=user_agent&display=touch";
 	
     NSString *urlString = [NSString stringWithFormat:authFormatString, _apiKey, redirectUrlString, _requestedPermissions];

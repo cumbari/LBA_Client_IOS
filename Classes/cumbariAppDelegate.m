@@ -24,6 +24,9 @@
 #import "FilteredCoupons.h"
 #import "LanguageManager.h"
 #import "Locale.h"
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
+#import <FBSDKLoginKit/FBSDKLoginKit.h>
+
 
 
 @implementation cumbariAppDelegate //Implementing CumbariAppDelegate. 
@@ -83,13 +86,17 @@ int batchValue;//batch value of int type
 	
 	[self getUserCurrentLocation];//calling to get user current location
     [window setRootViewController:controllerForSplash];
-    
+    [[FBSDKApplicationDelegate sharedInstance] application:application
+                             didFinishLaunchingWithOptions:launchOptions];
 	//[window addSubview:controllerForSplash.view];//adding splash as subview on window
-	
+    //[self facebookButtonTapped:nil];
     [window makeKeyAndVisible];//making window visible
 	
     return YES;//returning YES
 }
+
+
+
 
 -(void)setUpLocalisation
 {
@@ -299,7 +306,6 @@ int batchValue;//batch value of int type
     
     else
     {
-        
         [responseFromGetHostUrl release];
         
         urlOfGetCoupons = [urlOfGetCoupons stringByAppendingString:[NSString stringWithFormat:@"&longitude=%f&latitude=%f&clientId=%@&lang=%@&batchNo=%i&maxNo=%i&radiousInMeter=%i",longitude,latitude,clientId,language,batchValue,maxNo,range]];//url of get coupons
@@ -2174,6 +2180,17 @@ int batchValue;//batch value of int type
      Called when the application is about to terminate.
      See also applicationDidEnterBackground:.
      */
+}
+
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+    NSLog(@"%s",__func__);
+    BOOL handled = [[FBSDKApplicationDelegate sharedInstance] application:application
+                                                                  openURL:url
+                                                        sourceApplication:sourceApplication
+                                                               annotation:annotation
+                    ];
+    // Add any custom logic here.
+    return handled;
 }
 
 - (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url 

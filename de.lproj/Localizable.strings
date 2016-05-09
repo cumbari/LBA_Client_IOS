@@ -85,40 +85,80 @@
 "Wed"	= "Mi";
 "You are too far from the point of sale"	= "Sie sind zu weit vom Geschäft entfernt";
 "You can't see map directions"	= "Wegweiser nicht verfügbar";
-"Can't Be Added" = "Can't Be Added"; //Need Text
-"You can't add google Products to Favorites" = "You can't add google Products to Favorites";//Need Text
-"Added to Favorites" = "Added to Favorites";//Need Text
-"Coupon has been added to favorites" = "Coupon has been added to favorites";//Need Text
-"Error" = "Error";//Need Text
-"Error With Connection Or There is no Coupon in this category" = "Error With Connection Or There is no Coupon in this category";//Need Text
-"Error With Connection Or Coupon may not exist" = "Error With Connection Or Coupon may not exist"; //Text Needed
-"Position" = "Position"; //Text Needed
-"Feedback" = "Feedback"; //Text Needed
-"About Cumbari" = "About Cumbari"; //Text Needed
-"Error With Connection Or There is no Coupon in this brand" = "Error With Connection Or There is no Coupon in this brand"; //Text Needed
 "Error With Connection Or PartnerId Or CouponId may not exist" = "Error With Connection Or PartnerId Or CouponId may not exist";
-"Tap On Map" = "Tap On Map"; //Text Needed
-"Search" = "Search"; // Text Needed
-"Time Remaining" = "Time Remaining"; //Text Needed
-"Not Logged In" = "Not Logged In"; //Text Needed
-"Mail Sent" = "Mail Sent";//Text Needed
-"Mail Sending Failed" = "Mail Sending Failed"; //Text Needed
-"Post Deal" = "Post Deal"; //Text Needed
-"Posting Data to facebook" = "Posting Data to facebook"; //Text Needed
-"Can't go back while posting data" = "Can't go back while posting data"; //Text Needed
-"You have logged out!" = "You have logged out!"; //Text Needed
-"You have to log in to post the deal" = "You have to log in to post the deal"; //Text Needed
-"Deal Successfully posted!" = "Deal Successfully posted!"; //Text Needed
-"Deal to facebook has been posted" = "Deal to facebook has been posted"; //Text Needed
-"Not connected to Facebook" = "Not connected to Facebook"; //Text Needed
-"Login" = "Login"; //Text Needed
-"Connecting to Facebook..." = "Connecting to Facebook..."; //Text Needed
-"Connected to Facebook" = "Connected to Facebook"; //Text Needed
-"Logout" = "Logout"; //Text Needed
-"Standards" = "Standards";//Text Needed
-"Satellite" = "Satellite";//Text Needed
-"Hybrid" = "Hybrid";//Text Needed
-"Store Information" = "Store Information"; //Text Needed
-"You have not logged into your mail account" = "You have not logged into your mail account";//Text Needed
-"Meter" = "Meter";//Text Needed
-"Miles" = "Miles";//Text Needed
+
+"Can't Be Added" = "Kann nicht hinzugefügt werden”
+
+"You can't add google Products to Favorites" = "Du kannst keine Google Produkte zu Favoriten hinzufügen"
+
+"Added to Favorites" = "zu Favoriten hinzugefügt”
+
+"Coupon has been added to favorites" = "Coupon zu Favoriten hinzugefügt”
+
+"Error" = "Fehler”
+
+"Error With Connection Or There is no Coupon in this category" = "Verbindungsfehler oder kein Coupon in dieser Kategorie”
+
+"Error With Connection Or Coupon may not exist" = "Verbindungsfehler oder Coupon nicht existent”
+
+"Position" = "Position"
+
+"Feedback" = "Feedback"
+
+"About Cumbari" = "Über MOblYO"
+
+"Error With Connection Or There is no Coupon in this brand" = "Verbindungsfehler oder diese Marke hat keinen Coupon"
+
+"Error With Connection Or PartnerId Or CouponId may not exist" = "Verbindungsfehler oder Partner-ID oder Coupon-ID nicht existent"
+
+"Tap On Map" = "Karte antippen"
+
+"Search" = "Suche"
+
+"Time Remaining" = "Restzeit"
+
+"Not Logged In" = "Nicht eingeloggt"
+
+"Mail Sent" = "Mail gesendet"
+
+"Mail Sending Failed" = "Mailversand fehlgeschlagen"
+
+"Post Deal" = "Deal posten"
+
+"Posting Data to facebook" = "Daten werden an Facebook übermittelt"
+
+"Can't go back while posting data" = "Zurückgehen nicht möglich während der Datenübertragung"
+
+"You have logged out!" = "Du bist ausgeloggt"
+
+"You have to log in to post the deal" = "Du musst dich einloggen um den Deal zu posten"
+
+"Deal Successfully posted!" = "Deal erfolgreich gepostet!"
+
+"Deal to facebook has been posted" = "Deal auf Facebook veröffentlicht"
+
+"Not connected to Facebook" = "Nicht mit Facebook verbunden"
+
+"Login" = "Einloggen"
+
+"Connecting to Facebook..." = "Verbindungsaufbau zu Facebook …"
+
+"Connected to Facebook" = "Mit Facebook verbunden"
+
+"Logout" = "Ausloggen"
+
+"Standards" = "Standard"
+
+"Satellite" = "Satellit"
+
+"Hybrid" = "Hybrid"
+
+"Store Information" = "Firmeninformation"
+
+"You have not logged into your mail account" = "Du bist nicht in deinem Email Konto angemeldet"
+
+"Meter" = "Meter"
+
+"Miles" = "Miles"
+
+

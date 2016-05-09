@@ -13,6 +13,8 @@
 		288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765FC0DF74451002DB57D /* CoreGraphics.framework */; };
 		5D1F7AB21CD74954005252C6 /* LanguageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D1F7AAF1CD74954005252C6 /* LanguageManager.m */; };
 		5D1F7AB31CD74954005252C6 /* Locale.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D1F7AB11CD74954005252C6 /* Locale.m */; };
+		5D9852F91CE075F600547E69 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D9852F71CE075F600547E69 /* FBSDKCoreKit.framework */; };
+		5D9852FA1CE075F700547E69 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D9852F81CE075F600547E69 /* FBSDKLoginKit.framework */; };
 		5DD021EF1C3E64CA00AAC761 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DD021EE1C3E64CA00AAC761 /* Default-568h@2x.png */; };
 		5DD021F11C3E96EE00AAC761 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DD021F01C3E96EE00AAC761 /* libsqlite3.tbd */; };
 		5DD021F31C3E971800AAC761 /* libz.1.2.5.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DD021F21C3E971800AAC761 /* libz.1.2.5.tbd */; };
@@ -223,6 +225,8 @@
 		5D1F7AB01CD74954005252C6 /* Locale.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Locale.h; sourceTree = "<group>"; };
 		5D1F7AB11CD74954005252C6 /* Locale.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Locale.m; sourceTree = "<group>"; };
 		5D7B331D1CD7EAE700E12449 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		5D9852F71CE075F600547E69 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
+		5D9852F81CE075F600547E69 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
 		5DD021EE1C3E64CA00AAC761 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		5DD021F01C3E96EE00AAC761 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		5DD021F21C3E971800AAC761 /* libz.1.2.5.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.1.2.5.tbd; path = usr/lib/libz.1.2.5.tbd; sourceTree = SDKROOT; };
@@ -478,9 +482,11 @@
 				288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */,
 				B47F9465129640B900658A67 /* MapKit.framework in Frameworks */,
 				D7ABF57D12F6F53B00A4A56D /* CoreLocation.framework in Frameworks */,
+				5D9852F91CE075F600547E69 /* FBSDKCoreKit.framework in Frameworks */,
 				D7ABF57F12F6F53B00A4A56D /* MessageUI.framework in Frameworks */,
 				D7ABF58112F6F53B00A4A56D /* QuartzCore.framework in Frameworks */,
 				D7ABF58912F6F55A00A4A56D /* MobileCoreServices.framework in Frameworks */,
+				5D9852FA1CE075F700547E69 /* FBSDKLoginKit.framework in Frameworks */,
 				B49F1D101315391C00FD4E1E /* libicucore.A.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -533,6 +539,8 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5D9852F71CE075F600547E69 /* FBSDKCoreKit.framework */,
+				5D9852F81CE075F600547E69 /* FBSDKLoginKit.framework */,
 				5DD021F21C3E971800AAC761 /* libz.1.2.5.tbd */,
 				5DD021F01C3E96EE00AAC761 /* libsqlite3.tbd */,
 				1DF5F4DF0D08C38300B7A737 /* UIKit.framework */,
@@ -1258,7 +1266,10 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -1272,7 +1283,7 @@
 					"\"$(SRCROOT)\"",
 					"\"$(SRCROOT)/Debug-iphoneos\"",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.shephertz.cumbari;
+				PRODUCT_BUNDLE_IDENTIFIER = com.shephertz.SpacePowerCombat;
 				PRODUCT_NAME = cumbari;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -1285,7 +1296,10 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = cumbari_Prefix.pch;
 				GCC_THUMB_SUPPORT = NO;
@@ -1296,7 +1310,7 @@
 					"\"$(SRCROOT)/Release-iphonesimulator\"",
 					"\"$(SRCROOT)\"",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.shephertz.cumbari;
+				PRODUCT_BUNDLE_IDENTIFIER = com.shephertz.SpacePowerCombat;
 				PRODUCT_NAME = cumbari;
 				TARGETED_DEVICE_FAMILY = 1;
 				VALIDATE_PRODUCT = YES;
@@ -1358,7 +1372,10 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -1372,7 +1389,7 @@
 					"\"$(SRCROOT)\"",
 					"\"$(SRCROOT)/Debug-iphoneos\"",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.shephertz.cumbari;
+				PRODUCT_BUNDLE_IDENTIFIER = com.shephertz.SpacePowerCombat;
 				PRODUCT_NAME = cumbari;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

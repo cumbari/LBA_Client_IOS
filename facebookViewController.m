@@ -12,6 +12,8 @@
 #import "JSON.h"
 #import "ImageLoadingOperation.h"
 #import "LanguageManager.h"
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
+#import <FBSDKLoginKit/FBSDKLoginKit.h>
 
 @implementation facebookViewController
 @synthesize loginStatusLabel = _loginStatusLabel;
@@ -31,11 +33,8 @@ NSDictionary *couponInfoDictionary;
 
 -(void)passCouponInfo:(NSDictionary *)tmpArray
 {
-	
 	couponInfoDictionary = tmpArray;
-	
 }
-
 
 - (void)dealloc {
     self.loginStatusLabel = nil;
@@ -59,6 +58,9 @@ NSDictionary *couponInfoDictionary;
         [_loginButton setTitle:CustomLocalisedString(@"Login", @"") forState:UIControlStateNormal];
         _loginButton.hidden = NO;
 		postDealButton.hidden = YES;
+        offerTitleLabel.hidden = YES;
+        offerSloganLabel.hidden = YES;
+        _imageView.hidden = YES;
 		[postDealLabel removeFromSuperview];
     } else if (_loginState == LoginStateLoggingIn) {
         _loginStatusLabel.text = CustomLocalisedString(@"Connecting to Facebook...", @"");
@@ -70,8 +72,38 @@ NSDictionary *couponInfoDictionary;
         [_loginButton setTitle:CustomLocalisedString(@"Logout", @"") forState:UIControlStateNormal];
         _loginButton.hidden = NO;
 		postDealButton.hidden = NO;
-    }   
+        offerTitleLabel.hidden = NO;
+        offerSloganLabel.hidden = NO;
+        _imageView.hidden = NO;
+    }
 }
+
+
+-(void)logInWithFacebook {
+    
+    if (![FBSDKAccessToken currentAccessToken])
+    {
+        FBSDKLoginManager *login = [[FBSDKLoginManager alloc] init];
+        [login logInWithPublishPermissions:@[@"publish_actions"] fromViewController:self handler:^(FBSDKLoginManagerLoginResult *result, NSError *error) {
+            if (error) {
+                NSLog(@"Process error");
+            } else if (result.isCancelled) {
+                NSLog(@"Cancelled");
+                
+            } else {
+                NSLog(@"Logged in");
+                [self accessTokenFound:[[FBSDKAccessToken currentAccessToken] tokenString]];
+            }
+        }];
+    }
+    else
+    {
+        //[self getUserDetailsFromFacebook];
+        [self accessTokenFound:[[FBSDKAccessToken currentAccessToken] tokenString]];
+        NSLog(@"Already loggedIn");
+    }
+}
+
 #pragma mark -
 #pragma mark FbGraph Callback Function
 /**
@@ -80,7 +112,7 @@ NSDictionary *couponInfoDictionary;
 
 - (void)viewWillAppear:(BOOL)animated {
     
-        
+    
     dataPosted = true;
     
     _operationQueue = [[NSOperationQueue alloc] init];//queue operation
@@ -230,25 +262,24 @@ NSDictionary *couponInfoDictionary;
 
 - (IBAction)loginButtonTapped:(id)sender {
     
-    NSString *permissions = @"user_photos,user_videos,publish_stream,offline_access,user_checkins,friends_checkins";
-    NSString *appId = @"470bde100d3ff5f7cd219ca2f5302ba9";
+    //NSString *permissions = @"user_photos,publish_actions";
+    //NSString *appId = @"593165844080908";
 	
 	
-    if (_loginDialog == nil) {
+   /* if (_loginDialog == nil) {
         self.loginDialog = [[[facebookLoginDialog alloc] initWithAppId:appId requestedPermissions:permissions delegate:self] autorelease];
         self.loginDialogView = _loginDialog.view;
-    }
+    }*/
     
     if (_loginState == LoginStateStartup || _loginState == LoginStateLoggedOut) {
         _loginState = LoginStateLoggingIn;
-        [_loginDialog login];
+        [self logInWithFacebook];
     } else if (_loginState == LoginStateLoggedIn) {
         _loginState = LoginStateLoggedOut;        
-        [_loginDialog logout];
+        FBSDKLoginManager *login = [[FBSDKLoginManager alloc] init];
+        [login logOut];
     }
-    
     [self refresh];
-    
 }
 
 #pragma mark FB Requests
@@ -345,16 +376,11 @@ NSDictionary *couponInfoDictionary;
 {
     // Use when fetching text data
     //NSString *responseString = [request responseString];
-	
-	NSURL *url = [NSURL URLWithString:[couponInfoDictionary objectForKey:@"largeImage"]];//fetching large image of coupon.
-	
-    [self cachedImageForURL:url forImageView:_imageView];	
-	
+    NSURL *url = [NSURL URLWithString:[couponInfoDictionary objectForKey:@"largeImage"]];//fetching large image of coupon.
+    [self cachedImageForURL:url forImageView:_imageView];
 	offerTitleLabel.text = [couponInfoDictionary objectForKey:@"offerTitle"];
-	
-	offerSloganLabel.text = [couponInfoDictionary objectForKey:@"offerSlogan"];
-	
-	[self refresh];    
+    offerSloganLabel.text = [couponInfoDictionary objectForKey:@"offerSlogan"];
+	[self refresh];
 }
 
 
@@ -362,10 +388,8 @@ NSDictionary *couponInfoDictionary;
 	
 	id cachedObject = [_cachedImages objectForKey:url];
     
-	
     if (nil == cachedObject) {
         
-		
 		[UIApplication sharedApplication].networkActivityIndicatorVisible = YES;//make network indicator visible
 		
         // Set the loading placeholder in our cache dictionary.
@@ -390,9 +414,7 @@ NSDictionary *couponInfoDictionary;
 	if (![cachedObject isKindOfClass:[UIImage class]]) {
 		
 		return nil;//returning nil
-		
-	} 	
-    
+	}
     return cachedObject;//retruning cached object
 	
 }
