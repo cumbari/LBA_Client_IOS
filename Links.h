@@ -19,7 +19,7 @@
 
 #define UseCouponURL @"https://market.cumbari.com/CouponServer/clientapi/useCoupon?apiVersion=1&token=cumba4ever&couponId="
 
-#define CumbariURL @"http://cumbari.com/aboutUs.php"
+#define CumbariURL @"https://cumbari.com/aboutUs.php"
 
 #define GetHostURL @"https://market.cumbari.com/CouponServer/clientapi/getHostURL?longitude=1&latitude=1&token=cumba4ever"
 
