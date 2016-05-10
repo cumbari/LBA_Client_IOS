@@ -62,12 +62,13 @@ NSDictionary *couponInfoDictionary;
         offerSloganLabel.hidden = YES;
         _imageView.hidden = YES;
 		[postDealLabel removeFromSuperview];
-    } else if (_loginState == LoginStateLoggingIn) {
+    }
+    else if (_loginState == LoginStateLoggingIn) {
         _loginStatusLabel.text = CustomLocalisedString(@"Connecting to Facebook...", @"");
         _loginButton.hidden = YES;
 		[postDealLabel removeFromSuperview];
-		
-    } else if (_loginState == LoginStateLoggedIn) {
+    }
+    else if (_loginState == LoginStateLoggedIn) {
         _loginStatusLabel.text = CustomLocalisedString(@"Connected to Facebook", @"");
         [_loginButton setTitle:CustomLocalisedString(@"Logout", @"") forState:UIControlStateNormal];
         _loginButton.hidden = NO;
@@ -87,9 +88,12 @@ NSDictionary *couponInfoDictionary;
         [login logInWithPublishPermissions:@[@"publish_actions"] fromViewController:self handler:^(FBSDKLoginManagerLoginResult *result, NSError *error) {
             if (error) {
                 NSLog(@"Process error");
+                _loginState = LoginStateStartup;
+                [self refresh];
             } else if (result.isCancelled) {
                 NSLog(@"Cancelled");
-                
+                _loginState = LoginStateStartup;
+                [self refresh];
             } else {
                 NSLog(@"Logged in");
                 [self accessTokenFound:[[FBSDKAccessToken currentAccessToken] tokenString]];
