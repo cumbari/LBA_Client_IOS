@@ -2131,7 +2131,13 @@ int batchValue;//batch value of int type
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation {
 	NSLog(@"%s",__func__);
+    static BOOL shouldLoadData = YES;
 	self.mUserCurrentLocation = newLocation;//new location
+    if (shouldLoadData) {
+        shouldLoadData = NO;
+        NSLog(@"First Data loading started");
+        [self tabBar1];
+    }
 }
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {

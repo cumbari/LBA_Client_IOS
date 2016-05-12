@@ -33,17 +33,19 @@
 	appDelegate = (cumbariAppDelegate *)[[UIApplication sharedApplication]delegate];//object of cumbari app delegate
     
     if (appDelegate.mUserCurrentLocation.coordinate.latitude == 0) {
+        NSLog(@"%s.....callJsonData after 10 sec",__func__);
         [self performSelector:@selector(callJsonData) withObject:nil afterDelay:10.0];//call json data
     }
     else
     {
+        NSLog(@"%s.....callJsonData after 1.0 sec",__func__);
         [self performSelector:@selector(callJsonData) withObject:nil afterDelay:1.0];//call json data
     }
 }
 
 -(void)callJsonData
 {       
-    [appDelegate tabBar1];//calling tab bar1 method
+    //[appDelegate tabBar1];//calling tab bar1 method
     
 }
 /*

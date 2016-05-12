@@ -11,6 +11,8 @@
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765FC0DF74451002DB57D /* CoreGraphics.framework */; };
+		5D0C093A1CE4A66500BF930C /* Default-667h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D0C09381CE4A66500BF930C /* Default-667h@2x.png */; };
+		5D0C093B1CE4A66500BF930C /* Default-736h@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D0C09391CE4A66500BF930C /* Default-736h@3x.png */; };
 		5D1F7AB21CD74954005252C6 /* LanguageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D1F7AAF1CD74954005252C6 /* LanguageManager.m */; };
 		5D1F7AB31CD74954005252C6 /* Locale.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D1F7AB11CD74954005252C6 /* Locale.m */; };
 		5D9852F91CE075F600547E69 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D9852F71CE075F600547E69 /* FBSDKCoreKit.framework */; };
@@ -219,6 +221,8 @@
 		288765FC0DF74451002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* cumbari_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cumbari_Prefix.pch; sourceTree = "<group>"; };
+		5D0C09381CE4A66500BF930C /* Default-667h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-667h@2x.png"; sourceTree = "<group>"; };
+		5D0C09391CE4A66500BF930C /* Default-736h@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-736h@3x.png"; sourceTree = "<group>"; };
 		5D1F7AAC1CD70E67005252C6 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		5D1F7AAE1CD74954005252C6 /* LanguageManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LanguageManager.h; sourceTree = "<group>"; };
 		5D1F7AAF1CD74954005252C6 /* LanguageManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LanguageManager.m; sourceTree = "<group>"; };
@@ -505,7 +509,6 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
-				5DD021EE1C3E64CA00AAC761 /* Default-568h@2x.png */,
 				5D1F7AAD1CD74954005252C6 /* LanguageManager */,
 				B46A46C114BC1EB90007C1B2 /* JSON */,
 				D7306C4F144EC0B200D5916E /* libz.1.2.5.dylib */,
@@ -890,6 +893,9 @@
 			isa = PBXGroup;
 			children = (
 				B4AEDFDD14BD9AD6006C1D33 /* iTunesArtwork */,
+				5DD021EE1C3E64CA00AAC761 /* Default-568h@2x.png */,
+				5D0C09381CE4A66500BF930C /* Default-667h@2x.png */,
+				5D0C09391CE4A66500BF930C /* Default-736h@3x.png */,
 				D7C02F051491E040006C1896 /* CumbariWithBackandMapWithoutLogo.png */,
 				D7C02F061491E040006C1896 /* CumbariWithBackandMapWithoutLogo@2x.png */,
 				B49B52DE134C44060083F95B /* LeftBack.png */,
@@ -1129,6 +1135,7 @@
 				B494D7D51324D25100F95ECD /* MainWindow.xib in Resources */,
 				B494D7D71324D25100F95ECD /* no_Image.png in Resources */,
 				B49F3645132A3C25009A6EBC /* Bottom_DetailedTab.png in Resources */,
+				5D0C093B1CE4A66500BF930C /* Default-736h@3x.png in Resources */,
 				B4E2C4BD13308EC2005BE540 /* tabBarForMoreInfo.png in Resources */,
 				B4E2C7121330DE87005BE540 /* no-Image-icon.png in Resources */,
 				B4B8DEC213331E7800DE16BB /* Favorites_SWE.png in Resources */,
@@ -1149,6 +1156,7 @@
 				B4ADA2E81349F397008AAEFD /* CumbariWithDone&Map.png in Resources */,
 				B4ADA2EA1349F3D3008AAEFD /* CumbariWithBack.png in Resources */,
 				B4ADA2EC1349F409008AAEFD /* CumbariNavLogo.png in Resources */,
+				5D0C093A1CE4A66500BF930C /* Default-667h@2x.png in Resources */,
 				B4ADA2EF1349F46F008AAEFD /* Default@2x.png in Resources */,
 				B4ADA2F31349F4EC008AAEFD /* Default.png in Resources */,
 				B4ADA3331349F976008AAEFD /* icon@2x.png in Resources */,
