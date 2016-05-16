@@ -216,11 +216,11 @@
 
 /* Begin PBXFileReference section */
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		1D6058910D05DD3D006BFB54 /* cumbari.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = cumbari.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1D6058910D05DD3D006BFB54 /* Moblyo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Moblyo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		288765FC0DF74451002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		32CA4F630368D1EE00C91783 /* cumbari_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cumbari_Prefix.pch; sourceTree = "<group>"; };
+		32CA4F630368D1EE00C91783 /* Moblyo_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Moblyo_Prefix.pch; sourceTree = "<group>"; };
 		5D0C09381CE4A66500BF930C /* Default-667h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-667h@2x.png"; sourceTree = "<group>"; };
 		5D0C09391CE4A66500BF930C /* Default-736h@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-736h@3x.png"; sourceTree = "<group>"; };
 		5D1F7AAC1CD70E67005252C6 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -384,7 +384,7 @@
 		B494D7AA1324D25100F95ECD /* section.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = section.png; sourceTree = "<group>"; };
 		B494D7AD1324D25100F95ECD /* CumbariWithSegments.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CumbariWithSegments.png; sourceTree = "<group>"; };
 		B494D7B61324D25100F95ECD /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
-		B494D7B71324D25100F95ECD /* cumbari-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "cumbari-Info.plist"; sourceTree = "<group>"; };
+		B494D7B71324D25100F95ECD /* Moblyo-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Moblyo-Info.plist"; sourceTree = "<group>"; };
 		B494D7B81324D25100F95ECD /* Links.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Links.h; sourceTree = "<group>"; };
 		B494D7B91324D25100F95ECD /* no_Image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = no_Image.png; sourceTree = "<group>"; };
 		B49B52D8134C43450083F95B /* navBar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = navBar.png; sourceTree = "<group>"; };
@@ -501,7 +501,7 @@
 		19C28FACFE9D520D11CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				1D6058910D05DD3D006BFB54 /* cumbari.app */,
+				1D6058910D05DD3D006BFB54 /* Moblyo.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -532,7 +532,7 @@
 		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
-				32CA4F630368D1EE00C91783 /* cumbari_Prefix.pch */,
+				32CA4F630368D1EE00C91783 /* Moblyo_Prefix.pch */,
 				29B97316FDCFA39411CA2CEA /* main.m */,
 				B4ADADAD129A8E1400D6AC60 /* Localizable.strings */,
 			);
@@ -938,7 +938,7 @@
 				B494D70E1324D21500F95ECD /* CategoryBackground.png */,
 				B494D6DE1324D20400F95ECD /* slider_Red.png */,
 				B494D7B61324D25100F95ECD /* MainWindow.xib */,
-				B494D7B71324D25100F95ECD /* cumbari-Info.plist */,
+				B494D7B71324D25100F95ECD /* Moblyo-Info.plist */,
 				B494D7B81324D25100F95ECD /* Links.h */,
 				B494D7B91324D25100F95ECD /* no_Image.png */,
 				B494D79A1324D25100F95ECD /* Tab Images */,
@@ -1016,9 +1016,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		1D6058900D05DD3D006BFB54 /* cumbari */ = {
+		1D6058900D05DD3D006BFB54 /* Moblyo */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "cumbari" */;
+			buildConfigurationList = 1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "Moblyo" */;
 			buildPhases = (
 				1D60588D0D05DD3D006BFB54 /* Resources */,
 				1D60588E0D05DD3D006BFB54 /* Sources */,
@@ -1030,9 +1030,9 @@
 			);
 			dependencies = (
 			);
-			name = cumbari;
+			name = Moblyo;
 			productName = cumbari;
-			productReference = 1D6058910D05DD3D006BFB54 /* cumbari.app */;
+			productReference = 1D6058910D05DD3D006BFB54 /* Moblyo.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -1043,7 +1043,7 @@
 			attributes = {
 				LastUpgradeCheck = 0720;
 			};
-			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "cumbari" */;
+			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "Moblyo" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 1;
@@ -1060,7 +1060,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				1D6058900D05DD3D006BFB54 /* cumbari */,
+				1D6058900D05DD3D006BFB54 /* Moblyo */,
 			);
 		};
 /* End PBXProject section */
@@ -1281,10 +1281,10 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = cumbari_Prefix.pch;
+				GCC_PREFIX_HEADER = Moblyo_Prefix.pch;
 				GCC_THUMB_SUPPORT = NO;
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/${BUILD_STYLE}-${PLATFORM_NAME}/usr/local/include\"";
-				INFOPLIST_FILE = "cumbari-Info.plist";
+				INFOPLIST_FILE = "Moblyo-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1292,7 +1292,7 @@
 					"\"$(SRCROOT)/Debug-iphoneos\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.shephertz.SpacePowerCombat;
-				PRODUCT_NAME = cumbari;
+				PRODUCT_NAME = Moblyo;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -1309,17 +1309,17 @@
 					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = cumbari_Prefix.pch;
+				GCC_PREFIX_HEADER = Moblyo_Prefix.pch;
 				GCC_THUMB_SUPPORT = NO;
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/${BUILD_STYLE}-${PLATFORM_NAME}/usr/local/include\"";
-				INFOPLIST_FILE = "cumbari-Info.plist";
+				INFOPLIST_FILE = "Moblyo-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
 					"\"$(SRCROOT)/Release-iphonesimulator\"",
 					"\"$(SRCROOT)\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.shephertz.SpacePowerCombat;
-				PRODUCT_NAME = cumbari;
+				PRODUCT_NAME = Moblyo;
 				TARGETED_DEVICE_FAMILY = 1;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1387,10 +1387,10 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = cumbari_Prefix.pch;
+				GCC_PREFIX_HEADER = Moblyo_Prefix.pch;
 				GCC_THUMB_SUPPORT = NO;
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/${BUILD_STYLE}-${PLATFORM_NAME}/usr/local/include\"";
-				INFOPLIST_FILE = "cumbari-Info.plist";
+				INFOPLIST_FILE = "Moblyo-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1398,7 +1398,7 @@
 					"\"$(SRCROOT)/Debug-iphoneos\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.shephertz.SpacePowerCombat;
-				PRODUCT_NAME = cumbari;
+				PRODUCT_NAME = Moblyo;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Distribution;
@@ -1406,7 +1406,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "cumbari" */ = {
+		1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "Moblyo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1D6058940D05DD3E006BFB54 /* Debug */,
@@ -1416,7 +1416,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C01FCF4E08A954540054247B /* Build configuration list for PBXProject "cumbari" */ = {
+		C01FCF4E08A954540054247B /* Build configuration list for PBXProject "Moblyo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C01FCF4F08A954540054247B /* Debug */,
