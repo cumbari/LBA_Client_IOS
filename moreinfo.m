@@ -127,7 +127,7 @@ static sqlite3 *database = nil;
 	
 	storeInformationNameLabel = [[UILabel alloc]initWithFrame:CGRectMake(20 , 5, 250, 20)];
 	storeInformationNameLabel.text =CustomLocalisedString(@"Store Information", @"");//more info label text
-	storeInformationNameLabel.textColor = [UIColor blackColor];//white color of label
+	storeInformationNameLabel.textColor = [UIColor whiteColor];//white color of label
 	storeInformationNameLabel.backgroundColor = [UIColor clearColor];//clear background color
 	storeInformationNameLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:17.0];
 	[scroll addSubview:storeInformationNameLabel];
@@ -135,7 +135,7 @@ static sqlite3 *database = nil;
 	storeInformationValueLabel = [[UILabel alloc]initWithFrame:CGRectMake(20 , 25, 250, 40)];
 	storeInformationValueLabel.text = [storeInformation  objectForKey:@"storeName"];//store label name
 	storeInformationValueLabel.numberOfLines = 2;
-	storeInformationValueLabel.textColor = [UIColor blackColor];//white color of label
+	storeInformationValueLabel.textColor = [UIColor whiteColor];//white color of label
 	storeInformationValueLabel.backgroundColor = [UIColor clearColor];//clear background color
 	storeInformationValueLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:17];//font of label
 	
@@ -146,7 +146,7 @@ static sqlite3 *database = nil;
 	
 	addressNameLabel = [[UILabel alloc]initWithFrame:CGRectMake(20 , 75, 250, 20)];
 	addressNameLabel.text = CustomLocalisedString(@"Address", @"");//more info label text
-	addressNameLabel.textColor = [UIColor blackColor];//white color of label
+	addressNameLabel.textColor = [UIColor whiteColor];//white color of label
 	addressNameLabel.backgroundColor = [UIColor clearColor];//clear background color
 	addressNameLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:17.0];
 	[scroll addSubview:addressNameLabel];
@@ -159,7 +159,7 @@ static sqlite3 *database = nil;
 	addressValueLabel = [[UILabel alloc]initWithFrame:CGRectMake(20 , 95, 250, 40)];
 	addressValueLabel.text = stringForStoreInfo;//store label name
 	addressValueLabel.numberOfLines = 2;
-	addressValueLabel.textColor = [UIColor blackColor];//white color of label
+	addressValueLabel.textColor = [UIColor whiteColor];//white color of label
 	addressValueLabel.backgroundColor = [UIColor clearColor];//clear background color
 	addressValueLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:17];//font of label
 	
@@ -169,21 +169,21 @@ static sqlite3 *database = nil;
 	
 	phoneNameLabel = [[UILabel alloc]initWithFrame:CGRectMake(20 , 145, 250, 20)];
 	phoneNameLabel.text = CustomLocalisedString(@"Phone Number", @"");//more info label text
-	phoneNameLabel.textColor = [UIColor blackColor];//white color of label
+	phoneNameLabel.textColor = [UIColor whiteColor];//white color of label
 	phoneNameLabel.backgroundColor = [UIColor clearColor];//clear background color
 	phoneNameLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:17.0];
 	[scroll addSubview:phoneNameLabel];
 	
 	phoneValueLabel = [[UILabel alloc]initWithFrame:CGRectMake(20 , 165, 250, 20)];
 	phoneValueLabel.text = [storeInformation  objectForKey:@"phone"];//phone label text
-	phoneValueLabel.textColor = [UIColor blackColor];//white color of label
+	phoneValueLabel.textColor = [UIColor whiteColor];//white color of label
 	phoneValueLabel.backgroundColor = [UIColor clearColor];//clear background color
 	phoneValueLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:17];//font of label
 	[scroll addSubview:phoneValueLabel];
 	
 	emailNameLabel = [[UILabel alloc]initWithFrame:CGRectMake(20 , 195, 250, 20)];
 	emailNameLabel.text = CustomLocalisedString(@"Email", @"");//more info label text
-	emailNameLabel.textColor = [UIColor blackColor];//white color of label
+	emailNameLabel.textColor = [UIColor whiteColor];//white color of label
 	emailNameLabel.backgroundColor = [UIColor clearColor];//clear background color
 	phoneNameLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:17.0];
     [scroll addSubview:emailNameLabel];
@@ -215,7 +215,7 @@ static sqlite3 *database = nil;
 	
 	websiteNameLabel = [[UILabel alloc]initWithFrame:CGRectMake(20 , 245, 250, 20)];
 	websiteNameLabel.text = CustomLocalisedString(@"Company Home Page", @"");//more info label text
-	websiteNameLabel.textColor = [UIColor blackColor];//white color of label
+	websiteNameLabel.textColor = [UIColor whiteColor];//white color of label
 	websiteNameLabel.backgroundColor = [UIColor clearColor];//clear background color
 	websiteNameLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:17.0];
 	[scroll addSubview:websiteNameLabel];
