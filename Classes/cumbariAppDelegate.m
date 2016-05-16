@@ -151,7 +151,7 @@ int batchValue;//batch value of int type
     }
     else if ([lang isEqualToString:@"Deutsch"])
     {
-        langCode = @"DE";
+        langCode = @"GER";
     }
     return langCode;
 }

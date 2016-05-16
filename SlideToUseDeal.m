@@ -91,7 +91,7 @@ NSString *actionSheet;
 		}
         else if ([[defaults objectForKey:@"language"] isEqualToString:@"Deutsch"])
         {
-            trackImage = [UIImage imageNamed:@"TIMER_ENG.png"];
+            trackImage = [UIImage imageNamed:@"TIMER_GER.png"];
         }
 		else {
 			trackImage = [UIImage imageNamed:@"TIMER_ENG.png"];
@@ -112,7 +112,7 @@ NSString *actionSheet;
         }
         else if ([[defaults objectForKey:@"language"] isEqualToString:@"Deutsch"])
         {
-            trackImage = [UIImage imageNamed:@"sliderBackgroundENG.png"];
+            trackImage = [UIImage imageNamed:@"sliderBackgroundGER.png"];
         }
         else {
             

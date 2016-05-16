@@ -87,9 +87,11 @@ static const int animationFramesPerSec = 8;
 			trackImage = [UIImage imageNamed:@"Favorites_ENG.png"];
 			
 		}
-		
+        else if ([[defaults objectForKey:@"language"] isEqualToString:@"Deutsch"])
+        {
+            trackImage = [UIImage imageNamed:@"Favorites_GER.png"];
+        }
 		else {
-			
 			trackImage = [UIImage imageNamed:@"Favorites_ENG.png"];
 		}
 		
