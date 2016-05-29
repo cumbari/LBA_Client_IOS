@@ -12,6 +12,7 @@
 #import "map.h"
 #import "language.h"
 #import "DetailedSettings.h"
+#import "DetailSettings.h"
 #import "cumbariAppDelegate.h"
 #import "Position.h"
 #import "WebViewVC.h"
@@ -448,12 +449,18 @@
             [posObjNav release];
 			
 			[posObj release];
-		
-
 	} 
 
 	if (indexPath.row == 1) {
 		
+        /*DetailSettings *detailSetting = [[DetailSettings alloc] initWithNibName:@"DetailSettings" bundle:nil];
+        UINavigationController *navObj = [[UINavigationController alloc] initWithRootViewController:detailSetting];
+        navObj.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
+        [self presentViewController:navObj animated:YES completion:^{
+            
+        }];
+        [navObj release];
+        [detailSetting release];*/
 		DetailedSettings *detailSettingsObj = [[DetailedSettings alloc]initWithNibName:@"DetailedSettings" bundle:nil];//object of detailed settings
 		
 		UINavigationController *detailSettingsObjNav = [[UINavigationController alloc]initWithRootViewController:detailSettingsObj];
@@ -465,9 +472,6 @@
         [detailSettingsObjNav release];
 		
 		[detailSettingsObj release];
-		
-		
-		
 	}
 	
 	if (indexPath.row == 2) {

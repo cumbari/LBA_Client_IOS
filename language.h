@@ -18,7 +18,7 @@
 	
 	 NSMutableArray		*choices;//array of choice
 	
-	UILabel *backLabel;//label of back
+	//UILabel *backLabel;//label of back
 	
 	NSUserDefaults *prefs;
 	

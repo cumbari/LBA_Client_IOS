@@ -45,8 +45,10 @@
 	
 	//backLabel = [[UILabel alloc]init];
 	
-	mapView = [[MKMapView alloc] initWithFrame:CGRectMake(0, 0, 320, 420)];
+	//mapView = [[MKMapView alloc] initWithFrame:CGRectMake(0, 0, 320, 420)];
+    mapView = [[MKMapView alloc] initWithFrame:self.view.frame];
 	mapView.showsUserLocation = YES;
+    mapView.zoomEnabled = YES;
 	[mapView setDelegate:self];
 	[self.view addSubview:mapView];
 	

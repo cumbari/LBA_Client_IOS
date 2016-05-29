@@ -23,24 +23,36 @@
     [super viewDidLoad];
 	
 	detailObj = [[DetailedCoupon alloc]init];
-    
+    NSLog(@"Size = %@",NSStringFromCGSize(self.view.bounds.size));
 	UIButton *but1 = [UIButton buttonWithType:UIButtonTypeCustom];//customizing done button.
 	
 	but1.bounds = CGRectMake(0, 0, 50.0, 30.0);//locating button.
-	
-	[but1 setImage:[UIImage imageNamed:@"LeftBack.png"] forState:UIControlStateNormal];//setting image on button.
-	
+    [but1 setBackgroundImage:[UIImage imageNamed:@"LeftBack.png"] forState:UIControlStateNormal];
+	//[but1 setImage:[UIImage imageNamed:@"LeftBack.png"] forState:UIControlStateNormal];//setting image on button.
+    [but1 setTitle:CustomLocalisedString(@"Back",@"") forState:UIControlStateNormal];
+    but1.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:12.0];
 	[but1 addTarget:self action:@selector(backToSetting) forControlEvents:UIControlEventTouchUpInside];//calling cancel method on clicking done button.
 	
 	UIBarButtonItem *buttonLeft = [[UIBarButtonItem alloc]initWithCustomView:but1];//customizing right button.
 	
 	self.navigationItem.leftBarButtonItem = buttonLeft;//setting on R.H.S. of navigation item.
-    
     [buttonLeft release];
 	
 	myTableView.backgroundColor = [UIColor clearColor];//clear background color 
 	
 }
+
+-(void)fixTableViewPosition
+{
+    CGSize size = self.view.bounds.size;
+    
+    if (size.height>0) {
+        
+    } else {
+        
+    }
+}
+
 
 -(void)doneClicked
 {
@@ -81,7 +93,7 @@
     backLabel.textColor = [UIColor whiteColor];
     backLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:12.0];
     backLabel.text = CustomLocalisedString(@"Back",@"");
-    [self.navigationController.navigationBar addSubview:backLabel];
+    //[self.navigationController.navigationBar addSubview:backLabel];
 	//labels according to selected language
 	/*if ([storedLanguage isEqualToString:@"English"]) {
 				

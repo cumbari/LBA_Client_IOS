@@ -79,8 +79,10 @@
 	
 	but1.bounds = CGRectMake(0, 0, 50.0, 30.0);//locating button.
 	
-	[but1 setImage:[UIImage imageNamed:@"LeftBack.png"] forState:UIControlStateNormal];//setting image on button.
-	
+	//[but1 setImage:[UIImage imageNamed:@"LeftBack.png"] forState:UIControlStateNormal];//setting image on button.
+    [but1 setBackgroundImage:[UIImage imageNamed:@"LeftBack.png"] forState:UIControlStateNormal];
+    [but1 setTitle:CustomLocalisedString(@"Back",@"") forState:UIControlStateNormal];
+    but1.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:12.0];
 	[but1 addTarget:self action:@selector(backToSetting) forControlEvents:UIControlEventTouchUpInside];//calling cancel method on clicking done button.
 	
 	UIBarButtonItem *buttonLeft = [[UIBarButtonItem alloc]initWithCustomView:but1];//customizing right button.
@@ -165,7 +167,7 @@
     backLabel.textColor = [UIColor whiteColor];
     backLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:12.0];
     backLabel.text = CustomLocalisedString(@"Back", @"");
-    [self.navigationController.navigationBar addSubview:backLabel];
+    //[self.navigationController.navigationBar addSubview:backLabel];
     [backLabel release];
     
     navigationLabel = [[UILabel alloc]initWithFrame:CGRectMake(90, 8, 150, 25)];
@@ -383,7 +385,7 @@
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
 	
-	[backLabel removeFromSuperview];
+	//[backLabel removeFromSuperview];
 	
 	[navigationLabel removeFromSuperview];
 

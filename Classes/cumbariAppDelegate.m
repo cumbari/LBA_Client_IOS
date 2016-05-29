@@ -49,7 +49,7 @@ int batchValue;//batch value of int type
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {    
     
     // Override point for customization after application launch.
-	
+    application.statusBarHidden = YES;
 	//Initializing the array for Favorites.
     [self setUpLocalisation];
     
@@ -166,7 +166,7 @@ int batchValue;//batch value of int type
     NSString *languageOfApplication;
     
     //JSON Parser For Hot Deals File
-    [[UIApplication sharedApplication] setStatusBarHidden:NO];//showing status bar
+    [[UIApplication sharedApplication] setStatusBarHidden:YES];//showing status bar
     
     
     urlOfGetCoupons = GetCouponsURL;//url of get coupons
@@ -2142,6 +2142,12 @@ int batchValue;//batch value of int type
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
 	NSLog(@"%s",__func__);
+    static BOOL shouldLoadData = YES;
+    if (shouldLoadData) {
+        shouldLoadData = NO;
+        NSLog(@"First Data loading started");
+        [self tabBar1];
+    }
 }
 
 

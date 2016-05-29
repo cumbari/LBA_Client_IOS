@@ -33,10 +33,12 @@
 	UIButton *but1 = [UIButton buttonWithType:UIButtonTypeCustom];//customizing done button.
 	
 	but1.bounds = CGRectMake(0, 0, 50.0, 30.0);//locating button.
-	
-	[but1 setImage:[UIImage imageNamed:@"LeftBack.png"] forState:UIControlStateNormal];//setting image on button.
-	
+    [but1 setBackgroundImage:[UIImage imageNamed:@"LeftBack.png"] forState:UIControlStateNormal];
+    //[but1 setImage:[UIImage imageNamed:@"LeftBack.png"] forState:UIControlStateNormal];//setting image on button.
+    [but1 setTitle:CustomLocalisedString(@"Back",@"") forState:UIControlStateNormal];
+    but1.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:12.0];
 	[but1 addTarget:self action:@selector(backToSetting) forControlEvents:UIControlEventTouchUpInside];//calling cancel method on clicking done button.
+    
 	
 	UIBarButtonItem *buttonLeft = [[UIBarButtonItem alloc]initWithCustomView:but1];//customizing right button.
 	
@@ -122,9 +124,9 @@
 	
 	cumbariAppDelegate *appDel = (cumbariAppDelegate *)[[UIApplication sharedApplication] delegate];//object of cumbari delegate
 	
-    backLabel = [[UILabel alloc]initWithFrame:CGRectMake(20, 8, 40, 25)];
-    backLabel.backgroundColor = [UIColor clearColor];
-    backLabel.textColor = [UIColor whiteColor];
+    //backLabel = [[UILabel alloc]initWithFrame:CGRectMake(20, 8, 40, 25)];
+    //backLabel.backgroundColor = [UIColor clearColor];
+    //backLabel.textColor = [UIColor whiteColor];
     
     navigationLabel = [[UILabel alloc]initWithFrame:CGRectMake(90, 8, 150, 25)];
     navigationLabel.backgroundColor = [UIColor clearColor];
@@ -135,22 +137,22 @@
 	//labels according language selected
 	if([storedLanguage isEqualToString:@"English" ])
 	{
-		backLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:12.0];
+		//backLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:12.0];
 		navigationLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:20.0];
 	}
 	
 	else {
-		backLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:10.0];
+		//backLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:10.0];
 		navigationLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:20.0];
 	}
     
-    backLabel.text = CustomLocalisedString(@"Back", @"");
+    //backLabel.text = CustomLocalisedString(@"Back", @"");
     navigationLabel.text = CustomLocalisedString(@"Language", @"");
     
     [self.navigationController.navigationBar addSubview:navigationLabel];
-    [self.navigationController.navigationBar addSubview:backLabel];
+    //[self.navigationController.navigationBar addSubview://backLabel];
     [navigationLabel release];
-    [backLabel release];
+    //[backLabel release];
     
     [appDel setTabBarTitles];
 }
@@ -158,7 +160,7 @@
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
 	//removing all labels from superview
-	[backLabel removeFromSuperview];
+	//[//backLabel removeFromSuperview];
 	
 	
 }
@@ -309,16 +311,16 @@
 	NSString *language = [array objectAtIndex:indexPath.row];//language of string type
 	
 	//removing back label from superview
-	[backLabel removeFromSuperview];
+	//[//backLabel removeFromSuperview];
 	[navigationLabel removeFromSuperview];
 	
 	cumbariAppDelegate *appDel = (cumbariAppDelegate *)[[UIApplication sharedApplication] delegate];//object of cumbari app delegate
 	
 	prefs = [NSUserDefaults standardUserDefaults];
 	
-    backLabel = [[UILabel alloc]initWithFrame:CGRectMake(20, 8, 40, 25)];
-    backLabel.backgroundColor = [UIColor clearColor];
-    backLabel.textColor = [UIColor whiteColor];
+    //backLabel = [[UILabel alloc]initWithFrame:CGRectMake(20, 8, 40, 25)];
+    //backLabel.backgroundColor = [UIColor clearColor];
+    //backLabel.textColor = [UIColor whiteColor];
     
     navigationLabel = [[UILabel alloc]initWithFrame:CGRectMake(90, 8, 150, 25)];
     navigationLabel.backgroundColor = [UIColor clearColor];
@@ -337,20 +339,20 @@
     
 	//labels according selected language
 	if([language isEqualToString:@"English"]){
-		backLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:12.0];
+		//backLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:12.0];
 		//[appDel englishTabBar];//calling english tab bar
 		navigationLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:20.0];
 	}
 	else {
-		backLabel.font = [UIFont boldSystemFontOfSize:10.0];
+		//backLabel.font = [UIFont boldSystemFontOfSize:10.0];
 		//[appDel SvenskaTabBar];//calling svenska tab bar
 		navigationLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:20];
 	}
-    backLabel.text = CustomLocalisedString(@"Back", @"");
+    //backLabel.text = CustomLocalisedString(@"Back", @"");
     navigationLabel.text = CustomLocalisedString(@"Language", @"");
 
     [self.navigationController.navigationBar addSubview:navigationLabel];
-    [self.navigationController.navigationBar addSubview:backLabel];
+   // [self.navigationController.navigationBar addSubview://backLabel];
     [navigationLabel release];
 
     [appDel setTabBarTitles];

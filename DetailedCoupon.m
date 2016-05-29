@@ -365,7 +365,7 @@ float distance;//distance of float type
 	moreInfoLabel.backgroundColor = [UIColor clearColor];//clear background color
 	
 	moreInfoLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:12];//font of label
-	
+    moreInfoLabel.center = CGPointMake(moreInfoButton.center.x, moreInfoButton.center.y-8) ;
 	[self.view addSubview:moreInfoLabel];//adding more info label as subview
 	
 	favoritesLabel = [[UILabel alloc]initWithFrame:CGRectMake(148, 384, 62, 16) ];
@@ -373,7 +373,7 @@ float distance;//distance of float type
 	favoritesLabel.text = favoriteLabelString;//favorite label text
 	
 	favoritesLabel.textColor = [UIColor whiteColor];//white color of label
-	
+    favoritesLabel.center = CGPointMake(favoritesButton.center.x, favoritesButton.center.y-8) ;
 	favoritesLabel.textAlignment = UITextAlignmentCenter;//text alignment
 	
 	favoritesLabel.backgroundColor = [UIColor clearColor];//clear background color
@@ -394,7 +394,7 @@ float distance;//distance of float type
 	moreDealsLabel.backgroundColor = [UIColor clearColor];//clear background color
 	
 	moreDealsLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:12];//font of label
-	
+    moreDealsLabel.center = CGPointMake(moreDealsButton.center.x, moreDealsButton.center.y-8) ;
 	[self.view addSubview:moreDealsLabel];//adding more Deals label as subview
 	
 	self.navigationItem.leftBarButtonItem.enabled = YES;
@@ -1467,12 +1467,16 @@ float distance;//distance of float type
 		//[actionSheetForFavorites setActionSheetType:actionSheetType];
 		
 		actionSheetForFavorites.delegate = self;
+        //[actionSheetForFavorites.view setHidden:YES];
 		
 		// Position the slider off the bottom of the view, so we can slide it up
 		CGRect sliderFrame = actionSheetForFavorites.view.frame;
 		sliderFrame.origin.y = self.view.frame.size.height;
 		actionSheetForFavorites.view.frame = sliderFrame;
-		
+        
+        CGPoint sliderCenter = actionSheetForFavorites.view.center;
+        sliderCenter.y += actionSheetForFavorites.view.bounds.size.height;
+        actionSheetForFavorites.view.center = sliderCenter;
 		// Add slider to the view
 		[self.view addSubview:actionSheetForFavorites.view];
 	}
@@ -3580,16 +3584,18 @@ float distance;//distance of float type
 {
 	
 	actionSheetForFavorites.enabled = NO;
+
 	testItButton.enabled = YES;
 	
 	// Slowly move down the slider off the bottom of the screen
 	[UIView beginAnimations:nil context:nil];
 	[UIView setAnimationDuration:0.5];
 	CGPoint sliderCenter = actionSheetForFavorites.view.center;
-	sliderCenter.y += actionSheetForFavorites.view.bounds.size.height;
+	sliderCenter.y += actionSheetForFavorites.view.bounds.size.height*2;
 	actionSheetForFavorites.view.center = sliderCenter;
 	[UIView commitAnimations];
-	
+    //actionSheetForFavorites.view.hidden = YES;
+
 	[NSThread detachNewThreadSelector:@selector(new) toTarget:self withObject:nil];
 	
 }
@@ -3606,14 +3612,15 @@ float distance;//distance of float type
 	[moreDealsLabel removeFromSuperview];
 	
 	actionSheetForFavorites.enabled = YES;//slider enabled
-	
+    //[actionSheetForFavorites.view setHidden:NO];
+
 	testItButton.enabled = NO;//button disabled
 	
 	// Slowly move up the slider from the bottom of the screen
 	[UIView beginAnimations:nil context:nil];
 	[UIView setAnimationDuration:0.5];
 	CGPoint sliderCenter = actionSheetForFavorites.view.center;
-	sliderCenter.y -= actionSheetForFavorites.view.bounds.size.height;
+	sliderCenter.y -= actionSheetForFavorites.view.bounds.size.height*2;
 	actionSheetForFavorites.view.center = sliderCenter;
 	[UIView commitAnimations];		
 }
