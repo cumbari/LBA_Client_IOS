@@ -1051,15 +1051,23 @@ int batchValue;
 	
 	[distanceString release];
 	
-	
-	
-	
 	NSURL *url = [NSURL URLWithString:[coupon objectForKey:@"smallImage"]];//small Image
-	
-	cell.imageView.image  = [self cachedImageForURL:url forTableViewCell:cell];//cell image view
+    UIImage *img = [self cachedImageForURL:url forTableViewCell:cell];
+    cell.imageView.image  = img;//cell image view
+
+    CGSize itemSize = CGSizeMake(38, 38);
+    UIGraphicsBeginImageContextWithOptions(itemSize, NO, UIScreen.mainScreen.scale);
+    CGRect imageRect = CGRectMake(0.0, 0.0, itemSize.width, itemSize.height);
+    [cell.imageView.image drawInRect:imageRect];
+    cell.imageView.image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    NSLog(@"Image Size = %@",NSStringFromCGSize(img.size));
+    
+    //cell.imageView.frame = CGRectMake(cell.imageView.frame.origin.x, cell.imageView.frame.origin.y, 38, 38);
 	
 	cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;//Disclosure button
-
+    
 	
     return cell;//returning cell
 }
