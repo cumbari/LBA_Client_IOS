@@ -67,7 +67,7 @@ static sqlite3 *database = nil;
     [super viewDidLoad];
 	
 	
-	
+    [self setSubViewsPositions];
 	[self callLabels];
 	
 	listOfCouponId = [[NSMutableArray alloc]init];
@@ -117,7 +117,7 @@ static sqlite3 *database = nil;
 	}
 	
 	
-	scroll = [[UIScrollView alloc]initWithFrame:CGRectMake(6, 155, 307, 202)];
+	scroll = [[UIScrollView alloc]initWithFrame:CGRectMake(6, 155, 307, [[UIScreen mainScreen] bounds].size.height/1.5)];
 	
 	scroll.scrollEnabled = YES;
 	
@@ -261,7 +261,7 @@ static sqlite3 *database = nil;
 		
 		// Position the slider off the bottom of the view, so we can slide it up
 		CGRect sliderFrame = actionSheetForFavorites.view.frame;
-		sliderFrame.origin.y = self.view.frame.size.height;
+		sliderFrame.origin.y = [[UIScreen mainScreen] bounds].size.height;
 		actionSheetForFavorites.view.frame = sliderFrame;
 		
 		// Add slider to the view
@@ -459,11 +459,11 @@ static sqlite3 *database = nil;
 	
 	[NSThread sleepForTimeInterval:0.4];
 	
-	[self.view addSubview:moreInfoLabel];
+	/*[self.view addSubview:moreInfoLabel];
 	
 	[self.view addSubview:favoritesLabel];
 	
-	[self.view addSubview:moreDealsLabel];
+	[self.view addSubview:moreDealsLabel];*/
 	
 	self.navigationItem.leftBarButtonItem.enabled =YES;
 	
@@ -474,6 +474,28 @@ static sqlite3 *database = nil;
 	
 }
 
+-(void)setSubViewsPositions
+{
+    CGSize viewSize = self.view.frame.size;
+    CGSize screenSize = [[UIScreen mainScreen] bounds].size;
+    NSLog(@"ViewSize = %@....ScreenSize = %@",NSStringFromCGSize(viewSize),NSStringFromCGSize(screenSize));
+    float y_offset =  screenSize.height-tabBarBg.frame.size.height/2-tabBarBg.center.y;
+    tabBarBg.center = CGPointMake(screenSize.width/2, tabBarBg.center.y+y_offset);
+    int divisor = 4;
+    moreInfoButton.center = CGPointMake(moreInfoButton.center.x, moreInfoButton.center.y+y_offset);
+    favoritesButton.center = CGPointMake(favoritesButton.center.x, favoritesButton.center.y+y_offset);
+    moreDealsButton.center = CGPointMake(moreDealsButton.center.x, moreDealsButton.center.y+y_offset);
+    facebookButton.center = CGPointMake(facebookButton.center.x, facebookButton.center.y+y_offset);
+    /*testItButton.center = CGPointMake(testItButton.center.x, testItButton.center.y+y_offset/2);
+    largeImageView.center = CGPointMake(largeImageView.center.x, largeImageView.center.y+y_offset/divisor);
+    offerTitleLabel.center = CGPointMake(offerTitleLabel.center.x, offerTitleLabel.center.y+y_offset/divisor);
+    offerDescriptionLabel.center = CGPointMake(offerDescriptionLabel.center.x, offerDescriptionLabel.center.y+y_offset/divisor);
+    storeNameLabel.center = CGPointMake(storeNameLabel.center.x, storeNameLabel.center.y+y_offset/divisor);
+    streetLabel.center = CGPointMake(streetLabel.center.x, streetLabel.center.y+y_offset/divisor);
+    timeLabel.center = CGPointMake(timeLabel.center.x, timeLabel.center.y+y_offset/divisor);
+    cityLabel.center = CGPointMake(cityLabel.center.x, cityLabel.center.y+y_offset/divisor);
+    counterLabel.center = CGPointMake(counterLabel.center.x, counterLabel.center.y+y_offset/divisor);*/
+}
 
 -(void)addFavoritesToDatabase
 {
@@ -687,11 +709,11 @@ static sqlite3 *database = nil;
 	
 	[NSThread sleepForTimeInterval:0.4];
 	
-	[self.view addSubview:moreInfoLabel];
+	/*[self.view addSubview:moreInfoLabel];
 	
 	[self.view addSubview:favoritesLabel];
 	
-	[self.view addSubview:moreDealsLabel];
+	[self.view addSubview:moreDealsLabel];*/
 	
 	self.navigationItem.leftBarButtonItem.enabled =YES;
 	
@@ -707,11 +729,11 @@ static sqlite3 *database = nil;
 -(void)showActionSheetForFavorites
 {
     
-	[moreInfoLabel removeFromSuperview];
+	/*[moreInfoLabel removeFromSuperview];
 	
 	[favoritesLabel removeFromSuperview];
 	
-	[moreDealsLabel removeFromSuperview];
+	[moreDealsLabel removeFromSuperview];*/
 	
 	actionSheetForFavorites.enabled = YES;//slider enabled
 	
@@ -831,7 +853,21 @@ static sqlite3 *database = nil;
 	}
 	*/
 	
-	moreInfoLabel = [[UILabel alloc]initWithFrame:CGRectMake(55, 384, 62, 16)];
+    
+    [moreInfoButton setTitle:moreInfoLabelString forState:UIControlStateNormal];
+    [moreInfoButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    moreInfoButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:12.0];
+    
+    [favoritesButton setTitle:favoriteLabelString forState:UIControlStateNormal];
+    [favoritesButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    favoritesButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:12.0];
+    
+    [moreDealsButton setTitle:moreDealsLabelString forState:UIControlStateNormal];
+    [moreDealsButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    moreDealsButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:12.0];
+    
+    
+	/*moreInfoLabel = [[UILabel alloc]initWithFrame:CGRectMake(55, 384, 62, 16)];
 	
 	moreInfoLabel.text = moreInfoLabelString;//more info label text
 	
@@ -873,7 +909,7 @@ static sqlite3 *database = nil;
 	moreDealsLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:12];//font of label
 	
 	[self.view addSubview:moreDealsLabel];//adding more Deals label as subview
-	
+	*/
 	productNameLabel.text = productNameLabelString;
 	
 	CGSize size = [productNameLabel.text sizeWithFont:productNameLabel.font constrainedToSize:CGSizeMake(productNameLabel.frame.size.width, 120) lineBreakMode:UILineBreakModeWordWrap ];
@@ -1146,6 +1182,12 @@ static sqlite3 *database = nil;
 
 
 - (void)dealloc {
+    [bgImage release];
+    [tabBarBg release];
+    [moreInfoButton release];
+    [favoritesButton release];
+    [moreDealsButton release];
+    [facebookButton release];
     [super dealloc];
 }
 

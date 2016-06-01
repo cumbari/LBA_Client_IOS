@@ -17,10 +17,16 @@
 @interface moreinfo : UIViewController<MFMailComposeViewControllerDelegate,ActionSheetForFavoritesDelegate>{
 	//dictionaries
 	
+    IBOutlet UIImageView *tabBarBg;
+    IBOutlet UIImageView *bgImage;
 	NSDictionary *allCouponsDictionary;	
 	//labels
 	IBOutlet UILabel *productDescLabel;
 	
+    IBOutlet UIButton *facebookButton;
+    IBOutlet UIButton *moreDealsButton;
+    IBOutlet UIButton *favoritesButton;
+    IBOutlet UIButton *moreInfoButton;
 	IBOutlet UILabel *productInfoLabel;
 	
 	IBOutlet UILabel *productHomePageLabel;
@@ -41,11 +47,11 @@
 	
 	UILabel *backLabel;
 	
-	UILabel *moreInfoLabel;
+	//UILabel *moreInfoLabel;
 	
-	UILabel *favoritesLabel;
+	//UILabel *favoritesLabel;
 	
-	UILabel *moreDealsLabel;
+	//UILabel *moreDealsLabel;
 	
 	NSMutableArray *listOfCouponId;
     

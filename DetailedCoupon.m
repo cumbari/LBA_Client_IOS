@@ -353,8 +353,19 @@ float distance;//distance of float type
 		
 	}*/
 	
-	
-	moreInfoLabel = [[UILabel alloc]initWithFrame:CGRectMake(58, 384, 62, 16)];
+    [moreInfoButton setTitle:moreInfoLabelString forState:UIControlStateNormal];
+    [moreInfoButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    moreInfoButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:12.0];
+
+    [favoritesButton setTitle:favoriteLabelString forState:UIControlStateNormal];
+    [favoritesButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    favoritesButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:12.0];
+    
+    [moreDealsButton setTitle:moreDealsLabelString forState:UIControlStateNormal];
+    [moreDealsButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    moreDealsButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:12.0];
+    
+	/*moreInfoLabel = [[UILabel alloc]initWithFrame:CGRectMake(58, 384, 62, 16)];
 	
 	moreInfoLabel.text = moreInfoLabelString;//more info label text
 	
@@ -365,7 +376,6 @@ float distance;//distance of float type
 	moreInfoLabel.backgroundColor = [UIColor clearColor];//clear background color
 	
 	moreInfoLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:12];//font of label
-    moreInfoLabel.center = CGPointMake(moreInfoButton.center.x, moreInfoButton.center.y-8) ;
 	[self.view addSubview:moreInfoLabel];//adding more info label as subview
 	
 	favoritesLabel = [[UILabel alloc]initWithFrame:CGRectMake(148, 384, 62, 16) ];
@@ -396,7 +406,7 @@ float distance;//distance of float type
 	moreDealsLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:12];//font of label
     moreDealsLabel.center = CGPointMake(moreDealsButton.center.x, moreDealsButton.center.y-8) ;
 	[self.view addSubview:moreDealsLabel];//adding more Deals label as subview
-	
+	*/
 	self.navigationItem.leftBarButtonItem.enabled = YES;
 	
 	self.navigationItem.rightBarButtonItem.enabled = YES;
@@ -459,7 +469,7 @@ float distance;//distance of float type
 	}*/
     
 	
-	if (distance >300.0) {
+	if (distance >30000.0) {
         
 		UIAlertView *alert = [[UIAlertView alloc]initWithTitle:titleForAlertView message:alertMessage delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
 		[alert show];//showing alert
@@ -1223,8 +1233,8 @@ float distance;//distance of float type
 		
 		self.navigationItem.rightBarButtonItem.enabled = NO;
         
-        distanceLabel.text = @"";
-        
+        //distanceLabel.text = @"";
+        [testItButton setTitle:@"" forState:UIControlStateNormal];
         testItButton.enabled = NO;//disable button
         
         
@@ -1347,6 +1357,28 @@ float distance;//distance of float type
 	detailOfFavorites = tmp;
 }
 
+-(void)setSubViewsPositions
+{
+    CGSize viewSize = self.view.frame.size;
+    CGSize screenSize = [[UIScreen mainScreen] bounds].size;
+    NSLog(@"ViewSize = %@....ScreenSize = %@",NSStringFromCGSize(viewSize),NSStringFromCGSize(screenSize));
+    float y_offset =  screenSize.height-buttonTabBg.frame.size.height/2-buttonTabBg.center.y;
+    buttonTabBg.center = CGPointMake(screenSize.width/2, buttonTabBg.center.y+y_offset);
+    int divisor = 4;
+    moreInfoButton.center = CGPointMake(moreInfoButton.center.x, moreInfoButton.center.y+y_offset);
+    favoritesButton.center = CGPointMake(favoritesButton.center.x, favoritesButton.center.y+y_offset);
+    moreDealsButton.center = CGPointMake(moreDealsButton.center.x, moreDealsButton.center.y+y_offset);
+    facebookButton.center = CGPointMake(facebookButton.center.x, facebookButton.center.y+y_offset);
+    testItButton.center = CGPointMake(testItButton.center.x, testItButton.center.y+y_offset/2);
+    largeImageView.center = CGPointMake(largeImageView.center.x, largeImageView.center.y+y_offset/divisor);
+    offerTitleLabel.center = CGPointMake(offerTitleLabel.center.x, offerTitleLabel.center.y+y_offset/divisor);
+    offerDescriptionLabel.center = CGPointMake(offerDescriptionLabel.center.x, offerDescriptionLabel.center.y+y_offset/divisor);
+    storeNameLabel.center = CGPointMake(storeNameLabel.center.x, storeNameLabel.center.y+y_offset/divisor);
+    streetLabel.center = CGPointMake(streetLabel.center.x, streetLabel.center.y+y_offset/divisor);
+    timeLabel.center = CGPointMake(timeLabel.center.x, timeLabel.center.y+y_offset/divisor);
+    cityLabel.center = CGPointMake(cityLabel.center.x, cityLabel.center.y+y_offset/divisor);
+    counterLabel.center = CGPointMake(counterLabel.center.x, counterLabel.center.y+y_offset/divisor);
+}
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
@@ -1354,7 +1386,8 @@ float distance;//distance of float type
 	[super viewDidLoad];
 	
 	[self copyDatabaseIfNeeded];
-	
+    [self setSubViewsPositions];
+
 	testItButton.backgroundColor = [UIColor clearColor];
 	
 	listOfCouponId = [[NSMutableArray alloc]init];
@@ -1471,12 +1504,12 @@ float distance;//distance of float type
 		
 		// Position the slider off the bottom of the view, so we can slide it up
 		CGRect sliderFrame = actionSheetForFavorites.view.frame;
-		sliderFrame.origin.y = self.view.frame.size.height;
+		//sliderFrame.origin.y = [[UIScreen mainScreen] bounds].size.height;
 		actionSheetForFavorites.view.frame = sliderFrame;
         
         CGPoint sliderCenter = actionSheetForFavorites.view.center;
         sliderCenter.y += actionSheetForFavorites.view.bounds.size.height;
-        actionSheetForFavorites.view.center = sliderCenter;
+        actionSheetForFavorites.view.center = CGPointMake(actionSheetForFavorites.view.center.x, [[UIScreen mainScreen] bounds].size.height+sliderFrame.size.height/2);
 		// Add slider to the view
 		[self.view addSubview:actionSheetForFavorites.view];
 	}
@@ -1651,6 +1684,21 @@ float distance;//distance of float type
     return [UIColor colorWithRed:(float)(red/255.0f) green:(float)(green/255.0f) blue:(float)(blue/255.0f) alpha:1.0f];//returning customized colors.
 }
 
+/*
+-(IBAction)clicked
+
+{
+    map *map2 = [[map alloc]initWithNibName:@"map" bundle:nil];//object of map
+    [map2 passStoreIDToMap:NULL];//passing store id to map
+    [map2 passJsonDataToMap:listOfStores];//passing json data to map
+    UINavigationController *mapObjNav = [[UINavigationController alloc]initWithRootViewController:map2];
+    mapObjNav.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
+    [self presentModalViewController:mapObjNav animated:YES];
+    [map2 release];
+    [mapObjNav release];
+}
+*/
+
 -(IBAction)clicked
 {
     
@@ -1719,9 +1767,10 @@ float distance;//distance of float type
 		
 		store.longitude =  [[storeInfo objectForKey:@"longitude"]doubleValue];
 		
-		[mapView passLocationCoordiantes:appDelegate.mUserCurrentLocation.coordinate:store];
-        
-        [mapView showRouteFrom:home to:office];
+		[mapView passLocationCoordiantes:appDelegate.mUserCurrentLocation.coordinate :store];
+        [mapView setStartLocation:home];
+        [mapView setStoreLocation:office];
+        //[mapView showRouteFrom:home to:office];
         
         [mapViewNav release];
 		
@@ -2367,7 +2416,7 @@ float distance;//distance of float type
                 
                 if ([[couponList objectForKey:@"offerType"] isEqualToString:@"ADVERTISE"]) {
                     
-                    testItButton.hidden = YES;
+                   // testItButton.hidden = YES;
                     
                 }
                 
@@ -2406,7 +2455,7 @@ float distance;//distance of float type
                         
                         // Position the slider off the bottom of the view, so we can slide it up
                         CGRect sliderFrame = slideToCancel.view.frame;
-                        sliderFrame.origin.y = self.view.frame.size.height;
+                        sliderFrame.origin.y = [[UIScreen mainScreen] bounds].size.height;
                         slideToCancel.view.frame = sliderFrame;
                         
                         // Add slider to the view
@@ -2476,7 +2525,7 @@ float distance;//distance of float type
 		
 		if ([[couponInfo objectForKey:@"offerType"] isEqualToString:@"ADVERTISE"]) {
 			
-			testItButton.hidden = YES;
+			//testItButton.hidden = YES;
 			
 		}
 		
@@ -2755,7 +2804,7 @@ float distance;//distance of float type
                 
                 // Position the slider off the bottom of the view, so we can slide it up
                 CGRect sliderFrame = slideToCancel.view.frame;
-                sliderFrame.origin.y = self.view.frame.size.height;
+                sliderFrame.origin.y = [[UIScreen mainScreen] bounds].size.height;
                 slideToCancel.view.frame = sliderFrame;
                 
                 // Add slider to the view
@@ -2911,96 +2960,54 @@ float distance;//distance of float type
 	
 	if (distance <300) {
         filePath = [[NSBundle mainBundle] pathForResource:@"UseDeal" ofType:@"png"];
-		[testItButton setImage:[UIImage imageNamed:filePath] forState:UIControlStateNormal];//setting use deal image
+        [testItButton setBackgroundImage:[UIImage imageNamed:filePath] forState:UIControlStateNormal];
+		//[testItButton setImage:[UIImage imageNamed:filePath] forState:UIControlStateNormal];//setting use deal image
 	}
 	else {
         filePath = [[NSBundle mainBundle] pathForResource:@"Inactive_button" ofType:@"png"];
-		[testItButton setImage:[UIImage imageNamed:filePath] forState:UIControlStateNormal];//setting inactice image when user far away
+        UIImage *btnBGImg = [UIImage imageNamed:filePath];
+        [testItButton setBackgroundImage:btnBGImg forState:UIControlStateNormal];
+		//[testItButton setImage:btnBGImg forState:UIControlStateNormal];//setting inactice image when user far away
 	}
 	
 	float dist;
 	
 	prefs = [NSUserDefaults standardUserDefaults];
-    
-    
-    
     if(distance<=100)
     {
         if ([[couponInfo objectForKey:@"offerType"] isEqualToString:@"ADVERTISE"]) {
-            
             if ([[prefs objectForKey:@"unit"]isEqualToString:@"Meter"]) {
-                
-                
                 if (distance>1000) {
-                    
-                    
                     dist = distance / 1000.0;
-                    
-                    
                     distanceString = [NSString stringWithFormat:@"%.0f",dist];
-                    
-                    
                     distanceString = [distanceString stringByAppendingString:@" km"];
-                    
-                    
-                    distanceLabel.text = distanceString;
-                    
+                    //distanceLabel.text = distanceString;
                 }
-                
-                
                 else {
-                    
-                    
                     distanceString = [NSString stringWithFormat:@"%.0f",distance];
-                    
-                    
                     distanceString = [distanceString stringByAppendingString:@" m"];
-                    
-                    
-                    distanceLabel.text = distanceString;
-                    
-                    
-                    
+                    //distanceLabel.text = distanceString;
                 }
             }
-            
             else if ([[prefs objectForKey:@"unit"]isEqualToString:@"Miles" ])
             {
-                
                 dist = distance / 1000.0;
-                
                 dist = dist/1.6;
-                
                 if (dist < 1.0 && dist>0.1) {
-                    
                     distanceString = [NSString stringWithFormat:@"%.1f",dist];
-                    
                     distanceString = [distanceString stringByAppendingString:@" mi"];
-                    
                 }
-                
                 else if(dist < 0.1){
-                    
                     dist = dist *5280;
-                    
                     distanceString = [NSString stringWithFormat:@"%.0f",dist];
-                    
                     distanceString = [distanceString stringByAppendingString:@" ft"];
-                    
                 }
-                
-                
                 else {
-                    
                     distanceString = [NSString stringWithFormat:@"%.0f",dist];
-                    
                     distanceString = [distanceString stringByAppendingString:@" mi"];
-                    
                 }
                 
-                distanceLabel.text = distanceString;
-                
-                
+                //distanceLabel.text = distanceString;
             }
             
             else {
@@ -3017,8 +3024,7 @@ float distance;//distance of float type
                     distanceString = [distanceString stringByAppendingString:@" km"];
                     
                     
-                    distanceLabel.text = distanceString;
-                    
+                    //distanceLabel.text = distanceString;
                     
                     
                 }
@@ -3033,26 +3039,23 @@ float distance;//distance of float type
                     distanceString = [distanceString stringByAppendingString:@" m"];
                     
                     
-                    distanceLabel.text = distanceString;
-                    
+                    //distanceLabel.text = distanceString;
                     
                     
                 }
-                
             }
-
-            
+            [testItButton setTitle:distanceString forState:UIControlStateNormal];
         }
         else
-            
-            distanceLabel.text = @"Use Deal";
+        {
+            //distanceLabel.text = @"Use Deal";
+            [testItButton setTitle:CustomLocalisedString(@"Use Deal", @"") forState:UIControlStateNormal];
+        }
     }
     
     else
     {
-        
         if ([[prefs objectForKey:@"unit"]isEqualToString:@"Meter"]) {
-            
             
             if (distance>1000) {
                 
@@ -3066,8 +3069,7 @@ float distance;//distance of float type
                 distanceString = [distanceString stringByAppendingString:@" km"];
                 
                 
-                distanceLabel.text = distanceString;
-                
+                //distanceLabel.text = distanceString;
                 
                 
             }
@@ -3082,13 +3084,11 @@ float distance;//distance of float type
                 distanceString = [distanceString stringByAppendingString:@" m"];
                 
                 
-                distanceLabel.text = distanceString;
-                
+                //distanceLabel.text = distanceString;
                 
                 
             }
         }
-        
         else if ([[prefs objectForKey:@"unit"]isEqualToString:@"Miles" ])
         {
             
@@ -3097,74 +3097,36 @@ float distance;//distance of float type
             dist = dist/1.6;
             
             if (dist < 1.0 && dist>0.1) {
-                
                 distanceString = [NSString stringWithFormat:@"%.1f",dist];
-                
                 distanceString = [distanceString stringByAppendingString:@" mi"];
-                
             }
-            
             else if(dist < 0.1){
-                
                 dist = dist *5280;
-                
                 distanceString = [NSString stringWithFormat:@"%.0f",dist];
-                
                 distanceString = [distanceString stringByAppendingString:@" ft"];
-                
             }
-            
-            
             else {
-                
                 distanceString = [NSString stringWithFormat:@"%.0f",dist];
-                
                 distanceString = [distanceString stringByAppendingString:@" mi"];
-                
             }
-            
-            distanceLabel.text = distanceString;
-            
+            //distanceLabel.text = distanceString;
             
         }
-        
         else {
             
             if (distance>1000) {
-                
-                
                 dist = distance / 1000.0;
-                
-                
                 distanceString = [NSString stringWithFormat:@"%.0f",dist];
-                
-                
                 distanceString = [distanceString stringByAppendingString:@" km"];
-                
-                
-                distanceLabel.text = distanceString;
-                
-                
-                
+                ////distanceLabel.text = distanceString;
             }
-            
-            
             else {
-                
-                
                 distanceString = [NSString stringWithFormat:@"%.0f",distance];
-                
-                
                 distanceString = [distanceString stringByAppendingString:@" m"];
-                
-                
-                distanceLabel.text = distanceString;
-                
-                
-                
+                ////distanceLabel.text = distanceString;
             }
-            
         }
+        [testItButton setTitle:distanceString forState:UIControlStateNormal];
 	}
 }
 
@@ -3591,7 +3553,7 @@ float distance;//distance of float type
 	[UIView beginAnimations:nil context:nil];
 	[UIView setAnimationDuration:0.5];
 	CGPoint sliderCenter = actionSheetForFavorites.view.center;
-	sliderCenter.y += actionSheetForFavorites.view.bounds.size.height*2;
+	sliderCenter.y += actionSheetForFavorites.view.bounds.size.height;
 	actionSheetForFavorites.view.center = sliderCenter;
 	[UIView commitAnimations];
     //actionSheetForFavorites.view.hidden = YES;
@@ -3620,7 +3582,7 @@ float distance;//distance of float type
 	[UIView beginAnimations:nil context:nil];
 	[UIView setAnimationDuration:0.5];
 	CGPoint sliderCenter = actionSheetForFavorites.view.center;
-	sliderCenter.y -= actionSheetForFavorites.view.bounds.size.height*2;
+	sliderCenter.y -= actionSheetForFavorites.view.bounds.size.height;
 	actionSheetForFavorites.view.center = sliderCenter;
 	[UIView commitAnimations];		
 }
@@ -3741,6 +3703,7 @@ float distance;//distance of float type
 - (void)dealloc
 {
 	
+    [buttonTabBg release];
     [super dealloc];
 	[largeImageView release];
 	[listForCoupons release];

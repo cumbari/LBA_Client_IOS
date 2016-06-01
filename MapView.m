@@ -68,15 +68,15 @@
 	buttonLeft = [[UIBarButtonItem alloc]initWithCustomView:but1];//customizing right button.
 	
 	self.navigationItem.leftBarButtonItem = buttonLeft;//setting on R.H.S. of navigation item.
-	
-	
+	//[self centerMap];
+	[self showRouteFrom];
 }
 
 -(void)viewWillAppear:(BOOL)animated
 {
-	NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+	//NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
 	
-	NSString *storedLanguage = [prefs objectForKey:@"language"];
+	//NSString *storedLanguage = [prefs objectForKey:@"language"];
 	
 	//labels according to selected language
     
@@ -201,14 +201,16 @@
 	NSString* saddr = [NSString stringWithFormat:@"%f,%f", f.latitude, f.longitude];
 	NSString* daddr = [NSString stringWithFormat:@"%f,%f", t.latitude, t.longitude];
 	
-	NSString* apiUrlStr = [NSString stringWithFormat:@"http://maps.google.com/maps?output=dragdir&dirflg=w&saddr=%@&daddr=%@",saddr,daddr];
+	NSString* apiUrlStr = [NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/directions/json?origin=%@&destination=%@",saddr,daddr];
 	NSURL* apiUrl = [NSURL URLWithString:apiUrlStr];
 	
 	NSString *apiResponse = [[NSString alloc] initWithContentsOfURL:apiUrl usedEncoding:nil error:nil];
-	
-	NSString* encodedPoints = [apiResponse stringByMatching:@"points:\\\"([^\\\"]*)\\\"" capture:1L];
-	
-	[apiResponse release];
+    NSError *error = nil;
+    NSData *responseData = [NSData dataWithContentsOfURL:apiUrl];
+    NSDictionary *responseDict = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingMutableContainers error:&error];
+	NSString* encodedPoints1 = [apiResponse stringByMatching:@"points" capture:1L];
+    NSString* encodedPoints = [[[[responseDict objectForKey:@"routes"] objectAtIndex:0] objectForKey:@"overview_polyline"] objectForKey:@"points"];
+	//[apiResponse release];
 	
 	return [self decodePolyLine:[encodedPoints mutableCopy]];
     
@@ -223,45 +225,38 @@
 	
 	region.center.longitude    = (home.longitude + store.longitude) / 2.0;
 	
+    float spanMultiplier = 1.02;
+    
 	if (store.latitude>home.latitude) {
-		
-		region.span.latitudeDelta  = (store.latitude - home.latitude)*1.02;
-		
+		region.span.latitudeDelta  = (store.latitude - home.latitude)*spanMultiplier;
 	}
-	
 	else {
-		
-		region.span.latitudeDelta  = (home.latitude - store.latitude)*1.02;
+		region.span.latitudeDelta  = (home.latitude - store.latitude)*spanMultiplier;
 	}
 	
 	
 	if (store.longitude>home.longitude) {
-		
-		
-		region.span.longitudeDelta  = (store.longitude - home.longitude)*1.02;
-        
-		
+		region.span.longitudeDelta  = (store.longitude - home.longitude)*spanMultiplier;
 	}
-	
 	else {
-		
-		region.span.longitudeDelta  = (home.longitude - store.longitude)*1.02;
+		region.span.longitudeDelta  = (home.longitude - store.longitude)*spanMultiplier;
 	}
 	
 	[mapView setRegion:region animated:YES];
 }
 
--(void) showRouteFrom: (Place*) f to:(Place*) t {
+-(void) showRouteFrom{
 	
 	if(routes) {
 		[mapView removeAnnotations:[mapView annotations]];
 		[routes release];
 	}
 	
-	PlaceMark* from = [[[PlaceMark alloc] initWithPlace:f] autorelease];
-	PlaceMark* to = [[[PlaceMark alloc] initWithPlace:t] autorelease];
+	PlaceMark* from = [[[PlaceMark alloc] initWithPlace:startLoc] autorelease];
+	PlaceMark* to = [[[PlaceMark alloc] initWithPlace:storeLoc] autorelease];
 	
 	[mapView addAnnotation:to];
+    [mapView addAnnotation:from];
 	
 	routes = [[self calculateRoutesFrom:from.coordinate to:to.coordinate] retain];
 	
@@ -270,13 +265,24 @@
 	[self centerMap];
 }
 
--(void)passLocationCoordiantes:(CLLocationCoordinate2D )tmp:(CLLocationCoordinate2D )tmp1
+-(void)passLocationCoordiantes:(CLLocationCoordinate2D )tmp :(CLLocationCoordinate2D )tmp1
 {
 	home = tmp;
 	
 	store = tmp1;
 	
 }
+
+-(void)setStartLocation:(Place*)l_origin
+{
+    startLoc = [l_origin retain];
+}
+
+-(void)setStoreLocation:(Place*)l_destination
+{
+    storeLoc = [l_destination retain];
+}
+
 
 -(void) updateRouteView {
 	
@@ -329,6 +335,7 @@
 - (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated
 {
 	[self updateRouteView];
+    
 	routeView.hidden = NO;
 	[routeView setNeedsDisplay];
 }

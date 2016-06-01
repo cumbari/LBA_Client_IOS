@@ -28,6 +28,9 @@
 	CLLocationCoordinate2D store;
 	
 	UIBarButtonItem *buttonLeft;
+    
+    Place *startLoc;
+    Place *storeLoc;
 }
 
 @property (nonatomic, retain) UIColor* lineColor;
@@ -36,8 +39,9 @@
 
 @property (nonatomic, retain) UIImageView* routeView;
 
--(void) showRouteFrom: (Place*) f to:(Place*) t;
 
--(void)passLocationCoordiantes:(CLLocationCoordinate2D )tmp:(CLLocationCoordinate2D )tmp1;
+-(void)passLocationCoordiantes:(CLLocationCoordinate2D )tmp :(CLLocationCoordinate2D )tmp1;
+-(void)setStartLocation:(Place*)l_origin;
+-(void)setStoreLocation:(Place*)l_destination;
 
 @end

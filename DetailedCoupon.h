@@ -24,6 +24,7 @@
 	
 	cumbariAppDelegate *appDelegate;//object of cumbari app delegate
 	
+    IBOutlet UIImageView *buttonTabBg;
 	IBOutlet UIImageView *largeImageView;//object of large image.
 	
 	NSArray *listForCoupons;//array of list for coupons.
