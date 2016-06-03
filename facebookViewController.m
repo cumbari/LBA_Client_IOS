@@ -48,6 +48,7 @@ NSDictionary *couponInfoDictionary;
     self.accessToken = nil;
     [_operationQueue release];
     [_cachedImages release];
+    [backgroundView release];
     [super dealloc];
 }
 
@@ -110,12 +111,44 @@ NSDictionary *couponInfoDictionary;
 
 #pragma mark -
 #pragma mark FbGraph Callback Function
+
+
+
 /**
  * This function is called by FbGraph after it's finished the authentication process
  **/
 
+
+-(void)setSubViewsPositions
+{
+    CGSize viewSize = self.view.frame.size;
+    CGSize screenSize = [[UIScreen mainScreen] bounds]. size;
+    NSLog(@"ViewSize = %@....ScreenSize = %@",NSStringFromCGSize(viewSize),NSStringFromCGSize(screenSize));
+    
+    self.view.frame = [[UIScreen mainScreen] bounds];
+    backgroundView.frame = self.view.frame;
+    
+    float y_offset =  screenSize.height-postDealButton.frame.size.height/2-postDealButton.center.y;
+    //
+   
+    int divisor = 2;
+    postDealButton.center = CGPointMake(screenSize.width/2, postDealButton.center.y+y_offset/divisor);
+    self.loginButton.center = CGPointMake(self.loginButton.center.x, self.loginButton.center.y+y_offset/divisor);
+    self.loginStatusLabel.center = CGPointMake(self.loginStatusLabel.center.x, self.loginStatusLabel.center.y+y_offset/divisor);
+    offerTitleLabel.center = CGPointMake(offerTitleLabel.center.x, offerTitleLabel.center.y+y_offset/divisor);
+    offerSloganLabel.center = CGPointMake(offerSloganLabel.center.x, offerSloganLabel.center.y+y_offset/divisor);
+    //offerTitleLabel.center = CGPointMake(offerTitleLabel.center.x, offerTitleLabel.center.y+y_offset/divisor);
+    self.imageView.center = CGPointMake(self.imageView.center.x, self.imageView.center.y+y_offset/divisor);
+//    storeNameLabel.center = CGPointMake(storeNameLabel.center.x, storeNameLabel.center.y+y_offset/divisor);
+//    streetLabel.center = CGPointMake(streetLabel.center.x, streetLabel.center.y+y_offset/divisor);
+//    timeLabel.center = CGPointMake(timeLabel.center.x, timeLabel.center.y+y_offset/divisor);
+//    cityLabel.center = CGPointMake(cityLabel.center.x, cityLabel.center.y+y_offset/divisor);
+//    counterLabel.center = CGPointMake(counterLabel.center.x, counterLabel.center.y+y_offset/divisor);*/
+}
+
 - (void)viewWillAppear:(BOOL)animated {
     
+    [self setSubViewsPositions];
     
     dataPosted = true;
     

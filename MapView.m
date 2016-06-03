@@ -123,9 +123,7 @@
 		backLabel.text = @"Tillbaka";
 		
 		[self.navigationController.navigationBar addSubview:backLabel];
-		
 	}
-	
 	else {
 		
 		[backLabel release];
@@ -141,8 +139,6 @@
 		backLabel.text = @"Back";
 		
 		[self.navigationController.navigationBar addSubview:backLabel];
-		
-		
 	}*/
 	
 }
@@ -151,9 +147,7 @@
 
 {
     [NSThread sleepForTimeInterval:2.0];
-    
 	[self dismissModalViewControllerAnimated:YES];
-	
 }
 
 
@@ -204,11 +198,11 @@
 	NSString* apiUrlStr = [NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/directions/json?origin=%@&destination=%@",saddr,daddr];
 	NSURL* apiUrl = [NSURL URLWithString:apiUrlStr];
 	
-	NSString *apiResponse = [[NSString alloc] initWithContentsOfURL:apiUrl usedEncoding:nil error:nil];
+	//NSString *apiResponse = [[NSString alloc] initWithContentsOfURL:apiUrl usedEncoding:nil error:nil];
     NSError *error = nil;
     NSData *responseData = [NSData dataWithContentsOfURL:apiUrl];
     NSDictionary *responseDict = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingMutableContainers error:&error];
-	NSString* encodedPoints1 = [apiResponse stringByMatching:@"points" capture:1L];
+	//NSString* encodedPoints1 = [apiResponse stringByMatching:@"points" capture:1L];
     NSString* encodedPoints = [[[[responseDict objectForKey:@"routes"] objectAtIndex:0] objectForKey:@"overview_polyline"] objectForKey:@"points"];
 	//[apiResponse release];
 	

@@ -53,6 +53,7 @@ typedef enum {
 	UIBarButtonItem *buttonLeft;
     
     
+    IBOutlet UIImageView *backgroundView;
     
     BOOL dataPosted;
 }

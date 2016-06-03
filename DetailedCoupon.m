@@ -111,7 +111,6 @@ float distance;//distance of float type
 -(IBAction)facebookButtonTapped:(id)sender
 {
 	
-	
 	facebookViewController *facebookViewControllerObj = [[facebookViewController alloc]init];//allocating facebook view controller
 	
 	UINavigationController *facebookViewControllerObjNav = [[UINavigationController alloc]initWithRootViewController:facebookViewControllerObj];//navigation controller for FB
@@ -121,8 +120,6 @@ float distance;//distance of float type
 	[facebookViewControllerObjNav release];//releasing navigation view
     
     [facebookViewControllerObj release];//releasing view
-    
-    
 }
 
 -(IBAction)findMoreDeals

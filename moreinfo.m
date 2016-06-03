@@ -273,17 +273,12 @@ static sqlite3 *database = nil;
 
 -(IBAction)facebookButtonTapped:(id)sender
 {
-	
 	facebookViewController *facebookViewControllerObj = [[facebookViewController alloc]init];
-	
 	UINavigationController *facebookViewControllerObjNav = [[UINavigationController alloc]initWithRootViewController:facebookViewControllerObj];
 	
 	[self.navigationController presentModalViewController:facebookViewControllerObjNav animated:YES];
-	
 	[facebookViewControllerObj release];
-	
 	[facebookViewControllerObjNav release];
-	
 }
 
 -(IBAction)findMoreDeals
@@ -1076,11 +1071,8 @@ static sqlite3 *database = nil;
 		[self.navigationController.navigationBar addSubview:backLabel];
 		
 	}
-	
 	else if([storedLanguage isEqualToString:@"Svenska" ]) {
-        
-		
-		
+     
 		backLabel = [[UILabel alloc]initWithFrame:CGRectMake(13, 8, 40, 25)];
 		
 		backLabel.backgroundColor = [UIColor clearColor];
