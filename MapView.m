@@ -219,7 +219,7 @@
 	
 	region.center.longitude    = (home.longitude + store.longitude) / 2.0;
 	
-    float spanMultiplier = 1.02;
+    float spanMultiplier = 1.5;
     
 	if (store.latitude>home.latitude) {
 		region.span.latitudeDelta  = (store.latitude - home.latitude)*spanMultiplier;

@@ -1576,8 +1576,8 @@ float distance;//distance of float type
     
     offerExpiryTitleLabel = [[UILabel alloc] initWithFrame:timeLabel.frame];
     offerExpiryTitleLabel.backgroundColor = [UIColor clearColor];
-    offerExpiryTitleLabel.text = @"This offer will expire in";
-    offerExpiryTitleLabel.textAlignment = NSTextAlignmentCenter;
+    offerExpiryTitleLabel.text = CustomLocalisedString(@"This offer will expire in", @"");
+    offerExpiryTitleLabel.textAlignment = NSTextAlignmentLeft;
     offerExpiryTitleLabel.textColor = [UIColor whiteColor];
     offerExpiryTitleLabel.font = timeLabel.font;
     offerExpiryTitleLabel.center = timeLabel.center;
@@ -1586,7 +1586,7 @@ float distance;//distance of float type
     
     cdTimerView = [[CDTimerView alloc] initWithFrame:CGRectMake(0, 0, 279, 35)];
     cdTimerView.center = testItButton.center;//CGPointMake(self.view.center.x, self.view.center.y);
-    cdTimerView.backgroundColor = [UIColor blackColor];
+    cdTimerView.backgroundColor = [UIColor clearColor];
     cdTimerView.secondsLeft = [endDate timeIntervalSinceNow];
     [self.view addSubview:cdTimerView];
     [cdTimerView startCDTimer];
@@ -1616,7 +1616,7 @@ float distance;//distance of float type
     offerExpiryTitleLabel.hidden = !shouldShowTimer;
     
     [testItButton setHidden:shouldShowTimer];
-    [distanceLabel setHidden:shouldShowTimer];
+    //[distanceLabel setHidden:shouldShowTimer];
     [timeLabel setHidden:shouldShowTimer];
 }
 
@@ -3600,29 +3600,20 @@ float distance;//distance of float type
 	
 	NSString *counterStr;//counter of string type
 	
-	
-	
 	if(counter < 10 && counter1<10)
-		
 		counterStr = [NSString stringWithFormat:@"0%d:0%d",counter,counter1];
-	
 	else if(counter < 10 && counter1>=10) {
-		
 		counterStr = [NSString stringWithFormat:@"0%d:%d",counter,counter1];
 	}
-	
 	else if(counter >= 10 && counter1<10) {
-		
 		counterStr = [NSString stringWithFormat:@"%d:0%d",counter,counter1];
-		
 	}
-	
-	else 
-		
+	else
 		counterStr = [NSString stringWithFormat:@"%d:%d",counter,counter1];
 	
 	NSString *counterLabelValues = CustomLocalisedString(@"Use deal within", @"");
     counterLabelValues = [NSString stringWithFormat:@"%@ %@ min",counterLabelValues,counterStr];
+    
 	//labels according to selected language
 	
 	/*if ([storeLanguage isEqualToString:@"English"]) {
@@ -3663,15 +3654,7 @@ float distance;//distance of float type
 		
 		counter1 = 60;
 	}
-	
-	
-	
-	
 	counter1--;
-	
-	
-	
-	
 }
 
 

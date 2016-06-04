@@ -117,7 +117,7 @@ static sqlite3 *database = nil;
 	}
 	
 	
-	scroll = [[UIScrollView alloc]initWithFrame:CGRectMake(6, 155, 307, [[UIScreen mainScreen] bounds].size.height/1.5)];
+	scroll = [[UIScrollView alloc]initWithFrame:CGRectMake(6, [[UIScreen mainScreen] bounds].size.height/4, 307, [[UIScreen mainScreen] bounds].size.height/1.6)];
 	
 	scroll.scrollEnabled = YES;
 	

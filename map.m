@@ -188,9 +188,9 @@ BOOL favorites;
 			
 			MKCoordinateRegion region;//region.
             
-			region.span.latitudeDelta = (maxLat-minLat)*1.02;//delta of latitude.
+			region.span.latitudeDelta = (maxLat-minLat)*1.5;//delta of latitude.
 			
-			region.span.longitudeDelta = (maxLon - minLon)*1.02;//delta of longitude.
+			region.span.longitudeDelta = (maxLon - minLon)*1.5;//delta of longitude.
 			
 			region.center.latitude = (maxLat+minLat)/2.00;
 			
