@@ -1291,12 +1291,6 @@ int batchValue;//batch value of int type
         
         languageOfApplication = [defaults objectForKey:@"language"];
         
-        
-        
-        
-        
-        
-        
         NSMutableString *clientId = [[NSMutableString alloc]initWithFormat:@"%@",[[UIDevice currentDevice]uniqueDeviceIdentifier]];//reteriving clientId
         
         [clientId insertString:@"-" atIndex:8];

@@ -16,6 +16,7 @@
 	cumbariAppDelegate *appDel;
 	
 }
+@property (retain, nonatomic) IBOutlet UIButton *backToHotDealsButton;
 
 -(IBAction)backToHotDeals;//method for getting back to hot deals
 

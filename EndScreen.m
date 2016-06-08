@@ -19,7 +19,7 @@
 -(IBAction)backToHotDeals
 
 {
-	[NSThread sleepForTimeInterval:2.0];
+	//[NSThread sleepForTimeInterval:2.0];
 	
 	
 	
@@ -93,10 +93,6 @@
         }
 
     }
-    
-    
-    
-    
 }
 
 /*
@@ -113,13 +109,15 @@
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
 	[super viewDidLoad];
+    CGSize viewSize = self.view.frame.size;
+    CGSize screenSize = [[UIScreen mainScreen] bounds].size;
+    float y_offset = screenSize.height-viewSize.height-_backToHotDealsButton.frame.size.height/4;
+    _backToHotDealsButton.center = CGPointMake(_backToHotDealsButton.center.x, _backToHotDealsButton.center.y+y_offset);
 	
 }
 -(void)viewDidAppear:(BOOL)animated
 {
-	
 	[NSThread detachNewThreadSelector:@selector(reload) toTarget:self withObject:nil];
-    
 }
 
 
@@ -156,6 +154,7 @@
 /*releasing objects*/
 
 - (void)dealloc {
+    [_backToHotDealsButton release];
     [super dealloc];
 	
 }
