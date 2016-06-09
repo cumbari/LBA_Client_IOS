@@ -115,17 +115,17 @@ int adsValue =0;
     but1.frame = CGRectMake(272, 0, 50, 40);
 	
 	[but1 addTarget:self action:@selector(clicked) forControlEvents:UIControlEventTouchUpInside];//on cilcking an map button clicked method is called.
-	
+    [but1 setTitle:CustomLocalisedString(@"Map",@"") forState:UIControlStateNormal];
+    but1.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:12.0];
+    but1.titleLabel.textColor = [UIColor whiteColor];
 	buttonRight = [[UIBarButtonItem alloc]initWithCustomView:but1];//setting map button on Navigation bar.
 	
 	self.navigationItem.rightBarButtonItem = buttonRight;//setting button on the Right of navigation bar.
 	
     
-    
 	self.tableView.tableHeaderView=searchBar;//search bar
     
 	mapLabel = [[UILabel alloc]initWithFrame:CGRectMake(272, 8, 40, 25)];//map label
-	
 	
 	customView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, 320.0, 24.0)];//custom view
 	
@@ -432,7 +432,7 @@ int adsValue =0;
     mapLabel.textColor = [UIColor whiteColor];//white text color of map label
     mapLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:12];
     mapLabel.text = CustomLocalisedString(@"Map", @"");//text of map
-    [self.navigationController.navigationBar addSubview:mapLabel];//adding map label as subview
+    //[self.navigationController.navigationBar addSubview:mapLabel];//adding map label as subview
     [mapLabel release];
     
 	/*if([storedLanguage isEqualToString:@"English" ])//comparison of language
@@ -514,7 +514,7 @@ int adsValue =0;
 	
 	[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;//make network indicator not visible
 	
-	[mapLabel removeFromSuperview];//removing map label from super view
+	//[mapLabel removeFromSuperview];//removing map label from super view
     
     
 }
