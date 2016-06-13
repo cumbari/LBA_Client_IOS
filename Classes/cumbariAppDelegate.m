@@ -27,7 +27,7 @@
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
 
-
+#define TABBAR_TEXT_COLOR [UIColor colorWithRed:255/255.0f green:255/255.0f blue:255/255.0f alpha:1.0f]
 
 @implementation cumbariAppDelegate //Implementing CumbariAppDelegate. 
 
@@ -91,7 +91,7 @@ int batchValue;//batch value of int type
 	//[window addSubview:controllerForSplash.view];//adding splash as subview on window
     //[self facebookButtonTapped:nil];
     [window makeKeyAndVisible];//making window visible
-	
+    
     return YES;//returning YES
 }
 
@@ -1963,7 +1963,7 @@ int batchValue;//batch value of int type
 {
     for (UITabBarItem* item in tabBar.tabBar.items)
     {
-        [item setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName,nil] forState:UIControlStateNormal];
+        [item setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:TABBAR_TEXT_COLOR, NSForegroundColorAttributeName,nil] forState:UIControlStateNormal];
     }
 }
 

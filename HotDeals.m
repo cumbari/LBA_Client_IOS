@@ -116,8 +116,9 @@ int adsValue =0;
 	
 	[but1 addTarget:self action:@selector(clicked) forControlEvents:UIControlEventTouchUpInside];//on cilcking an map button clicked method is called.
     [but1 setTitle:CustomLocalisedString(@"Map",@"") forState:UIControlStateNormal];
-    but1.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:12.0];
+    but1.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:10.0];
     but1.titleLabel.textColor = [UIColor whiteColor];
+    but1.titleLabel.textAlignment = NSTextAlignmentLeft;
 	buttonRight = [[UIBarButtonItem alloc]initWithCustomView:but1];//setting map button on Navigation bar.
 	
 	self.navigationItem.rightBarButtonItem = buttonRight;//setting button on the Right of navigation bar.
