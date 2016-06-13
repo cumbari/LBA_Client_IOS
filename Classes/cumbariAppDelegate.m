@@ -486,6 +486,7 @@ int batchValue;//batch value of int type
         }
         
         [self ShowTabBar];//calling show tab bar
+        [self setTextAttributesForTabbarTitles]; //sets the tababr titles attributes.
         
         [jsonBrands release];//releasing json brands
         
@@ -1921,6 +1922,7 @@ int batchValue;//batch value of int type
     
     // not supported on iOS4    
     UITabBar *tabBarr = [self.tabBar tabBar];
+    
     if ([tabBarr respondsToSelector:@selector(setBackgroundImage:)])
     {
         // set it just for this instance
@@ -1957,12 +1959,18 @@ int batchValue;//batch value of int type
 	[window addSubview:tabBar.view];//Adding Tab bar Controller as subView on Window.
 }
 
+-(void)setTextAttributesForTabbarTitles
+{
+    for (UITabBarItem* item in tabBar.tabBar.items)
+    {
+        [item setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName,nil] forState:UIControlStateNormal];
+    }
+}
+
 - (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController{
-	NSUInteger index=[[tabBarController viewControllers] indexOfObject:viewController];
 	
-    
-    
-    
+    NSUInteger index=[[tabBarController viewControllers] indexOfObject:viewController];
+	
     UITabBar *tabBarr = [self.tabBar tabBar];
     if ([tabBarr respondsToSelector:@selector(setBackgroundImage:)])
     {
