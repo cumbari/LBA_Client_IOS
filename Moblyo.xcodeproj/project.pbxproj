@@ -1250,7 +1250,7 @@
 				LastUpgradeCheck = 0720;
 				TargetAttributes = {
 					1D6058900D05DD3D006BFB54 = {
-						DevelopmentTeam = 93TF9ZT92J;
+						DevelopmentTeam = 7G926G5ALE;
 					};
 				};
 			};
@@ -1550,8 +1550,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: MObIYO GmbH (7G926G5ALE)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: MObIYO GmbH (7G926G5ALE)";
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1564,14 +1564,15 @@
 				GCC_THUMB_SUPPORT = NO;
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/${BUILD_STYLE}-${PLATFORM_NAME}/usr/local/include\"";
 				INFOPLIST_FILE = "Moblyo-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
 					"\"$(SRCROOT)/Debug-iphoneos\"",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.shephertz.SpacePowerCombat;
+				PRODUCT_BUNDLE_IDENTIFIER = com.moblyo.market;
 				PRODUCT_NAME = Moblyo;
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -1580,8 +1581,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: MObIYO GmbH (7G926G5ALE)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: MObIYO GmbH (7G926G5ALE)";
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1592,13 +1593,14 @@
 				GCC_THUMB_SUPPORT = NO;
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/${BUILD_STYLE}-${PLATFORM_NAME}/usr/local/include\"";
 				INFOPLIST_FILE = "Moblyo-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LIBRARY_SEARCH_PATHS = (
 					"\"$(SRCROOT)/Release-iphonesimulator\"",
 					"\"$(SRCROOT)\"",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.shephertz.SpacePowerCombat;
+				PRODUCT_BUNDLE_IDENTIFIER = com.moblyo.market;
 				PRODUCT_NAME = Moblyo;
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1656,8 +1658,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: MObIYO GmbH (7G926G5ALE)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: MObIYO GmbH (7G926G5ALE)";
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1670,14 +1672,15 @@
 				GCC_THUMB_SUPPORT = NO;
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/${BUILD_STYLE}-${PLATFORM_NAME}/usr/local/include\"";
 				INFOPLIST_FILE = "Moblyo-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
 					"\"$(SRCROOT)/Debug-iphoneos\"",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.shephertz.SpacePowerCombat;
+				PRODUCT_BUNDLE_IDENTIFIER = com.moblyo.market;
 				PRODUCT_NAME = Moblyo;
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Distribution;
