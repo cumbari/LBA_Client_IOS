@@ -200,7 +200,7 @@ static sqlite3 *database = nil;
 		
 		[emailBtn setTitle:emailstr forState:UIControlStateNormal];//setting title of email button
 		
-		[emailBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];//title color
+		[emailBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];//title color
 		
 		emailBtn.titleLabel.font = [UIFont systemFontOfSize:17];//font size
 		
@@ -228,7 +228,7 @@ static sqlite3 *database = nil;
 	{
 		UILabel *webLabel = [[UILabel alloc]initWithFrame:CGRectMake(0,0,250,120)];
 		webLabel.text = webstrForStore;//more info label text
-		webLabel.textColor = [UIColor blueColor];//white color of label
+		webLabel.textColor = [UIColor whiteColor];//white color of label
 		webLabel.numberOfLines = 5;
 		webLabel.backgroundColor = [UIColor clearColor];//clear background color
 		
