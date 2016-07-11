@@ -66,22 +66,22 @@
 	}
 			
 	//labels according selected language
-    arrayForIndex = [[NSMutableArray alloc]initWithObjects:CustomLocalisedString(@"Position", @""),CustomLocalisedString(@"Settings",@""),CustomLocalisedString(@"Feedback",@""),CustomLocalisedString(@"About Cumbari",@""),nil];
+    arrayForIndex = [[NSMutableArray alloc]initWithObjects:CustomLocalisedString(@"Position", @""),CustomLocalisedString(@"Settings",@""),CustomLocalisedString(@"Feedback",@""),CustomLocalisedString(@"About Moblyo",@""),nil];
 
 	/*if ([storedLanguage isEqualToString:@"English"]) {
 		
-		arrayForIndex = [[NSMutableArray alloc]initWithObjects:@"Position",@"Settings",@"Feedback",@"About Cumbari",nil];
+		arrayForIndex = [[NSMutableArray alloc]initWithObjects:@"Position",@"Settings",@"Feedback",@"About Moblyo",nil];
 		
 		
 	}
 	else if([storedLanguage isEqualToString:@"Svenska"]){
 		
-		arrayForIndex = [[NSMutableArray alloc]initWithObjects:@"Position",@"Inställningar",@"Återkoppling",@"Om Cumbari",nil];
+		arrayForIndex = [[NSMutableArray alloc]initWithObjects:@"Position",@"Inställningar",@"Återkoppling",@"Om Moblyo",nil];
 		
 	}
 	else
 		
-		arrayForIndex = [[NSMutableArray alloc]initWithObjects:@"Position",@"Settings",@"Feedback",@"About Cumbari",nil];
+		arrayForIndex = [[NSMutableArray alloc]initWithObjects:@"Position",@"Settings",@"Feedback",@"About Moblyo",nil];
 	
 	if ([arrayForValueOfIndex count] != 0 ) {
 		
@@ -482,7 +482,7 @@
 		
 		controller.mailComposeDelegate = self;//mail compose delegate
 		
-		NSArray *toRecipients = [NSArray arrayWithObject:@"feedback@cumbari.com"];//adding recipients
+		NSArray *toRecipients = [NSArray arrayWithObject:@"info@moblyo.de"];//adding recipients
 		
 		[controller setToRecipients:toRecipients];//setting recipients
 		

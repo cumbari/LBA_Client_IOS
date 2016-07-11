@@ -1513,7 +1513,7 @@ int adsValue =0;
 	if (!searching) {
         
         if (indexPath.section == 0) {
-            cell.backgroundColor = [UIColor colorWithRed:(231)/255.0 green:(231)/255.0 blue:(226)/255.0 alpha:1.0];
+            cell.backgroundColor = [UIColor colorWithRed:(219)/255.0 green:(243)/255.0 blue:(244)/255.0 alpha:1.0];
         }
         else {
             cell.backgroundColor = [UIColor clearColor];
@@ -1524,7 +1524,6 @@ int adsValue =0;
 		cell.backgroundColor = [UIColor clearColor];
 	}
     
-	
 	
     
 }
