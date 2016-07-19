@@ -29,6 +29,8 @@
 	
 }
 
+@property (retain, nonatomic) IBOutlet UIImageView *backgroundView;
+
 @property (nonatomic, assign, readwrite) NSUInteger         choiceIndex;
 
 @property(nonatomic,retain)				UITableView			*myTableView;

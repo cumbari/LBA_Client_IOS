@@ -24,17 +24,19 @@
     [super viewDidLoad];
 	
 	detailObj = [[DetailedCoupon alloc]init];
-	
+    NSLog(@"%f, %f",self.view.frame.size.height,self.view.bounds.size.height);
+    CGSize viewSize = [[UIScreen mainScreen] bounds].size;
+    [self.backgroundView setFrame:CGRectMake(0, 0, viewSize.width, viewSize.height)];
 	//NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];//object of NSUserDefault
 
 	UIButton *but1 = [UIButton buttonWithType:UIButtonTypeCustom];//customizing done button.
 	
 	but1.bounds = CGRectMake(0, 0, 50.0, 30.0);//locating button.
 	
-	[but1 setImage:[UIImage imageNamed:@"LeftBack.png"] forState:UIControlStateNormal];//setting image on button.
-	
+	[but1 setBackgroundImage:[UIImage imageNamed:@"LeftBack.png"] forState:UIControlStateNormal];//setting image on button.
+    [but1 setTitle:CustomLocalisedString(@"Back",@"") forState:UIControlStateNormal];
 	[but1 addTarget:self action:@selector(backToSetting) forControlEvents:UIControlEventTouchUpInside];//calling cancel method on clicking done button.
-	
+	but1.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:12.0];
 	UIBarButtonItem *buttonRight = [[UIBarButtonItem alloc]initWithCustomView:but1];//customizing right button.
 	
 	self.navigationItem.leftBarButtonItem = buttonRight;//setting on R.H.S. of navigation item.
@@ -42,14 +44,9 @@
     [buttonRight release];
 	
 	myTableView.backgroundColor = [UIColor clearColor];//clear back ground color
-	
 	array =[[NSMutableArray alloc]init];//array
-	
 	[array addObject:@"Current Location"];//adding english in array
-	
 	[array addObject:@"New Position"];//adding svenska in array
-	
-	
 	
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
@@ -89,8 +86,8 @@
     backLabel.textColor = [UIColor whiteColor];
     backLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:12];
     backLabel.text = CustomLocalisedString(@"Back", @"");
-    [self.navigationController.navigationBar addSubview:backLabel];
-    [backLabel release];
+    //[self.navigationController.navigationBar addSubview:backLabel];
+    //[backLabel release];
 	
     /*if([storedLanguage isEqualToString:@"English"])
 	{
@@ -663,6 +660,7 @@
         [array release];
         array = nil;
     }
+    [_backgroundView release];
     [super dealloc];
 }
 
