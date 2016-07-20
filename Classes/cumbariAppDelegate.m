@@ -1274,19 +1274,10 @@ int batchValue;//batch value of int type
             
         }
         
-        
-        
         int range = [[defaults objectForKey:@"range"]intValue];
         
-        
         if (range == 0) {
-            
-            
             range = 10000;
-            
-            
-            
-            
         }
         
         
@@ -1301,7 +1292,6 @@ int batchValue;//batch value of int type
         [clientId insertString:@"-" atIndex:18];
         
         [clientId insertString:@"-" atIndex:23];
-        
         
         [self handleLocation];
         

@@ -42,7 +42,9 @@
 	self.navigationItem.leftBarButtonItem = buttonRight;//setting on R.H.S. of navigation item.
     
     [buttonRight release];
-	
+    NSLog(@"Frame = %@",NSStringFromCGRect(self.navigationController.navigationBar.frame));
+    CGSize tableViewSize = myTableView.frame.size;
+    myTableView.frame = CGRectMake(0, self.navigationController.navigationBar.frame.size.height/3, tableViewSize.width, tableViewSize.height);
 	myTableView.backgroundColor = [UIColor clearColor];//clear back ground color
 	array =[[NSMutableArray alloc]init];//array
 	[array addObject:@"Current Location"];//adding english in array

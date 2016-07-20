@@ -33,6 +33,7 @@ double longitudeFromSearchView;
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
+    
     [super viewDidLoad];
 	
 	CLLocationCoordinate2D theCoordinate;
@@ -48,19 +49,17 @@ double longitudeFromSearchView;
 	if (theCoordinate.longitude == 0 ||theCoordinate.latitude == 0) {
 		
 		theCoordinate.latitude = appDelegate.mUserCurrentLocation.coordinate.latitude;
-		
 		theCoordinate.longitude = appDelegate.mUserCurrentLocation.coordinate.longitude;
 	}
 	
 	if (theCoordinate.longitude == 0 ||theCoordinate.latitude == 0) {
 		
 		theCoordinate.latitude = [[defaults objectForKey:@"latitudeOfMyPosition"] doubleValue];
-		
 		theCoordinate.longitude = [[defaults objectForKey:@"longitudeOfMyPosition"]doubleValue];
 	}
 	
 	mapView.zoomEnabled = YES;
-	
+    mapView.delegate = self;
 	MKCoordinateRegion region;
 	
 	MKCoordinateSpan span;
@@ -98,10 +97,8 @@ double longitudeFromSearchView;
 	annotation.subtitle = [NSString	stringWithFormat:@"%f %f", annotation.coordinate.latitude, annotation.coordinate.longitude];
 	
 	[self.mapView addAnnotation:annotation];	
-	
 
 	[self.mapView selectAnnotation:annotation animated:YES];
-
 }
 
 
@@ -199,7 +196,6 @@ double longitudeFromSearchView;
 		
 		[[NSUserDefaults standardUserDefaults]synchronize];
 		
-		
 		[latitudeOfMyPosition release];
 		
 		[longitudeOfMyPosition release];
@@ -215,8 +211,6 @@ double longitudeFromSearchView;
 	static NSString * const kPinAnnotationIdentifier = @"PinIdentifier";
 	MKAnnotationView *draggablePinView = [self.mapView dequeueReusableAnnotationViewWithIdentifier:kPinAnnotationIdentifier];
 	
-	
-	
 	if (draggablePinView) {
 		draggablePinView.annotation = annotation;
 		
@@ -224,20 +218,15 @@ double longitudeFromSearchView;
 		// Use class method to create DDAnnotationView (on iOS 3) or built-in draggble MKPinAnnotationView (on iOS 4).
 		draggablePinView = [DDAnnotationView annotationViewWithAnnotation:annotation reuseIdentifier:kPinAnnotationIdentifier mapView:self.mapView];
 		
-		
 		if ([draggablePinView isKindOfClass:[DDAnnotationView class]]) {
 			// draggablePinView is DDAnnotationView on iOS 3.
-			
 		} else {
 			// draggablePinView instance will be built-in draggable MKPinAnnotationView when running on iOS 4.
-			
 		}
-	}		
-	
+	}
+    //draggablePinView.animatesDrop = YES;
+    draggablePinView.draggable = YES;
 	return draggablePinView;
 }
-
-
-
 
 @end

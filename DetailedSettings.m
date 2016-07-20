@@ -314,10 +314,6 @@
 		
 		[arrayForValuesOfIndex addObject:rangeValue];
 	}
-    
-	
-	
-	
 }
 
 -(void)backToSetting

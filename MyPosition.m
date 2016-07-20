@@ -53,7 +53,7 @@
 		
 	return self;
 }
-- (id) initWithDictionary:(NSDictionary *) dict
+- (id)initWithDictionary:(NSDictionary *) dict
 {
 	self = [super init];
 	if (self != nil) {
@@ -318,7 +318,9 @@
 	
 	[self initButton];
 	//initialize mapview here
-	mapView = [[MKMapView alloc] initWithFrame:CGRectMake(0.0f, 44.0f, 320.0f, 375.0f)];
+    CGSize screenSize = [[UIScreen mainScreen] bounds].size;
+    searchBar.center = CGPointMake(searchBar.center.x, self.navigationController.navigationBar.frame.size.height+searchBar.frame.size.height/2);
+	mapView = [[MKMapView alloc] initWithFrame:CGRectMake(0.0f, 44.0f, 320.0f, screenSize.height)];
 	mapView.mapType = MKMapTypeStandard;
 	mapView.delegate = self;
 	mapView.zoomEnabled = YES;
@@ -347,8 +349,8 @@
 		region.center.longitude = [[defaults objectForKey:@"longitudeOfMyPosition"]doubleValue];
 	}
 	
-	span.latitudeDelta=0.005;
-	span.longitudeDelta=0.005;
+	span.latitudeDelta=0.05;
+	span.longitudeDelta=0.1;
 	region.span=span;
 	
 	[mapView setRegion:region animated:TRUE];
@@ -356,7 +358,9 @@
 	
 	UIButton *but1 = [UIButton buttonWithType:UIButtonTypeCustom];//customizing done button.
 	but1.bounds = CGRectMake(0, 0, 50.0, 30.0);//locating button.
-	[but1 setImage:[UIImage imageNamed:@"LeftBack.png"] forState:UIControlStateNormal];//setting image on button.
+    [but1 setBackgroundImage:[UIImage imageNamed:@"LeftBack.png"] forState:UIControlStateNormal];//setting image on button.
+    [but1 setTitle:CustomLocalisedString(@"Back",@"") forState:UIControlStateNormal];
+    but1.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:12.0];
 	[but1 addTarget:self action:@selector(backToSetting) forControlEvents:UIControlEventTouchUpInside];//calling cancel method on clicking done button.
 	
 	UIBarButtonItem *buttonLeft = [[UIBarButtonItem alloc]initWithCustomView:but1];//customizing right button.
@@ -375,10 +379,11 @@
 	
 	self.navigationItem.rightBarButtonItem = buttonRight;//setting on R.H.S. of navigation item.*/
 	    
-	[self mapBarButtonPressed];
+	//[self mapBarButtonPressed];
     
     [buttonLeft release];
-    
+    [self.view bringSubviewToFront:searchBar];
+    [self.view bringSubviewToFront:segmentedControl];
    // [buttonRight release];
 	
 }
@@ -387,8 +392,6 @@
 - (void)initButton 
 
 {
-	NSUserDefaults *pref = [NSUserDefaults standardUserDefaults];
-    
     segmentedControl = [[UISegmentedControl alloc]initWithItems:[NSArray arrayWithObjects:
                                                                  CustomLocalisedString(@"Search", @""),
                                                                  CustomLocalisedString(@"Tap On Map", @""),
@@ -400,40 +403,38 @@
                                                                      NSLocalizedString(@"Search", @""),
                                                                      NSLocalizedString(@"Tap On Map", @""),
                                                                      nil]];
-        
 	}
-	
 	else if ([[pref objectForKey:@"language"]isEqualToString:@"Svenska"]) {
 		
 		segmentedControl = [[UISegmentedControl alloc]initWithItems:[NSArray arrayWithObjects:
 																	 NSLocalizedString(@"Sök", @""),
 																	 NSLocalizedString(@"Peka på kartan", @""),
 																	 nil]];
-		
-		
 	}
-    
 	else {
-		
 		segmentedControl = [[UISegmentedControl alloc]initWithItems:[NSArray arrayWithObjects:
 																	 NSLocalizedString(@"Search", @""),
 																	 NSLocalizedString(@"Tap On Map", @""),
-																	 nil]];		
-		
+																	 nil]];
 	}*/
     
+    float screenHeight = [[UIScreen mainScreen] bounds].size.height;
+    float screenWidth  = [[UIScreen mainScreen] bounds].size.width;
+	segmentedControl.frame = CGRectMake(screenWidth*0.1, screenHeight - self.navigationController.navigationBar.frame.size.height, screenWidth*0.8, 40);//setting frame of segmented control.
 	
-	segmentedControl.frame = CGRectMake(65, 7, 250, 32);//setting frame of segmented control.
-	
-	segmentedControl.segmentedControlStyle = UISegmentedControlStyleBar;//style of segmented control.
+	//segmentedControl.segmentedControlStyle = UISegmentedControlStyleBar;//style of segmented control.
 	
 	segmentedControl.selectedSegmentIndex = 0;//showing 1st index segmented control.
 	
 	detailObj = [[DetailedCoupon alloc]init];
-	
-	segmentedControl.tintColor =[detailObj getColor:@"C6C5BB"];
+    //segmentedControl.backgroundColor = [UIColor grayColor];
+	//[[segmentedControl.subviews objectAtIndex:0] setTintColor:[UIColor orangeColor]];
+    //[[segmentedControl.subviews objectAtIndex:1] setTintColor:[UIColor redColor]];
+    //segmentedControl.tintColor =[detailObj getColor:@"C6C5BB"];
 	[segmentedControl addTarget:self action:@selector(segmentedButtonPressed:) forControlEvents:UIControlEventValueChanged];//calling method segmented button pressed.
-	[self.navigationController.navigationBar addSubview:segmentedControl];
+    //[segmentedControl addTarget:self action:@selector(segmentedButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+	[self.view addSubview:segmentedControl];
+    
 }
 
 - (void)segmentedButtonPressed:(id)sender 
@@ -443,32 +444,35 @@
 	switch (segmentedControl.selectedSegmentIndex)//switching in segmented control.
 	{
 		case 0:
-			
-			
 			[self mapBarButtonPressed];
-			
 			break;
 			
 		case 1:
-			
-			
 			[self pointBarButtonPressed];
-			
 			[searchBar resignFirstResponder];
-			
 			break;
-			
-            
-			
 		default:
-			
 			break;
-			
 	}
-	
 }
 
-
+- (void)fixSegmentedControlForiOS7
+{
+    NSInteger deviceVersion = [[UIDevice currentDevice] systemVersion].integerValue;
+    if(deviceVersion < 7) // If this is not an iOS 7 device, we do not need to perform these customizations.
+        return;
+    
+    NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:
+                                [UIFont boldSystemFontOfSize:12], NSFontAttributeName,
+                                [UIColor whiteColor], NSForegroundColorAttributeName,
+                                nil];
+    [segmentedControl setTitleTextAttributes:attributes forState:UIControlStateNormal];
+    NSDictionary *highlightedAttributes = [NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:NSForegroundColorAttributeName];
+    [segmentedControl setTitleTextAttributes:highlightedAttributes forState:UIControlStateHighlighted];
+    
+    //segmentedControl.segmentedControlStyle = UISegmentedControlStyleBar;
+    segmentedControl.tintColor = [UIColor colorWithRed:49.0 / 256.0 green:148.0 / 256.0 blue:208.0 / 256.0 alpha:1];
+}
 
 - (void)mapBarButtonPressed{
 	
@@ -590,13 +594,13 @@
 	//labels according to selected language
     self.navigationItem.title = CustomLocalisedString(@"Change position",@"");
     searchBar.placeholder = CustomLocalisedString(@"Enter Address Or Tap On Map",@"");
-    backLabel = [[UILabel alloc]initWithFrame:CGRectMake(20, 8, 40, 25)];
-    backLabel.backgroundColor = [UIColor clearColor];
-    backLabel.textColor = [UIColor whiteColor];
-    backLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:12];
-    backLabel.text = CustomLocalisedString(@"Back", @"");
-    [self.navigationController.navigationBar addSubview:backLabel];
-    [backLabel release];
+//    backLabel = [[UILabel alloc]initWithFrame:CGRectMake(20, 8, 40, 25)];
+//    backLabel.backgroundColor = [UIColor clearColor];
+//    backLabel.textColor = [UIColor whiteColor];
+//    backLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:12];
+//    backLabel.text = CustomLocalisedString(@"Back", @"");
+    //[self.navigationController.navigationBar addSubview:backLabel];
+    //[backLabel release];
 	/*if([storedLanguage isEqualToString:@"English" ])
 	{
 		
@@ -674,7 +678,7 @@
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
 	//removing all label from superview
-	[backLabel removeFromSuperview];
+	//[backLabel removeFromSuperview];
 	
 	[doneLabel removeFromSuperview];
 	
