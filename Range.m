@@ -25,6 +25,7 @@
 }
 */
 
+
 -(IBAction) sliderValueChanged:(id) sender
 {
 	
@@ -74,6 +75,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 	
+    CGSize screenSize = [[UIScreen mainScreen] bounds].size;
 		
 	UIButton *but1 = [UIButton buttonWithType:UIButtonTypeCustom];//customizing done button.
 	
@@ -95,8 +97,9 @@
 	
 	[sliderForRange setMinimumTrackImage:stetchLeftTrack forState:UIControlStateNormal];
 		
-	
-
+    float y_offset = self.navigationController.navigationBar.frame.size.height + rangeLabel.frame.size.height;
+    
+    rangeLabel.center = CGPointMake(screenSize.width/2, y_offset);
 }
 
 -(void)doneClicked

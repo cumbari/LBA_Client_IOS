@@ -34,7 +34,6 @@ static sqlite3 *database = nil;
 
 
 -(void)getDataStringFromHotDeals:(NSString *)titleString
-
 {
 	couponId = titleString;//offer title from hot deals.
 }
@@ -42,13 +41,11 @@ static sqlite3 *database = nil;
 -(void)getCouponInformation:(NSDictionary *)tmpDict
 {
 	couponInformation = tmpDict;
-	
 }
 
 -(void)getStoreInformation:(NSDictionary *)tmpDict
 {
 	storeInformation = tmpDict;
-	
 }
 
 /*
@@ -65,7 +62,6 @@ static sqlite3 *database = nil;
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
     [super viewDidLoad];
-	
 	
     [self setSubViewsPositions];
 	[self callLabels];
@@ -84,13 +80,16 @@ static sqlite3 *database = nil;
     
     [buttonLeft release];
     
+    productNameLabel.center = CGPointMake(productNameLabel.center.x, self.navigationController.navigationBar.frame.size.height+productNameLabel.frame.size.height);
+    
 	productDescLabel.text = [couponInformation objectForKey:@"offerTitle"];//product description label
 	
 	productInfoLabel.text = [couponInformation objectForKey:@"offerSlogan"];//product info label
 	
 	productHomePageLabel.text = [couponInformation objectForKey:@"productInfoLink"];//product home page label
+    //productHomePageLabel.backgroundColor = [UIColor redColor];
 	
-	webBtn= [[UIButton alloc]initWithFrame:CGRectMake(20,70,250,20)];//button
+	webBtn= [[UIButton alloc]initWithFrame:CGRectMake(20,productNameLabel.center.y+productNameLabel.frame.size.height,250,20)];//button
 	
 	NSString *webstr=[NSString stringWithFormat:@"%@",[couponInformation objectForKey:@"productInfoLink"]];//link of string type
 	
@@ -98,22 +97,13 @@ static sqlite3 *database = nil;
 		
 	}
 	else {
-        
-        
         [webBtn setTitle:webstr forState:UIControlStateNormal];//setting title of button
-        
         [webBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];//blue color text
-        
         webBtn.titleLabel.font = [UIFont systemFontOfSize:17];//font of title label
-        
         webBtn.titleLabel.textAlignment = UITextAlignmentLeft;//text alignment of title label
-        
         webBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-        
         [webBtn addTarget:self action:@selector(websiteButtonClicked) forControlEvents:UIControlEventTouchUpInside];//adding target on button
-        
         [self.view addSubview:webBtn];//adding web button as subview
-        
 	}
 	
 	
