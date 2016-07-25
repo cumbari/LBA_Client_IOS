@@ -123,7 +123,6 @@ int adsValue =0;
 	
 	self.navigationItem.rightBarButtonItem = buttonRight;//setting button on the Right of navigation bar.
 	
-    
 	self.tableView.tableHeaderView=searchBar;//search bar
     
 	mapLabel = [[UILabel alloc]initWithFrame:CGRectMake(272, 8, 40, 25)];//map label
@@ -145,7 +144,6 @@ int adsValue =0;
 
 
 -(IBAction)clicked
-
 {
 	map *map2 = [[map alloc]initWithNibName:@"map" bundle:nil];//object of map
 	
@@ -810,8 +808,6 @@ int adsValue =0;
             
         }
     }
-    
-	
 }
 
 -(void)facebookButtonTapped:(id)sender
@@ -831,26 +827,32 @@ int adsValue =0;
 {
     //[self facebookButtonTapped:nil];
 	if (searching) {
-		
 		batchValueForSearch++;
-		
 		[self reloadDataForSearchView];
 	}
-    
     else{
-        
         batchValue++;
-        
-        appDel = (cumbariAppDelegate *)[[UIApplication sharedApplication]delegate];
-        
+        appDel = (cumbariAppDelegate *)[[UIApplication sharedApplication] delegate];
         [appDel passBatchValue:batchValue];
-        
         [appDel reloadJsonData];
     }
-	
 	[self viewWillAppear:YES];
 }
 
+
+#pragma mark- Refresh View
+
+-(void)refreshCoupons
+{
+    appDel = (cumbariAppDelegate *)[[UIApplication sharedApplication] delegate];
+    [appDel reloadJsonData];
+    [self viewWillAppear:YES];
+}
+
+-(void)locatioChanged:(CLLocation*)location
+{
+    
+}
 
 
 // Customize the appearance of table view cells.
@@ -878,11 +880,8 @@ int adsValue =0;
             if (indexPath.row == j) {
                 
                 return [self createViewMoreCell];
-                
             }
-            
         }
-        
 	}
 	
 	if (searching) {
@@ -893,22 +892,14 @@ int adsValue =0;
             
 			return [self createViewMoreCell];
 		}
-        
-		
 	}
     
     if (cell == nil) 
-		
 	{
-        
         cell = [self getCellContentView:CellIdentifier];//putting get cell content view in cell
-        
     }
-    
-    
 	
 	UILabel *lblOfferTitle = (UILabel *)[cell viewWithTag:2];//label of offer title
-    
     
 	UILabel *lblOfferSlogan = (UILabel *) [cell viewWithTag:4];//label of offer slogan
     
@@ -1755,6 +1746,8 @@ int adsValue =0;
 	*/
 
 }
+
+
 
 #pragma mark -
 #pragma mark Search Bar 

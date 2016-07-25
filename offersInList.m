@@ -87,6 +87,22 @@
 		sliderForOffers.value = 10;//slider value for offers
         totalOffers.text = [NSString stringWithFormat:@"%d %@",(int)sliderForOffers.value, offersString];//total offers
 	}
+    
+    /**
+     * Value Label
+     */
+    UILabel *valueLabel = [[UILabel alloc]  initWithFrame:CGRectMake(0, 0, 100, 50)];
+    valueLabel.text = @"Value :  ";
+    valueLabel.textAlignment = NSTextAlignmentRight;
+    valueLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:20.0];
+    [self.view addSubview:valueLabel];
+    
+    CGSize screenSize = [[UIScreen mainScreen] bounds].size;
+    totalOffers.textAlignment = NSTextAlignmentLeft;
+    totalOffers.font = [UIFont fontWithName:@"HelveticaNeue" size:20.0];
+    float y_offset = self.navigationController.navigationBar.frame.size.height + totalOffers.frame.size.height;
+    valueLabel.center = CGPointMake(screenSize.width/2-valueLabel.frame.size.width/2, y_offset);
+    totalOffers.center = CGPointMake(screenSize.width/2+totalOffers.frame.size.width/2+5, y_offset);
 }
 
 -(void)doneClicked

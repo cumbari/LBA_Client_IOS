@@ -37,7 +37,7 @@
 
 @synthesize currentLocationGot,serviceName,connectThroughURLForBrandedCoupons,brandsFilter;
 
-@synthesize listOfCoupons,listOfStores,listOfBrandHits,listOfCategories,listOfCategoriesHits,listOfStoresForBrands,listOfCouponsForBrands;
+@synthesize listOfCoupons,listOfStores,listOfBrandHits,listOfCategories,listOfCategoriesHits,listOfStoresForBrands,listOfCouponsForBrands,refreshDelegate;
 
 
 int batchValue;//batch value of int type
@@ -558,20 +558,34 @@ int batchValue;//batch value of int type
     
     int maxNumberReachedValue = [maxNumberReached intValue];//maximum number reached value of int type
     
+    if (!hotDealObj) {
+        hotDealObj =[[HotDeals alloc]init];//Allocating Hot Deal Object.
+    }
     
-    hotDealObj =[[HotDeals alloc]init];//Allocating Hot Deal Object.
+    if (!mapObj) {
+        mapObj = [[map alloc]init];//Allocating map Object.
+    }
     
-    mapObj = [[map alloc]init];//Allocating map Object.
+    if (!favoriteObj) {
+        favoriteObj = [[Favorites alloc]init];//Allocating Favorites Object.
+    }
     
-    favoriteObj = [[Favorites alloc]init];//Allocating Favorites Object.
+    if (!detailObj) {
+        detailObj = [[DetailedCoupon alloc]init];//object of detailed coupon
+    }
     
-    detailObj = [[DetailedCoupon alloc]init];//object of detailed coupon
+    if (!moreDealObj) {
+        moreDealObj = [[moreDeals alloc]init];//object of more deals
+    }
     
-    moreDealObj = [[moreDeals alloc]init];//object of more deals
+    if (!brandObj) {
+        brandObj = [[Brands alloc]init];//Allocating Brands Object.
+    }
     
-    brandObj = [[Brands alloc]init];//Allocating Brands Object.
+    if (!categoriesObj) {
+        categoriesObj = [[categories alloc]init];//Allocating categories Object.
+    }
     
-    categoriesObj = [[categories alloc]init];//Allocating categories Object.
     
     if (batchValue>1) {
         

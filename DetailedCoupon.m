@@ -1278,9 +1278,7 @@ float distance;//distance of float type
         [couponObj release];
         
         [filteredObj release];
-		
 	}
-	
 }
 
 -(void)cancelled1
@@ -1295,9 +1293,7 @@ float distance;//distance of float type
 	sliderCenter.y += slideToCancel.view.bounds.size.height;
 	slideToCancel.view.center = sliderCenter;
 	[UIView commitAnimations];
-	
 	[NSThread detachNewThreadSelector:@selector(new) toTarget:self withObject:nil];
-	
 }
 
 
@@ -1314,7 +1310,6 @@ float distance;//distance of float type
 	[self.view addSubview:moreDealsLabel];
 	
 	[pool release];
-	
 }
 
 
@@ -1419,23 +1414,13 @@ float distance;//distance of float type
         url = [url stringByAppendingString:@"&lang="];
         url = [url stringByAppendingString:CustomLocalisedString(@"ENG", @"")];
         /*if ([languageOfApplication isEqualToString:@"English"]) {
-            
             url = [url stringByAppendingString:@"ENG"];
-            
-            
         }
-        
         else if ([languageOfApplication isEqualToString:@"Svenska"]){
-            
             url = [url stringByAppendingString:@"SWE"];
-            
-            
         }
-        
         else {
-            
             url = [url stringByAppendingString:@"ENG"];
-            
         }
         */
         
@@ -1622,7 +1607,7 @@ float distance;//distance of float type
 
 
 
-- (void) copyDatabaseIfNeeded {
+- (void)copyDatabaseIfNeeded {
 	
 	//Using NSFileManager we can perform many file system operations.
 	NSFileManager *fileManager = [NSFileManager defaultManager];
@@ -1646,7 +1631,7 @@ float distance;//distance of float type
 	}	
 }
 
-- (NSString *) getDBPath {
+- (NSString *)getDBPath {
 	
 	//Search for standard documents using NSSearchPathForDirectoriesInDomains
 	//First Param = Searching the documents directory
@@ -1658,7 +1643,7 @@ float distance;//distance of float type
 }
 
 
-- (UIColor *) getColor: (NSString *) hexColor//method for converting hexadecimal into colors.
+- (UIColor *)getColor: (NSString *) hexColor//method for converting hexadecimal into colors.
 {
     unsigned int red, green, blue;//declaring colors of unsigned int type.
     
@@ -1698,11 +1683,8 @@ float distance;//distance of float type
 
 -(IBAction)clicked
 {
-    
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	
 	NSString *alertViewTitle = CustomLocalisedString(@"Distance Beyond Limit", @"");
-	
 	NSString *alertViewMessage = CustomLocalisedString(@"You can't see map directions", @"");
 	
 	/*if ([[defaults objectForKey:@"language"]isEqualToString:@"English"]) {
@@ -1733,7 +1715,6 @@ float distance;//distance of float type
 	
 	if (calculatedDistance <10000) {
         
-        
 		MapView * mapView = [[MapView alloc]init] ;
 		
 		UINavigationController *mapViewNav = [[UINavigationController alloc]initWithRootViewController:mapView];
@@ -1742,9 +1723,7 @@ float distance;//distance of float type
 		
 		[self presentModalViewController:mapViewNav animated:YES];
         
-        
 		appDelegate = (cumbariAppDelegate *)[[UIApplication sharedApplication]delegate];
-		
         
         Place* home = [[[Place alloc] init] autorelease];
         home.name = @"Current Location";
@@ -1865,8 +1844,6 @@ float distance;//distance of float type
 	[appDelegate setMUserCurrentLocation:newLocation];
 	
 	[manager stopUpdatingLocation];//stop updating location
-	
-	
 }
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {

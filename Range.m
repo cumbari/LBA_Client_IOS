@@ -75,7 +75,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 	
-    CGSize screenSize = [[UIScreen mainScreen] bounds].size;
 		
 	UIButton *but1 = [UIButton buttonWithType:UIButtonTypeCustom];//customizing done button.
 	
@@ -96,10 +95,22 @@
 	UIImage *stetchLeftTrack = [[UIImage imageNamed:@"slider_Red.png"] stretchableImageWithLeftCapWidth:10.0 topCapHeight:0.0];
 	
 	[sliderForRange setMinimumTrackImage:stetchLeftTrack forState:UIControlStateNormal];
-		
-    float y_offset = self.navigationController.navigationBar.frame.size.height + rangeLabel.frame.size.height;
     
-    rangeLabel.center = CGPointMake(screenSize.width/2, y_offset);
+    /**
+     * Value Label
+     */
+    UILabel *valueLabel = [[UILabel alloc]  initWithFrame:CGRectMake(0, 0, 100, 50)];
+    valueLabel.text = @"Value :  ";
+    valueLabel.textAlignment = NSTextAlignmentRight;
+    valueLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:20.0];
+    [self.view addSubview:valueLabel];
+    
+    CGSize screenSize = [[UIScreen mainScreen] bounds].size;
+    rangeLabel.textAlignment = NSTextAlignmentLeft;
+    rangeLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:20.0];
+    float y_offset = self.navigationController.navigationBar.frame.size.height + rangeLabel.frame.size.height*2;
+    valueLabel.center = CGPointMake(screenSize.width/2-valueLabel.frame.size.width/2, y_offset);
+    rangeLabel.center = CGPointMake(screenSize.width/2+rangeLabel.frame.size.width/2+5, y_offset);
 }
 
 -(void)doneClicked

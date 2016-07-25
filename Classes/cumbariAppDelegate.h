@@ -142,6 +142,8 @@
 
 @property (nonatomic, retain) IBOutlet UITabBarController *tabBar;
 
+@property (nonatomic, assign)  id refreshDelegate;
+
 @property (nonatomic, retain) CLLocation *mUserCurrentLocation;
 
 @property (nonatomic, retain) CLLocation *oldLocationn;
