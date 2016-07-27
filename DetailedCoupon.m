@@ -408,7 +408,14 @@ float distance;//distance of float type
 	
 	self.navigationItem.rightBarButtonItem.enabled = YES;
     
-	
+    [self setTextColorsForTabBarButtons];
+}
+
+-(void)setTextColorsForTabBarButtons
+{
+    [moreInfoButton setTitleColor:[UIColor colorWithRed:255.0/255.0 green:255.0/255.0 blue:255.0/255.0 alpha:1.0] forState:UIControlStateNormal];
+    [moreDealsButton setTitleColor:[UIColor colorWithRed:255.0/255.0 green:255.0/255.0 blue:255.0/255.0 alpha:1.0] forState:UIControlStateNormal];
+    [favoritesButton setTitleColor:[UIColor colorWithRed:255.0/255.0 green:255.0/255.0 blue:255.0/255.0 alpha:1.0] forState:UIControlStateNormal];
 }
 
 
@@ -1668,7 +1675,6 @@ float distance;//distance of float type
 
 /*
 -(IBAction)clicked
-
 {
     map *map2 = [[map alloc]initWithNibName:@"map" bundle:nil];//object of map
     [map2 passStoreIDToMap:NULL];//passing store id to map
