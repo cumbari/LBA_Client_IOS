@@ -19,7 +19,7 @@
 
 "Title of Back Button" = "Back";
 
-"Title of Map Button" = "Map";
+"Title of Map Button" = "Karte";
 
 "Title of Done Button" = "Done";
 
@@ -30,9 +30,9 @@
 "OK" = "Ok";
 
 "Hot deals" ="Hot deals";
-"Categories" ="Categories";
-"Brands" = "Brands";
-"More" = "More"; //Need to get text
+"Categories" ="Kategorien";
+"Brands" = "Marken";
+"More" = "Mehr"; //Need to get text
 
 "offers"	= "Angebote";
 "Address"	= "Adresse";
