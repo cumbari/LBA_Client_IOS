@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 47;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -11,6 +11,19 @@
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765FC0DF74451002DB57D /* CoreGraphics.framework */; };
+		374D132E1D8BECDD008FE031 /* icon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 374D132D1D8BECDD008FE031 /* icon@3x.png */; };
+		374D13301D8BED17008FE031 /* default@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 374D132F1D8BED17008FE031 /* default@3x.png */; };
+		374D13321D8BEE00008FE031 /* CumbariNavLogo@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 374D13311D8BEE00008FE031 /* CumbariNavLogo@3x.png */; };
+		374D13341D8BEE68008FE031 /* CumbariWithBackandMapWithoutLogo@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 374D13331D8BEE68008FE031 /* CumbariWithBackandMapWithoutLogo@3x.png */; };
+		374D13361D8BEEAF008FE031 /* CumbariWithBack@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 374D13351D8BEEAF008FE031 /* CumbariWithBack@3x.png */; };
+		374D13381D8BEEE7008FE031 /* CumbariWithBackandMapWithoutLogo@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 374D13371D8BEEE7008FE031 /* CumbariWithBackandMapWithoutLogo@3x.png */; };
+		374D133A1D8BEF00008FE031 /* CumbariWithDone@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 374D13391D8BEF00008FE031 /* CumbariWithDone@3x.png */; };
+		374D133C1D8BEF14008FE031 /* CumbariWithDone&Map@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 374D133B1D8BEF14008FE031 /* CumbariWithDone&Map@3x.png */; };
+		374D133E1D8BEF54008FE031 /* CumbariWithMap@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 374D133D1D8BEF54008FE031 /* CumbariWithMap@3x.png */; };
+		374D13401D8BEF6B008FE031 /* CumbariWithMap&Back@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 374D133F1D8BEF6B008FE031 /* CumbariWithMap&Back@3x.png */; };
+		374D13421D8BF71B008FE031 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 374D13411D8BF71B008FE031 /* Images.xcassets */; };
+		374D13441D8C2BF5008FE031 /* icon-60.png in Resources */ = {isa = PBXBuildFile; fileRef = 374D13431D8C2BF5008FE031 /* icon-60.png */; };
+		374D13461D8C2D50008FE031 /* icon-120.png in Resources */ = {isa = PBXBuildFile; fileRef = 374D13451D8C2D50008FE031 /* icon-120.png */; };
 		5D0C093A1CE4A66500BF930C /* Default-667h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D0C09381CE4A66500BF930C /* Default-667h@2x.png */; };
 		5D0C093B1CE4A66500BF930C /* Default-736h@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D0C09391CE4A66500BF930C /* Default-736h@3x.png */; };
 		5D1F7AB21CD74954005252C6 /* LanguageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D1F7AAF1CD74954005252C6 /* LanguageManager.m */; };
@@ -289,6 +302,19 @@
 		288765FC0DF74451002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* Moblyo_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Moblyo_Prefix.pch; sourceTree = "<group>"; };
+		374D132D1D8BECDD008FE031 /* icon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon@3x.png"; sourceTree = "<group>"; };
+		374D132F1D8BED17008FE031 /* default@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "default@3x.png"; sourceTree = "<group>"; };
+		374D13311D8BEE00008FE031 /* CumbariNavLogo@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CumbariNavLogo@3x.png"; sourceTree = "<group>"; };
+		374D13331D8BEE68008FE031 /* CumbariWithBackandMapWithoutLogo@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CumbariWithBackandMapWithoutLogo@3x.png"; sourceTree = "<group>"; };
+		374D13351D8BEEAF008FE031 /* CumbariWithBack@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CumbariWithBack@3x.png"; sourceTree = "<group>"; };
+		374D13371D8BEEE7008FE031 /* CumbariWithBackandMapWithoutLogo@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CumbariWithBackandMapWithoutLogo@3x.png"; sourceTree = "<group>"; };
+		374D13391D8BEF00008FE031 /* CumbariWithDone@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CumbariWithDone@3x.png"; sourceTree = "<group>"; };
+		374D133B1D8BEF14008FE031 /* CumbariWithDone&Map@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CumbariWithDone&Map@3x.png"; sourceTree = "<group>"; };
+		374D133D1D8BEF54008FE031 /* CumbariWithMap@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CumbariWithMap@3x.png"; sourceTree = "<group>"; };
+		374D133F1D8BEF6B008FE031 /* CumbariWithMap&Back@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CumbariWithMap&Back@3x.png"; sourceTree = "<group>"; };
+		374D13411D8BF71B008FE031 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Moblyo/Images.xcassets; sourceTree = "<group>"; };
+		374D13431D8C2BF5008FE031 /* icon-60.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon-60.png"; path = "../../Downloads/icon-60.png"; sourceTree = "<group>"; };
+		374D13451D8C2D50008FE031 /* icon-120.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon-120.png"; path = "../../Downloads/icon-120.png"; sourceTree = "<group>"; };
 		5D0C09381CE4A66500BF930C /* Default-667h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-667h@2x.png"; sourceTree = "<group>"; };
 		5D0C09391CE4A66500BF930C /* Default-736h@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-736h@3x.png"; sourceTree = "<group>"; };
 		5D1F7AAC1CD70E67005252C6 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -1032,56 +1058,69 @@
 		B494D7991324D25100F95ECD /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				B4AEDFDD14BD9AD6006C1D33 /* iTunesArtwork */,
+				D7AA8B91146D41F700EA282E /* black-wood-background.png */,
+				B49F3644132A3C25009A6EBC /* Bottom_DetailedTab.png */,
+				B494D70E1324D21500F95ECD /* CategoryBackground.png */,
+				B4ADA2EB1349F409008AAEFD /* CumbariNavLogo.png */,
+				B4ADA1C413499B83008AAEFD /* CumbariNavLogo@2x.png */,
+				374D13311D8BEE00008FE031 /* CumbariNavLogo@3x.png */,
+				B4ADA2E91349F3D3008AAEFD /* CumbariWithBack.png */,
+				B4ADA29F1349EDE4008AAEFD /* CumbariWithBack@2x.png */,
+				374D13351D8BEEAF008FE031 /* CumbariWithBack@3x.png */,
+				D7C02F051491E040006C1896 /* CumbariWithBackandMapWithoutLogo.png */,
+				D7C02F061491E040006C1896 /* CumbariWithBackandMapWithoutLogo@2x.png */,
+				374D13331D8BEE68008FE031 /* CumbariWithBackandMapWithoutLogo@3x.png */,
+				B4ADA2DC1349F2B0008AAEFD /* CumbariWithBackWithoutLogo.png */,
+				B4ADA2A81349F010008AAEFD /* CumbariWithBackWithoutLogo@2x.png */,
+				B4ADA2E01349F305008AAEFD /* CumbariWithDone.png */,
+				B4ADA29D1349EDC9008AAEFD /* CumbariWithDone@2x.png */,
+				374D13391D8BEF00008FE031 /* CumbariWithDone@3x.png */,
+				B4ADA2E71349F397008AAEFD /* CumbariWithDone&Map.png */,
+				B4ADA2971349EBB5008AAEFD /* CumbariWithDone&Map@2x.png */,
+				374D133B1D8BEF14008FE031 /* CumbariWithDone&Map@3x.png */,
+				B4ADA2E31349F323008AAEFD /* CumbariWithMap.png */,
+				B4ADA2A11349EDFB008AAEFD /* CumbariWithMap@2x.png */,
+				374D133D1D8BEF54008FE031 /* CumbariWithMap@3x.png */,
+				B4ADA2DE1349F2E3008AAEFD /* CumbariWithMap&Back.png */,
+				B4ADA29B1349EDA4008AAEFD /* CumbariWithMap&Back@2x.png */,
+				374D133F1D8BEF6B008FE031 /* CumbariWithMap&Back@3x.png */,
+				B494D7AD1324D25100F95ECD /* CumbariWithSegments.png */,
 				5DD021EE1C3E64CA00AAC761 /* Default-568h@2x.png */,
 				5D0C09381CE4A66500BF930C /* Default-667h@2x.png */,
 				5D0C09391CE4A66500BF930C /* Default-736h@3x.png */,
-				D7C02F051491E040006C1896 /* CumbariWithBackandMapWithoutLogo.png */,
-				D7C02F061491E040006C1896 /* CumbariWithBackandMapWithoutLogo@2x.png */,
-				B49B52DE134C44060083F95B /* LeftBack.png */,
-				B49B52D8134C43450083F95B /* navBar.png */,
-				B4ADA3341349F995008AAEFD /* icon.png */,
-				B4ADA3321349F976008AAEFD /* icon@2x.png */,
-				D7AA8B91146D41F700EA282E /* black-wood-background.png */,
 				B4ADA2F21349F4EC008AAEFD /* Default.png */,
 				B4ADA2EE1349F46F008AAEFD /* Default@2x.png */,
-				B4ADA2EB1349F409008AAEFD /* CumbariNavLogo.png */,
-				B4ADA2E91349F3D3008AAEFD /* CumbariWithBack.png */,
-				B4ADA2E71349F397008AAEFD /* CumbariWithDone&Map.png */,
-				B4ADA2E31349F323008AAEFD /* CumbariWithMap.png */,
-				B4ADA2E01349F305008AAEFD /* CumbariWithDone.png */,
-				B4ADA2DE1349F2E3008AAEFD /* CumbariWithMap&Back.png */,
-				B4ADA2DC1349F2B0008AAEFD /* CumbariWithBackWithoutLogo.png */,
-				B4ADA2A81349F010008AAEFD /* CumbariWithBackWithoutLogo@2x.png */,
-				B4ADA2A11349EDFB008AAEFD /* CumbariWithMap@2x.png */,
-				B4ADA29F1349EDE4008AAEFD /* CumbariWithBack@2x.png */,
-				B4ADA29D1349EDC9008AAEFD /* CumbariWithDone@2x.png */,
-				B4ADA29B1349EDA4008AAEFD /* CumbariWithMap&Back@2x.png */,
-				B4ADA2971349EBB5008AAEFD /* CumbariWithDone&Map@2x.png */,
-				B4ADA1C413499B83008AAEFD /* CumbariNavLogo@2x.png */,
-				B4B8DFDA13334B7F00DE16BB /* manjot.png */,
-				B49F3644132A3C25009A6EBC /* Bottom_DetailedTab.png */,
-				B4E2C7111330DE87005BE540 /* no-Image-icon.png */,
-				B494D7A11324D25100F95ECD /* Tabbar.png */,
-				B494D7A31324D25100F95ECD /* favorites.sqlite */,
-				B494D7A71324D25100F95ECD /* PostDeal.png */,
-				B494D7A91324D25100F95ECD /* Setting.png */,
-				B494D7AA1324D25100F95ECD /* section.png */,
-				B494D7561324D24400F95ECD /* End_Screen.png */,
+				374D132F1D8BED17008FE031 /* default@3x.png */,
 				B494D7571324D24400F95ECD /* DetailedTab_Button.png */,
-				B494D7581324D24400F95ECD /* Inactive_button.png */,
 				B494D7591324D24400F95ECD /* DetailedTab_RedButton.png */,
+				B494D7561324D24400F95ECD /* End_Screen.png */,
+				B494D7A31324D25100F95ECD /* favorites.sqlite */,
 				B494D75A1324D24400F95ECD /* FB.png */,
+				374D13431D8C2BF5008FE031 /* icon-60.png */,
+				374D13451D8C2D50008FE031 /* icon-120.png */,
+				B4ADA3341349F995008AAEFD /* icon.png */,
+				B4ADA3321349F976008AAEFD /* icon@2x.png */,
+				374D132D1D8BECDD008FE031 /* icon@3x.png */,
+				374D13411D8BF71B008FE031 /* Images.xcassets */,
+				B494D7581324D24400F95ECD /* Inactive_button.png */,
+				B4AEDFDD14BD9AD6006C1D33 /* iTunesArtwork */,
+				B49B52DE134C44060083F95B /* LeftBack.png */,
+				B494D7B81324D25100F95ECD /* Links.h */,
+				B494D7B61324D25100F95ECD /* MainWindow.xib */,
+				B4B8DFDA13334B7F00DE16BB /* manjot.png */,
+				B494D7B71324D25100F95ECD /* Moblyo-Info.plist */,
+				B49B52D8134C43450083F95B /* navBar.png */,
+				B494D7B91324D25100F95ECD /* no_Image.png */,
+				B4E2C7111330DE87005BE540 /* no-Image-icon.png */,
+				B494D7A71324D25100F95ECD /* PostDeal.png */,
+				B494D7AA1324D25100F95ECD /* section.png */,
+				B494D7A91324D25100F95ECD /* Setting.png */,
+				B494D6DE1324D20400F95ECD /* slider_Red.png */,
+				B494D79A1324D25100F95ECD /* Tab Images */,
+				B494D7A11324D25100F95ECD /* Tabbar.png */,
 				B494D7761324D24400F95ECD /* Time_Background.png */,
 				B494D7771324D24400F95ECD /* UseDeal.png */,
-				B494D7AD1324D25100F95ECD /* CumbariWithSegments.png */,
-				B494D70E1324D21500F95ECD /* CategoryBackground.png */,
-				B494D6DE1324D20400F95ECD /* slider_Red.png */,
-				B494D7B61324D25100F95ECD /* MainWindow.xib */,
-				B494D7B71324D25100F95ECD /* Moblyo-Info.plist */,
-				B494D7B81324D25100F95ECD /* Links.h */,
-				B494D7B91324D25100F95ECD /* no_Image.png */,
-				B494D79A1324D25100F95ECD /* Tab Images */,
+				374D13371D8BEEE7008FE031 /* CumbariWithBackandMapWithoutLogo@3x.png */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -1255,7 +1294,7 @@
 				};
 			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "Moblyo" */;
-			compatibilityVersion = "Xcode 3.2";
+			compatibilityVersion = "Xcode 6.3";
 			developmentRegion = English;
 			hasScannedForEncodings = 1;
 			knownRegions = (
@@ -1293,6 +1332,7 @@
 				5DFE7ACA1CF1006E00A6E500 /* icon@3x.png in Resources */,
 				B494D68A1324D1E300F95ECD /* sliderThumb.png in Resources */,
 				5DFE7B3C1CF1028600A6E500 /* sliderBackgroundGER.png in Resources */,
+				374D13321D8BEE00008FE031 /* CumbariNavLogo@3x.png in Resources */,
 				B494D68B1324D1E300F95ECD /* sliderTrack.png in Resources */,
 				B494D6951324D1ED00F95ECD /* Favorites.xib in Resources */,
 				B494D69E1324D1F900F95ECD /* Brands.xib in Resources */,
@@ -1326,6 +1366,7 @@
 				B494D7031324D20400F95ECD /* Range.xib in Resources */,
 				5DFE7AC71CF1006E00A6E500 /* brands-1@2x.png in Resources */,
 				5DFE7B2A1CF1028600A6E500 /* Inactive_button@2x.png in Resources */,
+				374D13441D8C2BF5008FE031 /* icon-60.png in Resources */,
 				B494D7051324D20400F95ECD /* DetailedSettings.xib in Resources */,
 				B494D7061324D20400F95ECD /* DetailedSettings.plist in Resources */,
 				5DFE7B1D1CF1028600A6E500 /* DetailedTab_Button@3x.png in Resources */,
@@ -1339,11 +1380,13 @@
 				5DFE7B0F1CF1028600A6E500 /* Categories@3x.png in Resources */,
 				5DFE7B2B1CF1028600A6E500 /* Inactive_button@3x.png in Resources */,
 				B494D7191324D21500F95ECD /* CouponsInSelectedCategory.xib in Resources */,
+				374D13341D8BEE68008FE031 /* CumbariWithBackandMapWithoutLogo@3x.png in Resources */,
 				B494D77C1324D24400F95ECD /* moreinfo.xib in Resources */,
 				B494D77E1324D24400F95ECD /* moreDeals.xib in Resources */,
 				5DFE7B3F1CF1028600A6E500 /* Time_Background@2x.png in Resources */,
 				5DFE7B401CF1028600A6E500 /* Time_Background@3x.png in Resources */,
 				5DFE7B0D1CF1028600A6E500 /* categories-1@3x.png in Resources */,
+				374D133C1D8BEF14008FE031 /* CumbariWithDone&Map@3x.png in Resources */,
 				5DFE7B191CF1028600A6E500 /* CumbariWithMap&Back@3x.png in Resources */,
 				B494D7801324D24400F95ECD /* WebViewVC.xib in Resources */,
 				B494D7811324D24400F95ECD /* End_Screen.png in Resources */,
@@ -1368,14 +1411,19 @@
 				5DFE7AC91CF1006E00A6E500 /* Favorites_GER.png in Resources */,
 				B494D7BB1324D25100F95ECD /* HotDeal.png in Resources */,
 				B494D7BC1324D25100F95ECD /* Favourites.png in Resources */,
+				374D13381D8BEEE7008FE031 /* CumbariWithBackandMapWithoutLogo@3x.png in Resources */,
+				374D13461D8C2D50008FE031 /* icon-120.png in Resources */,
 				5DFE7B391CF1028600A6E500 /* Setting@3x.png in Resources */,
 				B494D7BD1324D25100F95ECD /* Categories.png in Resources */,
+				374D132E1D8BECDD008FE031 /* icon@3x.png in Resources */,
 				5DFE7B381CF1028600A6E500 /* Setting@2x.png in Resources */,
 				B494D7BE1324D25100F95ECD /* Brands.png in Resources */,
 				5DFE7B171CF1028600A6E500 /* CumbariWithDone&Map@3x.png in Resources */,
+				374D13301D8BED17008FE031 /* default@3x.png in Resources */,
 				B494D7BF1324D25100F95ECD /* Settings.png in Resources */,
 				5DFE7B291CF1028600A6E500 /* HotDeal@3x.png in Resources */,
 				5DFE7B321CF1028600A6E500 /* navBar@2x.png in Resources */,
+				374D133A1D8BEF00008FE031 /* CumbariWithDone@3x.png in Resources */,
 				B494D7C01324D25100F95ECD /* Tabbar.png in Resources */,
 				B494D7C21324D25100F95ECD /* favorites.sqlite in Resources */,
 				B494D7C61324D25100F95ECD /* PostDeal.png in Resources */,
@@ -1396,6 +1444,8 @@
 				B4B8DEC213331E7800DE16BB /* Favorites_SWE.png in Resources */,
 				5DFE7B421CF1028600A6E500 /* UseDeal@3x.png in Resources */,
 				5DFE7B251CF1028600A6E500 /* FB@2x.png in Resources */,
+				374D13401D8BEF6B008FE031 /* CumbariWithMap&Back@3x.png in Resources */,
+				374D133E1D8BEF54008FE031 /* CumbariWithMap@3x.png in Resources */,
 				B4B8DEC413331E8900DE16BB /* sliderBackgroundSWE.png in Resources */,
 				B4B8DEC613331FFB00DE16BB /* TIMER_SWE.png in Resources */,
 				5DFE7B1E1CF1028600A6E500 /* DetailedTab_RedButton@2x.png in Resources */,
@@ -1410,6 +1460,7 @@
 				B4ADA2A01349EDE4008AAEFD /* CumbariWithBack@2x.png in Resources */,
 				5DFE7B0A1CF1028600A6E500 /* Bottom_DetailedTab@3x.png in Resources */,
 				B4ADA2A21349EDFB008AAEFD /* CumbariWithMap@2x.png in Resources */,
+				374D13361D8BEEAF008FE031 /* CumbariWithBack@3x.png in Resources */,
 				B4ADA2DF1349F2E3008AAEFD /* CumbariWithMap&Back.png in Resources */,
 				5DFE7B301CF1028600A6E500 /* more-1@3x.png in Resources */,
 				5DFE7B3D1CF1028600A6E500 /* Tabbar@2x.png in Resources */,
@@ -1418,6 +1469,7 @@
 				5DFE7B231CF1028600A6E500 /* favorites-1@3x.png in Resources */,
 				B4ADA2E11349F305008AAEFD /* CumbariWithDone.png in Resources */,
 				5DFE7B1F1CF1028600A6E500 /* DetailedTab_RedButton@3x.png in Resources */,
+				374D13421D8BF71B008FE031 /* Images.xcassets in Resources */,
 				B4ADA2E41349F323008AAEFD /* CumbariWithMap.png in Resources */,
 				B4ADA2E81349F397008AAEFD /* CumbariWithDone&Map.png in Resources */,
 				B4ADA2EA1349F3D3008AAEFD /* CumbariWithBack.png in Resources */,
@@ -1564,12 +1616,13 @@
 				GCC_THUMB_SUPPORT = NO;
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/${BUILD_STYLE}-${PLATFORM_NAME}/usr/local/include\"";
 				INFOPLIST_FILE = "Moblyo-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
 					"\"$(SRCROOT)/Debug-iphoneos\"",
 				);
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.moblyo.market;
 				PRODUCT_NAME = Moblyo;
 				PROVISIONING_PROFILE = "1868059e-873c-4248-94dd-538e619be36d";
@@ -1593,11 +1646,12 @@
 				GCC_THUMB_SUPPORT = NO;
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/${BUILD_STYLE}-${PLATFORM_NAME}/usr/local/include\"";
 				INFOPLIST_FILE = "Moblyo-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LIBRARY_SEARCH_PATHS = (
 					"\"$(SRCROOT)/Release-iphonesimulator\"",
 					"\"$(SRCROOT)\"",
 				);
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.moblyo.market;
 				PRODUCT_NAME = Moblyo;
 				PROVISIONING_PROFILE = "1868059e-873c-4248-94dd-538e619be36d";
@@ -1674,17 +1728,18 @@
 				GCC_THUMB_SUPPORT = NO;
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/${BUILD_STYLE}-${PLATFORM_NAME}/usr/local/include\"";
 				INFOPLIST_FILE = "Moblyo-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
 					"\"$(SRCROOT)/Debug-iphoneos\"",
 				);
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.moblyo.market;
 				PRODUCT_NAME = Moblyo;
 				PROVISIONING_PROFILE = "1868059e-873c-4248-94dd-538e619be36d";
 				TARGETED_DEVICE_FAMILY = 1;
-				VALIDATE_PRODUCT = YES;
+				VALIDATE_PRODUCT = NO;
 			};
 			name = Distribution;
 		};
